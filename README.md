@@ -1,11 +1,15 @@
 DigistumpArduino
 ================
+## Changed made in this fork:
+- In `boards.txt` upload.maximum_size changed to values of [micronucleus version 2.4](https://github.com/ArminJo/micronucleus-firmware)
+- In `platform.txt` added lto flag and added generating of disassembler and memory map files
+- In `package_digistump_index.json`, changed compiler path to the one of Arduino 1.8.12 Version (7.3.0-atmel3.6.1-arduino5), since the original version does not support lto flag.
 
 Files to add Digistump support (Digispark, Pro, DigiX) to Arduino 1.6.X (1.6.4+)
 
 **These files are designed for install via the Arduino Boards Manager:** 
 
-Board manager URL: http://digistump.com/package_digistump_index.json
+Board manager URL: https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json
 
 **Full Install Instructions:** 
 

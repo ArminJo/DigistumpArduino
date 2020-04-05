@@ -6,7 +6,7 @@
 # https://github.com/arduino/Arduino/wiki/Arduino-IDE-1.5---3rd-party-Hardware-specification
 
 name=Digistump AVR Boards
-version=1.5.4
+version=1.6.0
 
 # AVR compile variables
 # --------------------- 
@@ -14,16 +14,20 @@ version=1.5.4
 # Default "compiler.path" is correct, change only if you want to overidde the initial value
 compiler.path={runtime.tools.avr-gcc.path}/bin/
 compiler.c.cmd=avr-gcc
-compiler.c.flags=-c -g -Os -w -ffunction-sections -fdata-sections -MMD
+compiler.c.flags=-c -g -Os -w -ffunction-sections -fdata-sections -flto -MMD
 compiler.c.elf.flags=-Os -Wl,--gc-sections
 compiler.c.elf.cmd=avr-gcc
-compiler.S.flags=-c -g -x assembler-with-cpp
+compiler.S.flags=-c -g -x assembler-with-cpp -flto
 compiler.cpp.cmd=avr-g++
-compiler.cpp.flags=-c -g -Os -w -fno-exceptions -ffunction-sections -fdata-sections -MMD
-compiler.ar.cmd=avr-ar
+compiler.cpp.flags=-c -g -Os -w -fno-exceptions -ffunction-sections -fdata-sections -flto -MMD
+compiler.ar.cmd=avr-gcc-ar
 compiler.ar.flags=rcs
 compiler.objcopy.cmd=avr-objcopy
 compiler.objcopy.eep.flags=-O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-change-warnings --change-section-lma .eeprom=0
+compiler.objdump.cmd=avr-objdump
+compiler.objdump.flags=--disassemble --source --line-numbers --demangle --section=.text
+compiler.nm.cmd=avr-nm
+compiler.nm.flags=--numeric-sort --line-numbers --print-size
 compiler.elf2hex.flags=-O ihex -R .eeprom
 compiler.elf2hex.cmd=avr-objcopy
 compiler.ldflags=
@@ -58,6 +62,16 @@ recipe.objcopy.hex.pattern="{compiler.path}{compiler.elf2hex.cmd}" {compiler.elf
 ## Save hex
 recipe.output.tmp_file={build.project_name}.hex
 recipe.output.save_file={build.project_name}.{build.variant}.hex
+
+## Save disassembler listing
+recipe.hooks.objcopy.postobjcopy.1.pattern.windows=cmd /C "{compiler.path}{compiler.objdump.cmd}" {compiler.objdump.flags} "{build.path}/{build.project_name}.elf" > "{build.path}/{build.project_name}.lst"
+recipe.hooks.objcopy.postobjcopy.1.pattern.linux=chmod +x "{runtime.platform.path}/create_disassembler_listing.sh"
+recipe.hooks.objcopy.postobjcopy.1.pattern.macosx=chmod +x "{runtime.platform.path}/create_disassembler_listing.sh"
+recipe.hooks.objcopy.postobjcopy.2.pattern.linux="{runtime.platform.path}/create_disassembler_listing.sh" "{compiler.path}{compiler.objdump.cmd}" "{compiler.objdump.flags}" "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.lst"
+recipe.hooks.objcopy.postobjcopy.2.pattern.macosx="{runtime.platform.path}/create_disassembler_listing.sh" "{compiler.path}{compiler.objdump.cmd}" "{compiler.objdump.flags}" "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.lst"
+
+## Save memory map
+recipe.hooks.objcopy.postobjcopy.2.pattern.windows=cmd /C "{compiler.path}{compiler.nm.cmd}" {compiler.nm.flags}  "{build.path}/{build.project_name}.elf" > "{build.path}/{build.project_name}.map"
 
 ## Compute size
 recipe.size.pattern="{compiler.path}{compiler.size.cmd}" -A "{build.path}/{build.project_name}.elf"
