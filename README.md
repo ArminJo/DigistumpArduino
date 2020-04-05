@@ -3,7 +3,11 @@ DigistumpArduino
 ## Changed made in this fork:
 - In `boards.txt` upload.maximum_size changed to values of [micronucleus version 2.4](https://github.com/ArminJo/micronucleus-firmware)
 - In `platform.txt` added lto flag and added generating of disassembler and memory map files
-- In `package_digistump_index.json`, changed compiler path to the one of Arduino 1.8.12 Version (7.3.0-atmel3.6.1-arduino5), since the original version does not support lto flag.
+- In `package_digistump_index.json`, changed compiler path to the latest Arduino one (7.3.0-atmel3.6.1-arduino5), since the original version does not support the lto flag.
+
+## How to update the bootloader to version 2.4
+To update your old flash consuming bootloader you simply can run one of the window [scripts](https://github.com/ArminJo/micronucleus-firmware/tree/master/utils)
+like e.g. the [Burn_upgrade-t85_default.cmd](https://github.com/ArminJo/micronucleus-firmware/blob/master/utils/Burn_upgrade-t85_default.cmd).
 
 Files to add Digistump support (Digispark, Pro, DigiX) to Arduino 1.6.X (1.6.4+)
 
