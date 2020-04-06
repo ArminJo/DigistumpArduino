@@ -10,11 +10,12 @@ DigistumpArduino
 To update your old flash consuming bootloader you simply can run one of the window [scripts](https://github.com/ArminJo/micronucleus-firmware/tree/master/utils)
 like e.g. the [Burn_upgrade-t85_default.cmd](https://github.com/ArminJo/micronucleus-firmware/blob/master/utils/Burn_upgrade-t85_default.cmd).
 
+## Original README with updated Board manager URL
 Files to add Digistump support (Digispark, Pro, DigiX) to Arduino 1.6.X (1.6.4+)
 
 **These files are designed for install via the Arduino Boards Manager:** 
 
-Board manager URL: https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json
+Board manager URL: **https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json**
 
 **Full Install Instructions:** 
 
