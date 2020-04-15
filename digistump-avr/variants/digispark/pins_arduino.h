@@ -23,6 +23,7 @@
 
   Modified 28-08-2009 for attiny84 R.Wiersma
   Modified 14-10-2009 for attiny45 Saposoft
+  Modified 15-04-2020 LED_BUILTIN ArminJo
 */
 
 #ifndef Pins_Arduino_h
@@ -31,6 +32,10 @@
 #include <avr/pgmspace.h>
 
 #include "core_build_options.h"
+
+#if defined(ARDUINO_AVR_DIGISPARK)
+#define LED_BUILTIN PB1
+#endif
 
 #if defined( __AVR_ATtinyX313__ )
 #define PORT_A_ID 1

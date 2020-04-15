@@ -6,9 +6,24 @@
 - Bumped version to 1.6.8.
 
 # Installation
-To get all the benefits, just replace the old Digispark board URL **http://digistump.com/package_digistump_index.json** (e.g.in Arduino *File/Preferences*) by the new  **https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json** and install the **Digistump AVR Boards** version **1.6.8**.
+To get all the benefits, just replace the old Digispark board URL **http://digistump.com/package_digistump_index.json** (e.g. in Arduino *File/Preferences*) by the new  **https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json** and install the **Digistump AVR Boards** version **1.6.8**.
 ![Boards Manager](https://github.com/ArminJo/DigistumpArduino/blob/master/Digistump1.6.8.jpg)
 
 ## Update the bootloader to version 2.5
 To **update** your old flash consuming **bootloader** you simply run one of the window [scripts](https://github.com/ArminJo/micronucleus-firmware/tree/master/utils)
 like e.g. [Burn_upgrade-t85_default.cmd](https://github.com/ArminJo/micronucleus-firmware/blob/master/utils/Burn_upgrade-t85_default.cmd).
+You may also test the [t85_agressive bootloader](https://github.com/ArminJo/micronucleus-firmware/blob/master/utils/Burn_upgrade-t85_agressive.cmd). Do not forget to change the `upload.maximum_size` entry in *boards.txt* to **6714**.
+![Upload log](https://github.com/ArminJo/DigistumpArduino/blob/master/Bootloader2.5.jpg)
+
+# Revision History
+### Version 1.7.0
+- Added `LED_BUILTIN` definition in *pins_arduino.h*.
+- Added `#define __FlashStringHelper fstr_t` in *tiny/Print.h*.
+
+### Version 1.6.8
+- The original Digistump version with `lto` and changed `upload.maximum_size` for bootloader 2.5.
+
+## Requests for modifications / extensions
+Please write me a PM including your motivation/problem if you need a modification or an extension.
+
+#### If you find this library useful, please give it a star.

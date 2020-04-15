@@ -31,6 +31,8 @@
 #define __AVR_ATtiny167__
 #endif
 
+#define LED_BUILTIN 1 // On a Digispark Pro we have PB1 / D1 (Digispark library) or D9 (ATtinyCore lib) / on DigisparkBoard labeled as pin 1
+
 #define SERIAL_BUFFER_SIZE 16
 
 #include <avr/pgmspace.h>
@@ -102,7 +104,8 @@ static const uint8_t A13 = NUM_DIGITAL_PINS+10;
 #define EXTERNAL (1)
 // Internal 1.1V voltage reference
 #define INTERNAL (2)
-
+#define INTERNAL1V1 INTERNAL
+#define INTERNAL2V56 (7)
 
 //----------------------------------------------------------
 //----------------------------------------------------------

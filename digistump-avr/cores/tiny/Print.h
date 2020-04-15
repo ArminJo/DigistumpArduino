@@ -61,6 +61,7 @@ fstr_t;
 # define FSTR(s) ((fstr_t*)PSTR(s))
 */
 # define F(s) ((fstr_t*)PSTR(s))
+#define __FlashStringHelper fstr_t
 
 class Print
 {
