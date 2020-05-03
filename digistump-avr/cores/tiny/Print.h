@@ -34,6 +34,12 @@
 #define DEC 10
 #define HEX 16
 #define OCT 8
+#if defined(BIN) && (BIN !=2)
+#undef BIN
+#  if ! defined(SUPPRESS_BIN_WARNING)
+#warning Redefining BIN to 2 for print. BIN can not longer be used as bit position (7) for the x5 ADC "Bipolar Input Mode"
+#  endif
+#endif
 #define BIN 2
 #define BYTE 0
 
