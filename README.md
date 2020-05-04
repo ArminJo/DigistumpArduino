@@ -10,14 +10,18 @@
 - Added `#define __FlashStringHelper fstr_t` in *Print.h*.
 - Updated broken extensa links for `xtensa-lx106-elf-gcc` in *package_digistump_index.json*.
 - Included most [pull requests](https://github.com/digistump/DigistumpArduino/pulls) done after the 1.6.7 release like `recipe.output.tmp_file={build.project_name}.hex` in *platform.txt* and EEPROM library.
+- Added recipe to update booltloader by Arduino IDE.
 
 # Installation
 To get all the benefits, just replace the old Digispark board URL **http://digistump.com/package_digistump_index.json** (e.g. in Arduino *File/Preferences*) by the new  **https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json** and install the **Digistump AVR Boards** version **1.6.8**.
 ![Boards Manager](https://github.com/ArminJo/DigistumpArduino/blob/master/Digistump1.6.8.jpg)
 
 ## Update the bootloader to version 2.5
-To **update** your old flash consuming **bootloader** you simply run one of the window [scripts](https://github.com/ArminJo/micronucleus-firmware/tree/master/utils)
-like e.g. [Burn_upgrade-t85_default.cmd](https://github.com/ArminJo/micronucleus-firmware/tree/master/utils/Burn_upgrade-t85_default.cmd).
+To **update** your old flash consuming **bootloader**, open the Arduino IDE, select *Tools/Programmer: "Micronucleus"* and then run *Tools/Burn Bootloder*.<br/>
+![Burn Bootloader](https://github.com/ArminJo/DigistumpArduino/blob/master/Micronucleus_Burn_Bootloader.jpg)
+The bootloader is the recommended configuration [`entry_on_power_on_no_pullup_fast_exit_on_no_USB`](https://github.com/ArminJo/micronucleus-firmware#recommended-configuration).<br/>
+Or use one of the window [scripts](https://github.com/ArminJo/micronucleus-firmware/tree/master/utils)
+like e.g. [Burn_upgrade-t85_default.cmd](https://github.com/ArminJo/micronucleus-firmware/tree/master/utils/Burn_upgrade-t85_default.cmd).<br/>
 You may also test the [t85_agressive bootloader](https://github.com/ArminJo/micronucleus-firmware/tree/master/utils/Burn_upgrade-t85_agressive.cmd). Do not forget to change the `upload.maximum_size` entry in *%localappdata%\Arduino15\packages\digistump\hardware\avr\1.6.8\boards.txt* to **6714**.
 ![Upload log](https://github.com/ArminJo/DigistumpArduino/blob/master/Bootloader2.5.jpg)
 
@@ -31,8 +35,8 @@ The Arduino ESP8266 core available with https://arduino.esp8266.com/stable/packa
 - Added `LED_BUILTIN` definition in *pins_arduino.h*.
 - Added `#define __FlashStringHelper fstr_t` in *tiny/Print.h*.
 - Updated broken extensa links for `xtensa-lx106-elf-gcc` in *package_digistump_index.json*.
-- Included pull requests done after the 1.6.7 release like `recipe.output.tmp_file={build.project_name}.hex` in *platform.txt* and EEPROM library.
-
+- Included most [pull requests](https://github.com/digistump/DigistumpArduino/pulls) done after the 1.6.7 release like `recipe.output.tmp_file={build.project_name}.hex` in *platform.txt* and EEPROM library.
+- Added recipe to update booltloader by Arduino IDE.
 ## Requests for modifications / extensions
 Please write me a PM including your motivation/problem if you need a modification or an extension.
 
