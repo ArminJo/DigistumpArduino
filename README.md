@@ -1,4 +1,4 @@
-# New version 1.6.8 of Digistump core for Arduino
+# New version 1.6.8 of Digistump avr core for Arduino
 ## Reduced code size was enabled by the following changes:
 - **To shrink generated code size by 5 to 15 percent** (depending on your code) the lto flag was added in `platform.txt`. To help finding code which consumes the flash, the generating of disassembler and memory map files are added. For Arduino IDE you will find these files in *C:\Users\<Name>\AppData\Local\Temp\arduino_build_<number>*.
 - To **reflect the smaller bootloader size** of [micronucleus version 2.5](https://github.com/ArminJo/micronucleus-firmware) which allow 6522 instead of 6012 bytes (+9%) the *upload.maximum_size* entry was changed in `boards.txt`.
@@ -9,7 +9,7 @@
 - Added `#define LED_BUILTIN ` in some *pins_arduino.h*.
 - Added `#define __FlashStringHelper fstr_t` in *Print.h*.
 - Updated broken extensa links for `xtensa-lx106-elf-gcc` in *package_digistump_index.json*.
-- Included pull requests done after the 1.6.7 release like `recipe.output.tmp_file={build.project_name}.hex` in *platform.txt* and EEPROM library.
+- Included most [pull requests](https://github.com/digistump/DigistumpArduino/pulls) done after the 1.6.7 release like `recipe.output.tmp_file={build.project_name}.hex` in *platform.txt* and EEPROM library.
 
 # Installation
 To get all the benefits, just replace the old Digispark board URL **http://digistump.com/package_digistump_index.json** (e.g. in Arduino *File/Preferences*) by the new  **https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json** and install the **Digistump AVR Boards** version **1.6.8**.
