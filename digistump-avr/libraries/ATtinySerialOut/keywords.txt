@@ -1,0 +1,38 @@
+#######################################
+# Syntax Coloring Map for ATtinySerialOut
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+Serial	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+initTXPin	KEYWORD2
+useCliSeiForStrings	KEYWORD2
+write1Start8Data1StopNoParity	KEYWORD2
+write1Start8Data1StopNoParityWithCliSei	KEYWORD2
+writeString	KEYWORD2
+writeString_P	KEYWORD2
+writeString_E	KEYWORD2
+writeStringWithCliSei	KEYWORD2
+writeStringWithoutCliSei	KEYWORD2
+writeStringSkipLeadingSpaces	KEYWORD2
+writeByte	KEYWORD2
+writeUnsignedByte	KEYWORD2
+writeUnsignedByteHex	KEYWORD2
+writeUnsignedByteHexWithoutPrefix	KEYWORD2
+writeInt	KEYWORD2
+writeUnsignedInt	KEYWORD2
+writeLong	KEYWORD2
+writeFloat	KEYWORD2
+writeCRLF   KEYWORD2
+
+print	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
