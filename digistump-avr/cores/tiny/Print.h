@@ -36,6 +36,7 @@
 #define OCT 8
 #if defined(BIN) && (BIN !=2)
 #undef BIN
+//#define SUPPRESS_BIN_WARNING
 #  if ! defined(SUPPRESS_BIN_WARNING)
 #warning Redefining BIN to 2 for print. BIN can not longer be used as bit position (7) for the x5 ADC "Bipolar Input Mode"
 #  endif
@@ -56,7 +57,7 @@ public:
 };
 
 /* ...Printable */
-    
+
 typedef struct
 {
   char c;
@@ -80,7 +81,7 @@ class Print
     virtual size_t write(uint8_t) = 0;
     virtual void write(const char *str);
     virtual void write(const uint8_t *buffer, size_t size);
-    
+
     void print(const String &);
     void print(const char[]);
     void print(char, int = BYTE);
