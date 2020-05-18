@@ -1,11 +1,11 @@
-#include <TinyWireM.h>    
+#include <Wire.h>    
  
 #define disk1 0x50    //Address of 24LC256 eeprom chip
 int returned = 0; 
 void setup(void)
 {
   //Serial.begin(9600);
-  TinyWireM.begin();  
+  Wire.begin();  
  
   unsigned int address = 0;
   pinMode(5, OUTPUT);
@@ -27,11 +27,11 @@ void loop(){}
  
 void writeEEPROM(int deviceaddress, unsigned int eeaddress, byte data ) 
 {
-  TinyWireM.beginTransmission(deviceaddress);
-  TinyWireM.send((int)(eeaddress >> 8));   // MSB
-  TinyWireM.send((int)(eeaddress & 0xFF)); // LSB
-  TinyWireM.send(data);
-  TinyWireM.endTransmission();
+  Wire.beginTransmission(deviceaddress);
+  Wire.send((int)(eeaddress >> 8));   // MSB
+  Wire.send((int)(eeaddress & 0xFF)); // LSB
+  Wire.send(data);
+  Wire.endTransmission();
  
   delay(5);
 }
@@ -40,14 +40,14 @@ byte readEEPROM(int deviceaddress, unsigned int eeaddress )
 {
   byte rdata = 0xFF;
  
-  TinyWireM.beginTransmission(deviceaddress);
-  TinyWireM.send((int)(eeaddress >> 8));   // MSB
-  TinyWireM.send((int)(eeaddress & 0xFF)); // LSB
-  TinyWireM.endTransmission();
+  Wire.beginTransmission(deviceaddress);
+  Wire.send((int)(eeaddress >> 8));   // MSB
+  Wire.send((int)(eeaddress & 0xFF)); // LSB
+  Wire.endTransmission();
  
-  TinyWireM.requestFrom(deviceaddress,1);
+  Wire.requestFrom(deviceaddress,1);
  
-  if (TinyWireM.available()) rdata = TinyWireM.receive();
+  if (Wire.available()) rdata = Wire.receive();
  
   return rdata;
 }

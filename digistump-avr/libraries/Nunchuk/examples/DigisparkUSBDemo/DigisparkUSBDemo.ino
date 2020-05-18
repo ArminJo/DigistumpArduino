@@ -8,7 +8,7 @@
 
 #include <ArduinoNunchuk.h>
 #include <DigiUSB.h>
-#include <TinyWireM.h>
+#include <Wire.h>
 
 ArduinoNunchuk nunchuk = ArduinoNunchuk();
 

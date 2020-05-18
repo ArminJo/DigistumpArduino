@@ -1,8 +1,8 @@
 /*
-   TinyWireM.cpp - a wrapper class for TWI/I2C Master library for the ATtiny on Arduino
+   Wire.cpp - a wrapper class for TWI/I2C Master library for the ATtiny on Arduino
   1/21/2011 BroHogan -  brohoganx10 at gmail dot com
 
-  **** See TinyWireM.h for Credits and Usage information ****
+  **** See Wire.h for Credits and Usage information ****
 
   This library is free software; you can redistribute it and/or modify it under the
   terms of the GNU General Public License as published by the Free Software

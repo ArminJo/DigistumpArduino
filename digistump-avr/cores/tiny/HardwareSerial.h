@@ -51,6 +51,7 @@ class HardwareSerial : public Stream
       uint8_t rxen, uint8_t txen, uint8_t rxcie, uint8_t udre, uint8_t u2x);
     void begin(long);
     void end();
+    operator bool() { return true; } // To support "while (!Serial); // wait for serial port to connect. Needed for Leonardo only
     virtual int available(void);
     virtual int peek(void);
     virtual int read(void);

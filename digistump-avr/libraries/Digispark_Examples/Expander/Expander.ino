@@ -1,11 +1,11 @@
-#include <TinyWireM.h>
+#include <Wire.h>
 #define expander 0x20
 
 byte expanderStatus = B11111111; //all off
 
 void setup()
 {
-    TinyWireM.begin();
+    Wire.begin();
 }
 
 void loop()
@@ -27,7 +27,7 @@ void expanderWrite(byte pinNumber, boolean state){
 }
 
 void expanderWrite(byte _data ) {
-  TinyWireM.beginTransmission(expander);
-  TinyWireM.send(_data);
-  TinyWireM.endTransmission();
+  Wire.beginTransmission(expander);
+  Wire.send(_data);
+  Wire.endTransmission();
 }

@@ -1,5 +1,8 @@
 # [Attiny Serial Out](https://github.com/ArminJo/ATtinySerialOut)
+Available as Arduino library "ATtinySerialOut"
+
 ### [Version 1.1.0](https://github.com/ArminJo/ATtinySerialOut/releases)
+
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Installation instructions](https://www.ardu-badge.com/badge/ATtinySerialOut.svg?)](https://www.ardu-badge.com/ATtinySerialOut)
 [![Commits since latest](https://img.shields.io/github/commits-since/ArminJo/ATtinySerialOut/latest)](https://github.com/ArminJo/ATtinySerialOut/commits/master)

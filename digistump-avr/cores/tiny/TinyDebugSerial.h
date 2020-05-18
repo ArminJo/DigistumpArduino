@@ -711,6 +711,8 @@ class TinyDebugSerial : public Stream
       useStub();
     }
 
+    operator bool() { return true; } // To support "while (!Serial); // wait for serial port to connect. Needed for Leonardo only
+
     virtual int available( void )
     {
       return( 0 );

@@ -504,7 +504,7 @@ void printLegendForArduinoPlotter(Print * aSerial) {
 void printDataForArduinoPlotter(Print * aSerial) {
     static uint8_t sConsecutiveErrorCount = 0; // Print only 10 errors, then stop
 
-    if (sConsecutiveErrorCount > 10) {
+    if (sConsecutiveErrorCount >= 10) {
         // check for error condition
         if (FrequencyDetectorControl.FrequencyRaw <= SIGNAL_MAX_ERROR_CODE) {
             return;

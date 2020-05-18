@@ -1,7 +1,7 @@
 /* USB LCD */
 
 //#define DEBUG
-#include <TinyWireM.h>                  // I2C Master lib for ATTinys which use USI - comment this out to use with standard arduinos
+#include <Wire.h>                  // I2C Master lib for ATTinys which use USI - comment this out to use with standard arduinos
 #include <LiquidCrystal_I2C.h>          // for LCD w/ GPIO MODIFIED for the ATtiny85
 #include <DigiUSB.h>
 
@@ -15,7 +15,7 @@ LiquidCrystal_I2C lcd(GPIO_ADDR,16,2);  // set address & 16 chars / 2 lines
 
 void setup(){
   DigiUSB.begin();
-  TinyWireM.begin();                    // initialize I2C lib - comment this out to use with standard arduinos
+  Wire.begin();                    // initialize I2C lib - comment this out to use with standard arduinos
   lcd.init();                           // initialize the lcd 
   lcd.backlight();                      // Print a message to the LCD.
   lcd.setCursor(0, currentLine);

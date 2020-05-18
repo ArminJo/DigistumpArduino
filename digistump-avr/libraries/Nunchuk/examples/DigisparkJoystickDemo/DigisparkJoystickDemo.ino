@@ -2,7 +2,7 @@
 
 #include <DigiJoystick.h>
 #include <ArduinoNunchuk.h>
-#include <TinyWireM.h>
+#include <Wire.h>
 
 ArduinoNunchuk nunchuk = ArduinoNunchuk();
 

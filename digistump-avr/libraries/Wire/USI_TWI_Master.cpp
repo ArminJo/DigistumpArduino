@@ -247,7 +247,7 @@ unsigned char USI_TWI_Start_Transceiver_With_Data( unsigned char *msg, unsigned 
     }
   }while( --msgSize) ;                             // Until all data sent/received.
 
-  // usually a stop condition is sent here, but TinyWireM needs to choose whether or not to send it
+  // usually a stop condition is sent here, but Wire needs to choose whether or not to send it
 
 /* Transmission successfully completed*/
   return (TRUE);

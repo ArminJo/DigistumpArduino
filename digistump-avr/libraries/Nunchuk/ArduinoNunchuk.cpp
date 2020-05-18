@@ -13,14 +13,14 @@
  */
 
 #include <Arduino.h>
-#include <TinyWireM.h>
+#include <Wire.h>
 #include "ArduinoNunchuk.h"
 
 #define ADDRESS 0x52
 
 void ArduinoNunchuk::init()
 {
-  TinyWireM.begin();
+  Wire.begin();
 
   ArduinoNunchuk::_sendByte(0x55, 0xF0);
   ArduinoNunchuk::_sendByte(0x00, 0xFB);
@@ -33,11 +33,11 @@ void ArduinoNunchuk::update()
   int count = 0;
   int values[6];
 
-  TinyWireM.requestFrom(ADDRESS, 6);
+  Wire.requestFrom(ADDRESS, 6);
 
-  while(TinyWireM.available())
+  while(Wire.available())
   {
-    values[count] = TinyWireM.receive();
+    values[count] = Wire.receive();
     count++;
   }
 
@@ -54,12 +54,12 @@ void ArduinoNunchuk::update()
 
 void ArduinoNunchuk::_sendByte(byte data, byte location)
 {
-  TinyWireM.beginTransmission(ADDRESS);
+  Wire.beginTransmission(ADDRESS);
 
-  TinyWireM.send(location);
-  TinyWireM.send(data);
+  Wire.send(location);
+  Wire.send(data);
 
-  TinyWireM.endTransmission();
+  Wire.endTransmission();
 
   delay(10);
 }
