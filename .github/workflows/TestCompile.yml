@@ -20,6 +20,7 @@ jobs:
     name: Test compiling examples for Digispark
     runs-on: ubuntu-latest
     env:
+      PLATFORM_DEFAULT_URL: https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json
       # Comma separated list without double quotes around the list. 
       REQUIRED_LIBRARIES:
 
@@ -43,7 +44,6 @@ jobs:
         #############################################################################################################
         include:
           - arduino-boards-fqbn: digistump:avr:digispark-tiny16  # ATtiny85 board @16 MHz
-            platform-url: https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json
             examples-exclude: Blink
 
       # Do not cancel all jobs / architectures if one job fails
@@ -58,6 +58,7 @@ jobs:
 #          # Passing parameters to the script by setting the appropriate ENV_* variables.
 #          ENV_REQUIRED_LIBRARIES: ${{ env.REQUIRED_LIBRARIES }}
 #          ENV_ARDUINO_BOARD_FQBN: ${{ matrix.arduino-boards-fqbn }}
+#          ENV_PLATFORM_DEFAULT_URL: ${{ env.PLATFORM_DEFAULT_URL }}
 #          ENV_PLATFORM_URL: ${{ matrix.platform-url }}
 #          ENV_EXAMPLES_EXCLUDE: ${{ matrix.examples-exclude }}
 #          ENV_EXAMPLES_BUILD_PROPERTIES: ${{ toJson(matrix.examples-build-properties) }}
@@ -75,6 +76,7 @@ jobs:
         with:
           required-libraries: ${{ env.REQUIRED_LIBRARIES }}
           arduino-board-fqbn: ${{ matrix.arduino-boards-fqbn }}
+          platform-default-url: ${{ env.PLATFORM_DEFAULT_URL }}
           platform-url: ${{ matrix.platform-url }}
           examples-exclude: ${{ matrix.examples-exclude }}
           examples-build-properties: ${{ toJson(matrix.examples-build-properties) }}
