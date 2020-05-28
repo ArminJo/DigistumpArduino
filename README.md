@@ -22,13 +22,14 @@ For Windows you must install the **Digispark driver** before you can program the
 if you have the *Diigistump AVR Boards* already installed, then the driver is located in `%UserProfile%\AppData\Local\Arduino15\packages\digistump\tools\micronucleus\2.0a4`. Just execute the `Install_Digistump_Drivers.bat` file.<br/>
 **Or** download it [here](https://github.com/digistump/DigistumpArduino/releases/download/1.6.7/Digistump.Drivers.zip), open it and run `InstallDrivers.exe`. 
 
-## Update the bootloader to version 2.5
+## Update the bootloader
 To **update** your old flash consuming **bootloader**, open the Arduino IDE, select *Tools/Programmer: "Micronucleus"* and then run *Tools/Burn Bootloder*.<br/>
 ![Burn Bootloader](https://github.com/ArminJo/DigistumpArduino/blob/master/pictures/Micronucleus_Burn_Bootloader.jpg)<br/>
 The bootloader is the recommended configuration [`entry_on_power_on_no_pullup_fast_exit_on_no_USB`](https://github.com/ArminJo/micronucleus-firmware#recommended-configuration).<br/>
 **Or** use one of the window [scripts](https://github.com/ArminJo/micronucleus-firmware/tree/master/utils)
 like e.g. [Burn_upgrade-t85_default.cmd](https://github.com/ArminJo/micronucleus-firmware/tree/master/utils/Burn_upgrade-t85_default.cmd).<br/>
-You may also test the [t85_agressive bootloader](https://github.com/ArminJo/micronucleus-firmware/tree/master/utils/Burn_upgrade-t85_aggressive.cmd).
+You may also test the [t85_agressive bootloader](firmware/configuration#overview).
+It works for my boards but the USB timing is not guaranteed as stable as in the other configurations.
 Do not forget to change the `upload.maximum_size` entry in *%localappdata%\Arduino15\packages\digistump\hardware\avr\1.6.8\boards.txt* to **6778**.<br/>
 
 ## Oak board
