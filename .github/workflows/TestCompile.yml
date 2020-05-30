@@ -7,7 +7,7 @@
 
 # This is the name of the workflow, visible on GitHub UI.
 name: TestCompile
-on:  
+on:
   push: # see: https://help.github.com/en/actions/reference/events-that-trigger-workflows#pull-request-event-pull_request
     paths:
     - '**.ino'
@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PLATFORM_DEFAULT_URL: https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json
-      # Comma separated list without double quotes around the list. 
+      # Comma separated list without double quotes around the list.
       REQUIRED_LIBRARIES:
 
     strategy:
@@ -47,7 +47,7 @@ jobs:
             examples-exclude: Blink
 
       # Do not cancel all jobs / architectures if one job fails
-      fail-fast: false    
+      fail-fast: false
     steps:
       - name: Checkout
         uses: actions/checkout@master

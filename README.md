@@ -1,4 +1,10 @@
-# New version 1.6.8 of Digistump avr core for Arduino
+# Improved version of Digistump avr core for Arduino
+Available as Arduino Board Manager entry "Digistump AVR Boards" using the Board Manager URL: https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json
+
+### [Version 1.6.8 ](https://github.com/ArminJo/DigistumpArduino/releases)
+
+[![TestCompile](https://github.com/ArminJo/DigistumpArduino/workflows/TestCompile/badge.svg)](https://github.com/ArminJo/DigistumpArduino/actions)
+
 ## Reduced code size was enabled by the following changes:
 - **To shrink generated code size by 5 to 15 percent** (depending on your code) the lto flag was added in `platform.txt`. To help finding code which consumes the flash, the generating of disassembler and memory map files are added. For Arduino IDE you will find these files in *C:\Users\<Name>\AppData\Local\Temp\arduino_build_<number>*.
 - To **reflect the smaller bootloader size** of [micronucleus version 2.5](https://github.com/ArminJo/micronucleus-firmware) which allow 6586 instead of 6012 bytes (+11%) the *upload.maximum_size* entry was changed in `boards.txt`.
@@ -38,7 +44,7 @@ The Arduino ESP8266 core available with https://arduino.esp8266.com/stable/packa
 # Revision History
 
 ### Version 1.6.8
-- The original Digistump version with `lto` and changed `upload.maximum_size` for bootloader 2.5.
+- The original Digistump version with `lto` and changed `upload.maximum_size` for [micronucleus bootloader 2.5](https://github.com/ArminJo/micronucleus-firmware).
 - Added `LED_BUILTIN` definition in *pins_arduino.h*.
 - Added `#define __FlashStringHelper fstr_t` in *tiny/Print.h*.
 - Updated broken extensa links for `xtensa-lx106-elf-gcc` in *package_digistump_index.json*.
