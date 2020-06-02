@@ -15,7 +15,7 @@
 #include <Arduino.h>
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
-#include <avr/delay.h>
+#include <util/delay.h>
 #include <string.h>
 #include <avr/io.h>
 #include <avr/sleep.h>

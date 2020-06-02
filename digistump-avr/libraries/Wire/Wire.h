@@ -81,5 +81,5 @@ class USI_TWI
 };
 
 extern USI_TWI Wire;
-
+#define TwoWire USI_TWI // to enable direct referencing as TwoWire class
 #endif

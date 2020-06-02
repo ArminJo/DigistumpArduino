@@ -5,6 +5,7 @@ Available as Arduino Board Manager entry "Digistump AVR Boards" using the Board 
 
 [![TestCompile](https://github.com/ArminJo/DigistumpArduino/workflows/TestCompile/badge.svg)](https://github.com/ArminJo/DigistumpArduino/actions)
 [![Hit Counter](https://hitcounter.pythonanywhere.com/count/tag.svg?url=https://github.com/ArminJo/DigistumpArduino)](https://github.com/brentvollebregt/hit-counter)
+
 ## Reduced code size was enabled by the following changes:
 - **To shrink generated code size by 5 to 15 percent** (depending on your code) the lto flag was added in `platform.txt`. To help finding code which consumes the flash, the generating of disassembler and memory map files are added. For Arduino IDE you will find these files in *C:\Users\<Name>\AppData\Local\Temp\arduino_build_<number>*.
 - To **reflect the smaller bootloader size** of [micronucleus version 2.5](https://github.com/ArminJo/micronucleus-firmware) which allow 6586 instead of 6012 bytes (+11%) the *upload.maximum_size* entry was changed in `boards.txt`.
@@ -49,7 +50,14 @@ The Arduino ESP8266 core available with https://arduino.esp8266.com/stable/packa
 - Added `#define __FlashStringHelper fstr_t` in *tiny/Print.h*.
 - Updated broken extensa links for `xtensa-lx106-elf-gcc` in *package_digistump_index.json*.
 - Included most [pull requests](https://github.com/digistump/DigistumpArduino/pulls) done after the 1.6.7 release like `recipe.output.tmp_file={build.project_name}.hex` in *platform.txt* and EEPROM library.
-- Added recipe to update booltloader by Arduino IDE.
+- Added recipe to update bootloader by Arduino IDE.
+- Changed message for BIN redefined in *Print.h* and it can be suppressed by commenting out #define SUPPRESS_BIN_WARNING in line 39 in *Print.h*.
+- Commented out the annoying `#define true 0x1` and `#define false 0x0` in *wiring.h*.
+- Removed unnecessary files  like .gitignore.
+- Added `#define TwoWire USI_TWI` in *Wire.h*.
+- Changed` #include <avr/delay.h>` to `#include <util/delay.h>` in 3 files.
+- Included [Multi-Keyboard Layout MOD](https://github.com/rsrdesarrollo/DigistumpArduino).
+
 ## Requests for modifications / extensions
 Please write me a PM including your motivation/problem if you need a modification or an extension.
 
