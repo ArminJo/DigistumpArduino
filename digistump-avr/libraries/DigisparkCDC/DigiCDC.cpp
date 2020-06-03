@@ -209,7 +209,7 @@ enum {
     SEND_BREAK
 };
 
-static const PROGMEM char configDescrCDC[] = {   /* USB configuration descriptor */
+static const PROGMEM uchar configDescrCDC[] = {   /* USB configuration descriptor */
     9,          /* sizeof(usbDescrConfig): length of descriptor in bytes */
     USBDESCR_CONFIG,    /* descriptor type */
     67,

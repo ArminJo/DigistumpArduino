@@ -36,7 +36,7 @@
 #define OCT 8
 #if defined(BIN) && (BIN !=2)
 #undef BIN
-//#define SUPPRESS_BIN_WARNING
+#define SUPPRESS_BIN_WARNING
 #  if ! defined(SUPPRESS_BIN_WARNING)
 #warning Redefining BIN to 2 for print. BIN can not longer be used as bit position (7) for the x5 ADC "Bipolar Input Mode"
 #  endif
@@ -76,7 +76,7 @@ class Print
     void printNumber(unsigned long, uint8_t);
     void printFloat(double, uint8_t);
   protected:
-    void setWriteError(int err = 1) { /*write_error = err;*/ }
+    void setWriteError(int __attribute__((unused)) err = 1) { /*write_error = err;*/ }
   public:
     virtual size_t write(uint8_t) = 0;
     virtual void write(const char *str);

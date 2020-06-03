@@ -57,6 +57,9 @@ The Arduino ESP8266 core available with https://arduino.esp8266.com/stable/packa
 - Added `#define TwoWire USI_TWI` in *Wire.h*.
 - Changed` #include <avr/delay.h>` to `#include <util/delay.h>` in 3 files.
 - Included [Multi-Keyboard Layout MOD](https://github.com/rsrdesarrollo/DigistumpArduino).
+- Redefining BIN to 2 for print. BIN can not longer be used as bit position (7) for the x5 ADC "Bipolar Input Mode".
+- Enabled all warnings at compile time and removed compiler warnings in tiny core.
+- Modified definition for yield() in *WProgram.h* to avoid error "undefined reference to `yield()'".
 
 ## Requests for modifications / extensions
 Please write me a PM including your motivation/problem if you need a modification or an extension.

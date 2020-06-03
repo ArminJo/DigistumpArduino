@@ -271,19 +271,19 @@ const uint8_t PROGMEM digital_pin_to_timer_PGM[] =
 const uint8_t PROGMEM port_to_mode_PGM[] = 
 {
 	NOT_A_PORT,
-	&DDRB,
+	(uint16_t)&DDRB, // to avoid compiler warnings
 };
 
 const uint8_t PROGMEM port_to_output_PGM[] = 
 {
 	NOT_A_PORT,
-	&PORTB,
+	(uint16_t)&PORTB,
 };
 
 const uint8_t PROGMEM port_to_input_PGM[] = 
 {
 	NOT_A_PIN,
-	&PINB,
+	(uint16_t)&PINB,
 };
 
 const uint8_t PROGMEM digital_pin_to_port_PGM[] = 

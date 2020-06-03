@@ -52,44 +52,44 @@ typedef struct {
 
 const SoftPwmPinSt_t PwmPin[] PROGMEM ={
 #if (TINY_SOFT_PWM_USES_PIN0 == 1)
-  {0,  digitalPinToPortIdx(0),  ~(1 << digitalPinToPortBit(0))},
+  {0,  digitalPinToPortIdx(0), (uint8_t) ~(1 << digitalPinToPortBit(0))},
 #endif  
 #if (TINY_SOFT_PWM_USES_PIN1 == 1)
-  {1,  digitalPinToPortIdx(1),  ~(1 << digitalPinToPortBit(1))},
+  {1,  digitalPinToPortIdx(1), (uint8_t) ~(1 << digitalPinToPortBit(1))},
 #endif  
 #if (TINY_SOFT_PWM_USES_PIN2 == 1)
-  {2,  digitalPinToPortIdx(2),  ~(1 << digitalPinToPortBit(2))},
+  {2,  digitalPinToPortIdx(2), (uint8_t) ~(1 << digitalPinToPortBit(2))},
 #endif  
 #if (TINY_SOFT_PWM_USES_PIN3 == 1)
-  {3,  digitalPinToPortIdx(3),  ~(1 << digitalPinToPortBit(3))},
+  {3,  digitalPinToPortIdx(3), (uint8_t) ~(1 << digitalPinToPortBit(3))},
 #endif  
 #if (TINY_SOFT_PWM_USES_PIN4 == 1)
-  {4,  digitalPinToPortIdx(4),  ~(1 << digitalPinToPortBit(4))},
+  {4,  digitalPinToPortIdx(4), (uint8_t) ~(1 << digitalPinToPortBit(4))},
 #endif  
 #if (TINY_SOFT_PWM_USES_PIN5 == 1)
-  {5,  digitalPinToPortIdx(5),  ~(1 << digitalPinToPortBit(5))},
+  {5,  digitalPinToPortIdx(5), (uint8_t) ~(1 << digitalPinToPortBit(5))},
 #endif
 #if defined (__AVR_ATtiny167__)
 #if (TINY_SOFT_PWM_USES_PIN6 == 1)
-  {6,  digitalPinToPortIdx(6),  ~(1 << digitalPinToPortBit(6))},
+  {6,  digitalPinToPortIdx(6), (uint8_t) ~(1 << digitalPinToPortBit(6))},
 #endif  
 #if (TINY_SOFT_PWM_USES_PIN7 == 1)
-  {7,  digitalPinToPortIdx(7),  ~(1 << digitalPinToPortBit(7))},
+  {7,  digitalPinToPortIdx(7), (uint8_t) ~(1 << digitalPinToPortBit(7))},
 #endif  
 #if (TINY_SOFT_PWM_USES_PIN8 == 1)
-  {8,  digitalPinToPortIdx(8),  ~(1 << digitalPinToPortBit(8))},
+  {8,  digitalPinToPortIdx(8), (uint8_t) ~(1 << digitalPinToPortBit(8))},
 #endif  
 #if (TINY_SOFT_PWM_USES_PIN9 == 1)
-  {9,  digitalPinToPortIdx(9),  ~(1 << digitalPinToPortBit(9))},
+  {9,  digitalPinToPortIdx(9), (uint8_t) ~(1 << digitalPinToPortBit(9))},
 #endif  
 #if (TINY_SOFT_PWM_USES_PIN10 == 1)
-  {10, digitalPinToPortIdx(10), ~(1 << digitalPinToPortBit(10))},
+  {10, digitalPinToPortIdx(10), (uint8_t) ~(1 << digitalPinToPortBit(10))},
 #endif  
 #if (TINY_SOFT_PWM_USES_PIN11 == 1)
-  {11, digitalPinToPortIdx(11), ~(1 << digitalPinToPortBit(11))},
+  {11, digitalPinToPortIdx(11), (uint8_t) ~(1 << digitalPinToPortBit(11))},
 #endif
 #if (TINY_SOFT_PWM_USES_PIN12 == 1)
-  {12, digitalPinToPortIdx(12), ~(1 << digitalPinToPortBit(12))},
+  {12, digitalPinToPortIdx(12), (uint8_t) ~(1 << digitalPinToPortBit(12))},
 #endif
 #endif
 };

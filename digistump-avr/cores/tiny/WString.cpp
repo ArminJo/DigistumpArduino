@@ -85,7 +85,7 @@ String::String( const long value, const int base )
     strcpy( _buffer, buf );
 }
 
-String::String( const unsigned long value, const int base )
+String::String( const unsigned long value, const int __attribute__((unused)) base )
 {
   char buf[33];   
   ultoa(value, buf, 10);

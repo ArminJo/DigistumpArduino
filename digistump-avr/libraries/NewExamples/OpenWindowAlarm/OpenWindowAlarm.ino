@@ -236,7 +236,7 @@ void setup() {
     pinMode(ALARM_TEST_PIN, INPUT_PULLUP);
 #endif
 
-    changeDigisparkClock();
+//    changeDigisparkClock();
 
     sBODLevelIsBelow2_7 = (getBODLevelFuses() >= 6);
 

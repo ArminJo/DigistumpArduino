@@ -13,12 +13,16 @@
 #include "pins_arduino.h"
 
 #ifdef __cplusplus
+extern "C"{
+void yield(void);
+}
+#endif
+
+#ifdef __cplusplus
 #include "WCharacter.h"
 #include "WString.h"
 #include "TinyDebugSerial.h"
 #include "HardwareSerial.h"
-
-void yield(void);
 
 uint16_t makeWord(uint16_t w);
 uint16_t makeWord(byte h, byte l);
