@@ -164,6 +164,17 @@ USB messages, even if they address another (low-speed) device on the same bus.
  */
 #define USB_NO_MSG  ((usbMsgLen_t)-1)   /* constant meaning "no message" */
 
+#ifndef usbMsgPtr_t
+#define usbMsgPtr_t uchar *
+#endif
+/* Making usbMsgPtr_t a define allows the user of this library to define it to
+ * an 8 bit type on tiny devices. This reduces code size, especially if the
+ * compiler supports a tiny memory model.
+ * The type can be a pointer or scalar type, casts are made where necessary.
+ * Although it's paradoxical, Gcc 4 generates slightly better code for scalar
+ * types than for pointers.
+ */
+ 
 struct usbRequest;  /* forward declaration */
 
 #ifdef __cplusplus
@@ -182,11 +193,20 @@ USB_PUBLIC void usbPoll(void);
  * Please note that debug outputs through the UART take ~ 0.5ms per byte
  * at 19200 bps.
  */
-extern const uchar *usbMsgPtr;
+extern uchar *usbMsgPtr;
 /* This variable may be used to pass transmit data to the driver from the
  * implementation of usbFunctionWrite(). It is also used internally by the
  * driver for standard control requests.
  */
+ 
+ extern uchar usbMsgFlags;    /* flag values see USB_FLG_* */
+/* Can be set to `USB_FLG_MSGPTR_IS_ROM` in `usbFunctionSetup()` or
+ * `usbFunctionDescriptor()` if `usbMsgPtr` has been set to a flash memory
+ * address.
+ */
+ 
+ #define USB_FLG_MSGPTR_IS_ROM   (1<<6)
+ 
 USB_PUBLIC usbMsgLen_t usbFunctionSetup(uchar data[8]);
 /* This function is called when the driver receives a SETUP transaction from
  * the host which is not answered by the driver itself (in practice: class and
@@ -335,7 +355,7 @@ extern unsigned usbCrc16Append(unsigned data, uchar len);
  * bytes.
  */
 #if USB_CFG_HAVE_MEASURE_FRAME_LENGTH
-extern unsigned usbMeasureFrameLength(void);
+extern unsigned usbMeasureFrameLength(void); // defined in usbdrvasm.S
 /* This function MUST be called IMMEDIATELY AFTER USB reset and measures 1/7 of
  * the number of CPU cycles during one USB frame minus one low speed bit
  * length. In other words: return value = 1499 * (F_CPU / 10.5 MHz)

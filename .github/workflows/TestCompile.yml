@@ -37,7 +37,9 @@ jobs:
         # You may add a suffix behind the fqbn with "|" to specify one board for e.g. different compile options like arduino:avr:uno|trace
         #############################################################################################################
         arduino-boards-fqbn:
-          - digistump:avr:digispark-tiny16
+#          - digistump:avr:digispark-tiny   # ATtiny85 board @16.5 MHz
+          - digistump:avr:digispark-tiny16 # ATtiny85 board @16 MHz
+          - digistump:avr:digispark-pro
 
         # Specify parameters for each board.
         # With examples-exclude you may exclude specific examples for a board. Use a comma separated list.

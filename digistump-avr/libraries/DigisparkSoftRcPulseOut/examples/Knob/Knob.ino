@@ -12,7 +12,7 @@ SoftRcPulseOut myservo;  // create servo object to control a servo
 #define POT_PIN           2  // --analog pin--  (not digital) used to connect the potentiometer
 #else
 //Here is the POT_PIN definition for Arduino UNO, MEGA, they do need a 'A' prefix for Analogic definition
-#define POT_PIN           A2 // --analog pin--  (not digital) used to connect the potentiometer
+#define POT_PIN           A3 // --analog pin--  (not digital) used to connect the potentiometer
 #endif
 
 #define SERVO_PIN         3  // --digital pin-- (not analog)  used to connect the servo
