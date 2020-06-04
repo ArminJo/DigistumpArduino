@@ -223,9 +223,6 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq);
  */
 #if USB_CFG_HAVE_INTRIN_ENDPOINT
 USB_PUBLIC void usbSetInterrupt(uchar *data, uchar len);
-#ifdef __cplusplus
-} // extern "C"
-#endif
 /* This function sets the message which will be sent during the next interrupt
  * IN transfer. The message is copied to an internal buffer and must not exceed
  * a length of 8 bytes. The message may be 0 bytes long just to indicate the
@@ -237,11 +234,11 @@ USB_PUBLIC void usbSetInterrupt(uchar *data, uchar len);
  * sent. If you set a new interrupt message before the old was sent, the
  * message already buffered will be lost.
  */
-#if USB_CFG_HAVE_INTRIN_ENDPOINT3
+#  if USB_CFG_HAVE_INTRIN_ENDPOINT3
 USB_PUBLIC void usbSetInterrupt3(uchar *data, uchar len);
 #define usbInterruptIsReady3()   (usbTxLen3 & 0x10)
 /* Same as above for endpoint 3 */
-#endif
+#  endif
 #endif /* USB_CFG_HAVE_INTRIN_ENDPOINT */
 #if USB_CFG_HID_REPORT_DESCRIPTOR_LENGTH    /* simplified interface for backward compatibility */
 #define usbHidReportDescriptor  usbDescriptorHidReport
@@ -254,9 +251,6 @@ USB_PUBLIC void usbSetInterrupt3(uchar *data, uchar len);
  */
 #endif  /* USB_CFG_HID_REPORT_DESCRIPTOR_LENGTH */
 #if USB_CFG_IMPLEMENT_FN_WRITE
-#ifdef __cplusplus
-extern "C"{
-#endif
 USB_PUBLIC uchar usbFunctionWrite(uchar *data, uchar len);
 /* This function is called by the driver to provide a control transfer's
  * payload data (control-out). It is called in chunks of up to 8 bytes. The
@@ -276,9 +270,6 @@ USB_PUBLIC uchar usbFunctionWrite(uchar *data, uchar len);
 #endif /* USB_CFG_IMPLEMENT_FN_WRITE */
 #if USB_CFG_IMPLEMENT_FN_READ
 USB_PUBLIC uchar usbFunctionRead(uchar *data, uchar len);
-#ifdef __cplusplus
-} // extern "C"
-#endif
 /* This function is called by the driver to ask the application for a control
  * transfer's payload data (control-in). It is called in chunks of up to 8
  * bytes each. You should copy the data to the location given by 'data' and
@@ -299,6 +290,9 @@ USB_PUBLIC void usbFunctionWriteOut(uchar *data, uchar len);
  * usbconfig.h to get this function called.
  */
 #endif /* USB_CFG_IMPLEMENT_FN_WRITEOUT */
+#ifdef __cplusplus
+} // extern "C"
+#endif
 #ifdef USB_CFG_PULLUP_IOPORTNAME
 #define usbDeviceConnect()      ((USB_PULLUP_DDR |= (1<<USB_CFG_PULLUP_BIT)), \
                                   (USB_PULLUP_OUT |= (1<<USB_CFG_PULLUP_BIT)))
