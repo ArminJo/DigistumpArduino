@@ -44,6 +44,9 @@
 #endif
 
 #if defined( __AVR_ATtinyX5__ )
+
+#define LED_BUILTIN PB1 // LED on Model A - Never seen Model B in the wild
+
 #define PORT_B_ID 1
 #endif
 

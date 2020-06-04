@@ -77,7 +77,7 @@ void SoftSPIClass::begin(byte SCK_, byte MOSI_, byte MISO_, byte SS_){
 	}
 }
 
-byte SoftSPIClass::noTransfer(byte _data){
+byte SoftSPIClass::noTransfer(byte _data __attribute__((unused))){
 	//This does nothing. If you call SPI.transfer() before calling begin() or after calling end(), the call will be redirected here to avoid crash.
 	return 0xFF;
 }
@@ -208,7 +208,7 @@ void SoftSPIClass::setDataMode(uint8_t mode)
 	}
 }
 
-void SoftSPIClass::setClockDivider(uint8_t rate)
+void SoftSPIClass::setClockDivider(uint8_t rate __attribute__((unused)))
 {
 	
 	//does nothing as the speed cannot be changed - fixed at Fcpu/16

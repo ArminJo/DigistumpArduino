@@ -162,9 +162,9 @@ class DigiKeyboardDevice : public Print {
   size_t write(uint8_t chr) {
     uint8_t data = 0;
     if (chr == 0x09) {
-      data = KEY_TAB;
+      data = (uint8_t)KEY_TAB;
     }else if (chr == 0x0a) {
-      data = KEY_ENTER;
+      data = (uint8_t)KEY_ENTER;
     }else if (chr >= 0x20) {
       data = pgm_read_byte_near(keycodes_ascii + (chr - 0x20));
     }

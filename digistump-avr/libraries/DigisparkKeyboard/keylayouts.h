@@ -5692,9 +5692,12 @@ extern "C"{
 #endif // LAYOUT_SERBIAN_LATIN_ONLY
 
 
-//#ifdef defined(LAYOUT_US_ENGLISH) || defined(LAYOUT_UNSPECIFIED)
 #ifdef LAYOUT_UNSPECIFIED
-#warning "Using default layout"
+#warning "Using default layout (LAYOUT_US_ENGLISH)"
+#endif
+
+
+#if defined(LAYOUT_US_ENGLISH) || defined(LAYOUT_UNSPECIFIED)
 
 #define SHIFT_MASK		0x40
 #define KEYCODE_TYPE		uint8_t
@@ -5797,7 +5800,7 @@ extern "C"{
 #define ASCII_7E	KEY_TILDE + SHIFT_MASK			// 126 ~
 #define ASCII_7F	KEY_BACKSPACE				// 127
 
-#endif // LAYOUT_US_ENGLISH
+#endif // defined(LAYOUT_US_ENGLISH) || defined(LAYOUT_UNSPECIFIED)
 
 
 #ifdef M

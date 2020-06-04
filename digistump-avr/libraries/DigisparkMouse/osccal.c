@@ -8,6 +8,7 @@
  */
 
 #include <avr/io.h>
+#include "usbdrv.h" // for usbMeasureFrameLength()
 
 #ifndef uchar
 #define uchar   unsigned char
