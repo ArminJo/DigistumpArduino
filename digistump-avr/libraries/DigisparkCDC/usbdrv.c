@@ -5,7 +5,7 @@
  * Tabsize: 4
  * Copyright: (c) 2005 by OBJECTIVE DEVELOPMENT Software GmbH
  * License: GNU GPL v2 (see License.txt), GNU GPL v3 or proprietary (CommercialLicense.txt)
- * This Revision: $Id: usbdrv.c 791 2010-07-15 15:56:13Z cs $
+ * This Revision: $Id: usbdrv.c 763 2009-08-22 10:27:24Z cs $
  */
 
 #include "usbportability.h"
@@ -45,7 +45,7 @@ uchar       usbCurrentDataToken;/* when we check data toggling to ignore duplica
 #endif
 
 /* USB status registers / not shared with asm code */
-uchar               *usbMsgPtr;     /* data to transmit next -- ROM or RAM address */
+const uchar               *usbMsgPtr;     /* data to transmit next -- ROM or RAM address */
 static usbMsgLen_t  usbMsgLen = USB_NO_MSG; /* remaining number of bytes */
 static uchar        usbMsgFlags;    /* flag values see below */
 
@@ -421,7 +421,7 @@ skipMsgPtrAssignment:
  */
 static inline void usbProcessRx(uchar *data, uchar len)
 {
-usbRequest_t    *rq = (void *)data;
+  usbRequest_t    *rq = (usbRequest_t *)((void *)data);
 
 /* usbRxToken can be:
  * 0x2d 00101101 (USBPID_SETUP for setup data)

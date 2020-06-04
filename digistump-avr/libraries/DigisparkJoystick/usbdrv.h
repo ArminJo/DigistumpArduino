@@ -182,21 +182,12 @@ USB_PUBLIC void usbPoll(void);
  * Please note that debug outputs through the UART take ~ 0.5ms per byte
  * at 19200 bps.
  */
-#ifdef __cplusplus
-} // extern "C"
-#endif
 extern const uchar *usbMsgPtr;
 /* This variable may be used to pass transmit data to the driver from the
  * implementation of usbFunctionWrite(). It is also used internally by the
  * driver for standard control requests.
  */
-#ifdef __cplusplus
-extern "C"{
-#endif
 USB_PUBLIC usbMsgLen_t usbFunctionSetup(uchar data[8]);
-#ifdef __cplusplus
-} // extern "C"
-#endif
 /* This function is called when the driver receives a SETUP transaction from
  * the host which is not answered by the driver itself (in practice: class and
  * vendor requests). All control transfers start with a SETUP transaction where
@@ -223,22 +214,14 @@ USB_PUBLIC usbMsgLen_t usbFunctionSetup(uchar data[8]);
  * Note that calls to the functions usbFunctionRead() and usbFunctionWrite()
  * are only done if enabled by the configuration in usbconfig.h.
  */
-#ifdef __cplusplus
-extern "C"{
-#endif
 USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq);
-#ifdef __cplusplus
-} // extern "C"
-#endif
+
 /* You need to implement this function ONLY if you provide USB descriptors at
  * runtime (which is an expert feature). It is very similar to
  * usbFunctionSetup() above, but it is called only to request USB descriptor
  * data. See the documentation of usbFunctionSetup() above for more info.
  */
 #if USB_CFG_HAVE_INTRIN_ENDPOINT
-#ifdef __cplusplus
-extern "C"{
-#endif
 USB_PUBLIC void usbSetInterrupt(uchar *data, uchar len);
 #ifdef __cplusplus
 } // extern "C"
@@ -271,6 +254,9 @@ USB_PUBLIC void usbSetInterrupt3(uchar *data, uchar len);
  */
 #endif  /* USB_CFG_HID_REPORT_DESCRIPTOR_LENGTH */
 #if USB_CFG_IMPLEMENT_FN_WRITE
+#ifdef __cplusplus
+extern "C"{
+#endif
 USB_PUBLIC uchar usbFunctionWrite(uchar *data, uchar len);
 /* This function is called by the driver to provide a control transfer's
  * payload data (control-out). It is called in chunks of up to 8 bytes. The
@@ -290,6 +276,9 @@ USB_PUBLIC uchar usbFunctionWrite(uchar *data, uchar len);
 #endif /* USB_CFG_IMPLEMENT_FN_WRITE */
 #if USB_CFG_IMPLEMENT_FN_READ
 USB_PUBLIC uchar usbFunctionRead(uchar *data, uchar len);
+#ifdef __cplusplus
+} // extern "C"
+#endif
 /* This function is called by the driver to ask the application for a control
  * transfer's payload data (control-in). It is called in chunks of up to 8
  * bytes each. You should copy the data to the location given by 'data' and
@@ -491,11 +480,17 @@ const PROGMEM
 #endif
 char usbDescriptorConfiguration[];
 
+#ifdef __cplusplus
+extern "C"{
+#endif
 extern
 #if !(USB_CFG_DESCR_PROPS_HID_REPORT & USB_PROP_IS_RAM)
 const PROGMEM
 #endif
-char usbDescriptorHidReport[];
+uchar usbDescriptorHidReport[];
+#ifdef __cplusplus
+} // extern "C"
+#endif
 
 extern
 #if !(USB_CFG_DESCR_PROPS_STRING_0 & USB_PROP_IS_RAM)

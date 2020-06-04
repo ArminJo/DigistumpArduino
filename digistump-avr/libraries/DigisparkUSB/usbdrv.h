@@ -10,6 +10,7 @@
 
 #ifndef __usbdrv_h_included__
 #define __usbdrv_h_included__
+
 #include "usbconfig.h"
 #include "usbportability.h"
 
@@ -175,27 +176,18 @@ USB_PUBLIC void usbInit(void);
  * them, set both back to 0 (configure them as input with no internal pull-up).
  */
 USB_PUBLIC void usbPoll(void);
-#ifdef __cplusplus
-} // extern "C"
-#endif
 /* This function must be called at regular intervals from the main loop.
  * Maximum delay between calls is somewhat less than 50ms (USB timeout for
  * accepting a Setup message). Otherwise the device will not be recognized.
  * Please note that debug outputs through the UART take ~ 0.5ms per byte
  * at 19200 bps.
  */
-extern uchar *usbMsgPtr;
+extern const uchar *usbMsgPtr;
 /* This variable may be used to pass transmit data to the driver from the
  * implementation of usbFunctionWrite(). It is also used internally by the
  * driver for standard control requests.
  */
-#ifdef __cplusplus
-extern "C"{
-#endif
 USB_PUBLIC usbMsgLen_t usbFunctionSetup(uchar data[8]);
-#ifdef __cplusplus
-} // extern "C"
-#endif
 /* This function is called when the driver receives a SETUP transaction from
  * the host which is not answered by the driver itself (in practice: class and
  * vendor requests). All control transfers start with a SETUP transaction where
@@ -223,15 +215,13 @@ USB_PUBLIC usbMsgLen_t usbFunctionSetup(uchar data[8]);
  * are only done if enabled by the configuration in usbconfig.h.
  */
 USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq);
+
 /* You need to implement this function ONLY if you provide USB descriptors at
  * runtime (which is an expert feature). It is very similar to
  * usbFunctionSetup() above, but it is called only to request USB descriptor
  * data. See the documentation of usbFunctionSetup() above for more info.
  */
 #if USB_CFG_HAVE_INTRIN_ENDPOINT
-#ifdef __cplusplus
-extern "C"{
-#endif
 USB_PUBLIC void usbSetInterrupt(uchar *data, uchar len);
 #ifdef __cplusplus
 } // extern "C"
@@ -268,9 +258,6 @@ USB_PUBLIC void usbSetInterrupt3(uchar *data, uchar len);
 extern "C"{
 #endif
 USB_PUBLIC uchar usbFunctionWrite(uchar *data, uchar len);
-#ifdef __cplusplus
-} // extern "C"
-#endif
 /* This function is called by the driver to provide a control transfer's
  * payload data (control-out). It is called in chunks of up to 8 bytes. The
  * total count provided in the current control transfer can be obtained from
@@ -288,9 +275,6 @@ USB_PUBLIC uchar usbFunctionWrite(uchar *data, uchar len);
  */
 #endif /* USB_CFG_IMPLEMENT_FN_WRITE */
 #if USB_CFG_IMPLEMENT_FN_READ
-#ifdef __cplusplus
-extern "C"{
-#endif
 USB_PUBLIC uchar usbFunctionRead(uchar *data, uchar len);
 #ifdef __cplusplus
 } // extern "C"
@@ -503,7 +487,7 @@ extern
 #if !(USB_CFG_DESCR_PROPS_HID_REPORT & USB_PROP_IS_RAM)
 const PROGMEM
 #endif
-char usbDescriptorHidReport[];
+uchar usbDescriptorHidReport[];
 #ifdef __cplusplus
 } // extern "C"
 #endif

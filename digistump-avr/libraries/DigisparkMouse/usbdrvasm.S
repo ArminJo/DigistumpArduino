@@ -5,7 +5,7 @@
  * Tabsize: 4
  * Copyright: (c) 2007 by OBJECTIVE DEVELOPMENT Software GmbH
  * License: GNU GPL v2 (see License.txt), GNU GPL v3 or proprietary (CommercialLicense.txt)
- * Revision: $Id: usbdrvasm.S 761 2009-08-12 16:30:23Z cs $
+ * Revision: $Id: usbdrvasm.S 785 2010-05-30 17:57:07Z cs $
  */
 
 /*
@@ -57,7 +57,11 @@ the file appropriate for the given clock rate.
 #else /* __IAR_SYSTEMS_ASM__ */
 
 #   ifndef USB_INTR_VECTOR /* default to hardware interrupt INT0 */
-#       define USB_INTR_VECTOR  SIG_INTERRUPT0
+#       ifdef INT0_vect
+#           define USB_INTR_VECTOR  INT0_vect       // this is the "new" define for the vector
+#       else
+#           define USB_INTR_VECTOR  SIG_INTERRUPT0  // this is the "old" vector
+#       endif
 #   endif
     .text
     .global USB_INTR_VECTOR
@@ -357,7 +361,11 @@ usbMFTimeout:
 ;----------------------------------------------------------------------------
 
 #ifndef USB_CFG_CLOCK_KHZ
-#   define USB_CFG_CLOCK_KHZ 12000
+#   ifdef F_CPU
+#       define USB_CFG_CLOCK_KHZ (F_CPU/1000)
+#   else
+#       error "USB_CFG_CLOCK_KHZ not defined in usbconfig.h and no F_CPU set!"
+#   endif
 #endif
 
 #if USB_CFG_CHECK_CRC   /* separate dispatcher for CRC type modules */

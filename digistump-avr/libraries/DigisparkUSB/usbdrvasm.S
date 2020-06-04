@@ -5,6 +5,7 @@
  * Tabsize: 4
  * Copyright: (c) 2007 by OBJECTIVE DEVELOPMENT Software GmbH
  * License: GNU GPL v2 (see License.txt), GNU GPL v3 or proprietary (CommercialLicense.txt)
+ * Revision: $Id: usbdrvasm.S 785 2010-05-30 17:57:07Z cs $
  */
 
 /*
@@ -13,9 +14,6 @@ This module is the assembler part of the USB driver. This file contains
 general code (preprocessor acrobatics and CRC computation) and then includes
 the file appropriate for the given clock rate.
 */
-#ifdef __SFR_OFFSET
-#undef __SFR_OFFSET
-#endif
 
 #define __SFR_OFFSET 0      /* used by avr-libc's register definitions */
 #include "usbportability.h"
@@ -28,7 +26,7 @@ the file appropriate for the given clock rate.
 #define cnt     r19
 #define x3      r20
 #define x4      r21
-#define x5      r22
+#define x5		r22
 #define bitcnt  x5
 #define phase   x4
 #define leap    x4
