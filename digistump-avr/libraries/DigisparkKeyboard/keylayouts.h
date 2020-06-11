@@ -110,59 +110,63 @@ extern "C" {
 #define KEY_MEDIA_VOLUME_INC    ( 0xE9 | 0xE400 )
 #define KEY_MEDIA_VOLUME_DEC    ( 0xEA | 0xE400 )
 
-#define KEY_A                   (   4  | 0xF000 )
-#define KEY_B                   (   5  | 0xF000 )
-#define KEY_C                   (   6  | 0xF000 )
-#define KEY_D                   (   7  | 0xF000 )
-#define KEY_E                   (   8  | 0xF000 )
-#define KEY_F                   (   9  | 0xF000 )
-#define KEY_G                   (  10  | 0xF000 )
-#define KEY_H                   (  11  | 0xF000 )
-#define KEY_I                   (  12  | 0xF000 )
-#define KEY_J                   (  13  | 0xF000 )
-#define KEY_K                   (  14  | 0xF000 )
-#define KEY_L                   (  15  | 0xF000 )
-#define KEY_M                   (  16  | 0xF000 )
-#define KEY_N                   (  17  | 0xF000 )
-#define KEY_O                   (  18  | 0xF000 )
-#define KEY_P                   (  19  | 0xF000 )
-#define KEY_Q                   (  20  | 0xF000 )
-#define KEY_R                   (  21  | 0xF000 )
-#define KEY_S                   (  22  | 0xF000 )
-#define KEY_T                   (  23  | 0xF000 )
-#define KEY_U                   (  24  | 0xF000 )
-#define KEY_V                   (  25  | 0xF000 )
-#define KEY_W                   (  26  | 0xF000 )
-#define KEY_X                   (  27  | 0xF000 )
-#define KEY_Y                   (  28  | 0xF000 )
-#define KEY_Z                   (  29  | 0xF000 )
-#define KEY_1                   (  30  | 0xF000 )
-#define KEY_2                   (  31  | 0xF000 )
-#define KEY_3                   (  32  | 0xF000 )
-#define KEY_4                   (  33  | 0xF000 )
-#define KEY_5                   (  34  | 0xF000 )
-#define KEY_6                   (  35  | 0xF000 )
-#define KEY_7                   (  36  | 0xF000 )
-#define KEY_8                   (  37  | 0xF000 )
-#define KEY_9                   (  38  | 0xF000 )
-#define KEY_0                   (  39  | 0xF000 )
+#define KEY_NOKEY             0x00     // Reserved (no event indicated)
+#define KEY_ERR_ROLLOVER      0x01     // Keyboard ErrorRollOver
+#define KEY_POSTFAIL          0x02     // Keyboard POSTFail
+#define KEY_ERR_UNDEFINED     0x03     // Keyboard ErrorUndefined
+#define KEY_A                   ( 0x04 | 0xF000 )    // Keyboard a and A
+#define KEY_B                   ( 0x05 | 0xF000 )    // Keyboard b and B
+#define KEY_C                   ( 0x06 | 0xF000 )    // Keyboard c and C
+#define KEY_D                   ( 0x07 | 0xF000 )    // Keyboard d and D
+#define KEY_E                   ( 0x08 | 0xF000 )    // Keyboard e and E
+#define KEY_F                   ( 0x09 | 0xF000 )    // Keyboard f and F
+#define KEY_G                   ( 0x0A | 0xF000 )    // Keyboard g and G
+#define KEY_H                   ( 0x0B | 0xF000 )    // Keyboard h and H
+#define KEY_I                   ( 0x0C | 0xF000 )    // Keyboard i and I
+#define KEY_J                   ( 0x0D | 0xF000 )    // Keyboard j and J
+#define KEY_K                   ( 0x0E | 0xF000 )    // Keyboard k and K
+#define KEY_L                   ( 0x0F | 0xF000 )    // Keyboard l and L
+#define KEY_M                   ( 0x10 | 0xF000 )    // Keyboard m and M
+#define KEY_N                   ( 0x11 | 0xF000 )    // Keyboard n and N
+#define KEY_O                   ( 0x12 | 0xF000 )    // Keyboard o and O
+#define KEY_P                   ( 0x13 | 0xF000 )    // Keyboard p and P
+#define KEY_Q                   ( 0x14 | 0xF000 )    // Keyboard q and Q
+#define KEY_R                   ( 0x15 | 0xF000 )    // Keyboard r and R
+#define KEY_S                   ( 0x16 | 0xF000 )    // Keyboard s and S
+#define KEY_T                   ( 0x17 | 0xF000 )    // Keyboard t and T
+#define KEY_U                   ( 0x18 | 0xF000 )    // Keyboard u and U
+#define KEY_V                   ( 0x19 | 0xF000 )    // Keyboard v and V
+#define KEY_W                   ( 0x1A | 0xF000 )    // Keyboard w and W
+#define KEY_X                   ( 0x1B | 0xF000 )    // Keyboard x and X
+#define KEY_Y                   ( 0x1C | 0xF000 )    // Keyboard y and Y
+#define KEY_Z                   ( 0x1D | 0xF000 )    // Keyboard z and Z
+#define KEY_1                   ( 0x1E | 0xF000 )    // Keyboard 1 and !
+#define KEY_2                   ( 0x1F | 0xF000 )    // Keyboard 2 and
+#define KEY_3                   ( 0x20 | 0xF000 )    // Keyboard 3 and #
+#define KEY_4                   ( 0x21 | 0xF000 )    // Keyboard 4 and $
+#define KEY_5                   ( 0x22 | 0xF000 )    // Keyboard 5 and %
+#define KEY_6                   ( 0x23 | 0xF000 )    // Keyboard 6 and ^
+#define KEY_7                   ( 0x24 | 0xF000 )    // Keyboard 7 and &
+#define KEY_8                   ( 0x25 | 0xF000 )    // Keyboard 8 and *
+#define KEY_9                   ( 0x26 | 0xF000 )    // Keyboard 9 and (
+#define KEY_0                   ( 0x27 | 0xF000 )    // Keyboard 0 and )
 #define KEY_ENTER               (  40  | 0xF000 )
 #define KEY_ESC                 (  41  | 0xF000 )
 #define KEY_BACKSPACE           (  42  | 0xF000 )
 #define KEY_TAB                 (  43  | 0xF000 )
 #define KEY_SPACE               (  44  | 0xF000 )
-#define KEY_MINUS               (  45  | 0xF000 )
-#define KEY_EQUAL               (  46  | 0xF000 )
-#define KEY_LEFT_BRACE          (  47  | 0xF000 )
-#define KEY_RIGHT_BRACE         (  48  | 0xF000 )
-#define KEY_BACKSLASH           (  49  | 0xF000 )
-#define KEY_NON_US_NUM          (  50  | 0xF000 )
-#define KEY_SEMICOLON           (  51  | 0xF000 )
-#define KEY_QUOTE               (  52  | 0xF000 )
-#define KEY_TILDE               (  53  | 0xF000 )
-#define KEY_COMMA               (  54  | 0xF000 )
-#define KEY_PERIOD              (  55  | 0xF000 )
-#define KEY_SLASH               (  56  | 0xF000 )
+#define KEY_MINUS               ( 0x2D | 0xF000 )    // Keyboard - and (underscore)
+#define KEY_EQUAL               ( 0x2E | 0xF000 )    // Keyboard = and +
+#define KEY_LEFT_BRACE          ( 0x2F | 0xF000 )    // Keyboard [ and {
+#define KEY_RIGHT_BRACE         ( 0x30 | 0xF000 )    // Keyboard ] and }
+#define KEY_BACKSLASH           ( 0x31 | 0xF000 )    // Keyboard \ and |
+#define KEY_NON_US_NUM          ( 0x32 | 0xF000 )    // Keyboard Non-US # and ~
+#define KEY_SEMICOLON           ( 0x33 | 0xF000 )    // Keyboard ; and :
+#define KEY_QUOTE               ( 0x34 | 0xF000 )    // Keyboard ‘ and “
+#define KEY_TILDE               ( 0x35 | 0xF000 )    // Keyboard Grave Accent and Tilde
+#define KEY_COMMA               ( 0x36 | 0xF000 )    // Keyboard , and <
+#define KEY_PERIOD              ( 0x37 | 0xF000 )    // Keyboard . and >
+#define KEY_SLASH               ( 0x38 | 0xF000 )    // Keyboard / and ?
 #define KEY_CAPS_LOCK           (  57  | 0xF000 )
 #define KEY_F1                  (  58  | 0xF000 )
 #define KEY_F2                  (  59  | 0xF000 )
@@ -195,17 +199,17 @@ extern "C" {
 #define KEYPAD_MINUS            (  86  | 0xF000 )
 #define KEYPAD_PLUS             (  87  | 0xF000 )
 #define KEYPAD_ENTER            (  88  | 0xF000 )
-#define KEYPAD_1                (  89  | 0xF000 )
-#define KEYPAD_2                (  90  | 0xF000 )
-#define KEYPAD_3                (  91  | 0xF000 )
-#define KEYPAD_4                (  92  | 0xF000 )
+#define KEYPAD_1                (  89  | 0xF000 )    // Keypad 1 and End
+#define KEYPAD_2                (  90  | 0xF000 )    // Keypad 2 and Down Arrow
+#define KEYPAD_3                (  91  | 0xF000 )    // Keypad 3 and PageDn
+#define KEYPAD_4                (  92  | 0xF000 )    // Keypad 4 and Left Arrow
 #define KEYPAD_5                (  93  | 0xF000 )
-#define KEYPAD_6                (  94  | 0xF000 )
-#define KEYPAD_7                (  95  | 0xF000 )
-#define KEYPAD_8                (  96  | 0xF000 )
-#define KEYPAD_9                (  97  | 0xF000 )
-#define KEYPAD_0                (  98  | 0xF000 )
-#define KEYPAD_PERIOD           (  99  | 0xF000 )
+#define KEYPAD_6                (  94  | 0xF000 )    // Keypad 6 and Right Arrow
+#define KEYPAD_7                (  95  | 0xF000 )    // Keypad 7 and Home
+#define KEYPAD_8                (  96  | 0xF000 )    // Keypad 8 and Up Arrow
+#define KEYPAD_9                (  97  | 0xF000 )    // Keypad 9 and PageUp
+#define KEYPAD_0                (  98  | 0xF000 )    // Keypad 0 and Insert
+#define KEYPAD_PERIOD           (  99  | 0xF000 )    // Keypad . and Delete
 #define KEY_NON_US_BS           ( 100  | 0xF000 )
 #define KEY_MENU                ( 101  | 0xF000 )
 #define KEY_F13                 ( 104  | 0xF000 )
@@ -3312,14 +3316,14 @@ extern "C" {
 #define ASCII_20        KEY_SPACE                               // 32
 #define ASCII_21        KEY_1 + SHIFT_MASK                      // 33 !
 #define ASCII_22        KEY_TILDE + SHIFT_MASK                  // 34 "
-#define ASCII_23        KEY_3 + ALTGR_MASK                      // 35 #
+#define ASCII_23        KEY_3 + SHIFT_MASK                      // 35 #
 #define ASCII_24        KEY_4 + SHIFT_MASK                      // 36 $
 #define ASCII_25        KEY_5 + SHIFT_MASK                      // 37 %
 #define ASCII_26        KEY_7 + SHIFT_MASK                      // 38 &
 #define ASCII_27        KEY_TILDE                               // 39 '
 #define ASCII_28        KEY_9 + SHIFT_MASK                      // 40 (
 #define ASCII_29        KEY_0 + SHIFT_MASK                      // 41 )
-#define ASCII_2A        KEY_7 + SHIFT_MASK                      // 42 *
+#define ASCII_2A        KEY_8 + SHIFT_MASK                      // 42 *
 #define ASCII_2B        KEY_EQUAL + SHIFT_MASK                  // 43 +
 #define ASCII_2C        KEY_COMMA                               // 44 ,
 #define ASCII_2D        KEY_MINUS                               // 45 -
@@ -3371,9 +3375,9 @@ extern "C" {
 #define ASCII_5B        KEY_RIGHT_BRACE                         // 91 [
 #define ASCII_5C        KEY_NON_US_100                          // 92
 #define ASCII_5D        KEY_BACKSLASH                           // 93 ]
-#define ASCII_5E        CIRCUMFLEX_BITS + KEY_SPACE             // 94 ^
+#define ASCII_5E        KEY_QUOTE + SHIFT_MASK                  // 94 ^
 #define ASCII_5F        KEY_MINUS + SHIFT_MASK                  // 95 _
-#define ASCII_60        GRAVE_ACCENT_BITS + KEY_SPACE           // 96 `
+#define ASCII_60        KEY_LEFT_BRACE + SHIFT_MASK             // 96 `
 #define ASCII_61        KEY_A                                   // 97 a
 #define ASCII_62        KEY_B                                   // 98 b
 #define ASCII_63        KEY_C                                   // 99 c
@@ -3403,7 +3407,7 @@ extern "C" {
 #define ASCII_7B        KEY_RIGHT_BRACE + SHIFT_MASK            // 123 {
 #define ASCII_7C        KEY_NON_US_100 + SHIFT_MASK             // 124 |
 #define ASCII_7D        KEY_BACKSLASH + SHIFT_MASK              // 125 }
-#define ASCII_7E        TILDE_BITS + KEY_SPACE                  // 126 ~
+#define ASCII_7E        KEY_QUOTE                               // 126 ~
 #define ASCII_7F        KEY_BACKSPACE                           // 127
 
 #define ISO_8859_1_A0   KEY_SPACE                               // 160       Nonbreakng Space
@@ -3445,7 +3449,7 @@ extern "C" {
 #define ISO_8859_1_C4   DIAERESIS_BITS + KEY_A + SHIFT_MASK     // 196 Ä     A DIAERESIS
 #define ISO_8859_1_C5   0                                       // 197 Å     A RING ABOVE
 #define ISO_8859_1_C6   0                                       // 198 Æ     AE
-#define ISO_8859_1_C7   0                                       // 199 Ç     C CEDILLA
+#define ISO_8859_1_C7   KEY_SEMICOLON + SHIFT_MASK              // 199 Ç     C CEDILLA
 #define ISO_8859_1_C8   GRAVE_ACCENT_BITS + KEY_E + SHIFT_MASK  // 200 È     E GRAVE
 #define ISO_8859_1_C9   ACUTE_ACCENT_BITS + KEY_E + SHIFT_MASK  // 201 É     E ACUTE
 #define ISO_8859_1_CA   CIRCUMFLEX_BITS + KEY_E + SHIFT_MASK    // 202 Ê     E CIRCUMFLEX
@@ -3477,7 +3481,7 @@ extern "C" {
 #define ISO_8859_1_E4   DIAERESIS_BITS + KEY_A                  // 228 ä     a DIAERESIS
 #define ISO_8859_1_E5   0                                       // 229 å     a RING ABOVE
 #define ISO_8859_1_E6   0                                       // 230 æ     ae
-#define ISO_8859_1_E7   0                                       // 231 ç     c CEDILLA
+#define ISO_8859_1_E7   KEY_SEMICOLON                           // 231 ç     c CEDILLA
 #define ISO_8859_1_E8   GRAVE_ACCENT_BITS + KEY_E               // 232 è     e GRAVE
 #define ISO_8859_1_E9   ACUTE_ACCENT_BITS + KEY_E               // 233 é     e ACUTE
 #define ISO_8859_1_EA   CIRCUMFLEX_BITS + KEY_E                 // 234 ê     e CIRCUMFLEX
