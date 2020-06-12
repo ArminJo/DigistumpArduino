@@ -147,13 +147,15 @@ public:
         return modifier;
     }
 
+    /*
+     * Mask keycodes to ascii subset (+ a few F keys)
+     */
     uint8_t keycode_to_key(KEYCODE_TYPE keycode) {
-        uint8_t key = keycode & 0x3F;
-#ifdef KEY_NON_US_100
-        if (key == KEY_NON_US_100) {
-            key = 100;
+        uint8_t key = keycode;
+        // the only valid ASCII code > 63
+        if (keycode != KEY_NON_US_BS) {
+            key = key & 0x3F;
         }
-#endif
         return key;
     }
 
