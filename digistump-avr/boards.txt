@@ -156,3 +156,26 @@ digispark-tiny1.upload.disable_flushing = false
 
 digispark-tiny1.bootloader.tool=micronucleus
 digispark-tiny1.bootloader.file=upgrade-t85_entry_on_power_on_no_pullup_fast_exit_on_no_USB.hex
+
+##############################################################
+
+MHETtiny88.name=MH-ET LIVE Tiny88(16.0MHz)
+
+MHETtiny88.build.mcu=attiny88
+MHETtiny88.build.f_cpu=16000000L
+MHETtiny88.build.board=AVR_DIGISPARKPRO
+MHETtiny88.build.core=tiny
+MHETtiny88.build.variant=tiny88
+
+MHETtiny88.upload.using=micronucleusprog
+MHETtiny88.upload.protocol=usb
+MHETtiny88.upload.tool=micronucleus
+MHETtiny88.upload.maximum_size=6650
+MHETtiny88.upload.maximum_data_size=496
+
+MHETtiny88.upload.wait_for_upload_port = false
+MHETtiny88.upload.use_1200bps_touch = false
+MHETtiny88.upload.disable_flushing = false
+
+MHETtiny88.bootloader.tool=micronucleus
+MHETtiny88.bootloader.file=upgrade-t88_entry_on_power_on_no_pullup_fast_exit_on_no_USB.hex
