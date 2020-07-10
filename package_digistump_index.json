@@ -12,7 +12,7 @@
          {
           "name": "Digistump AVR Boards",
           "architecture": "avr",
-          "version": "1.7.0",
+          "version": "1.6.0",
           "category": "Digistump",
           "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/digistump-avr-1.7.0.zip",
           "archiveFileName": "digistump-avr-1.7.0.zip",
