@@ -256,11 +256,11 @@ class DigiMouseDevice {
 	}
 
 	void leftClick(){
-		last_built_report[0] = MOUSEBTN_RIGHT_MASK;
+		last_built_report[0] = MOUSEBTN_LEFT_MASK;
 	}
 	
 	void middleClick(){
-		last_built_report[0] = MOUSEBTN_RIGHT_MASK;
+		last_built_report[0] = MOUSEBTN_MIDDLE_MASK;
 	}
 	
 	void setButtons(unsigned char buttons) {
