@@ -98,11 +98,30 @@ public:
         sendKeyStroke(keyStroke, 0);
     }
 
+    void enableLEDFeedback() {
+        sUseFeedbackLed = true;
+    }
+
+    void disableLEDFeedback() {
+        sUseFeedbackLed = false;
+    }
+
     //sendKeyStroke: sends a key press AND release with modifiers
     void sendKeyStroke(byte keyStroke, byte modifiers) {
+        sendKeyStroke(keyStroke, modifiers,false);
+    }
+
+    //sendKeyStroke: sends a key press AND release with modifiers
+    void sendKeyStroke(byte keyStroke, byte modifiers, bool aUseFeedbackLed) {
+        if(aUseFeedbackLed) {
+            digitalWrite(LED_BUILTIN, HIGH);
+        }
         sendKeyPress(keyStroke, modifiers);
         // This stops endlessly repeating keystrokes:
         sendKeyPress(0, 0);
+        if(aUseFeedbackLed) {
+            digitalWrite(LED_BUILTIN, LOW);
+        }
     }
 
     //sendKeyPress: sends a key press only - no release
@@ -173,12 +192,12 @@ public:
             data = pgm_read_byte_near(keycodes_ascii + (chr - 0x20));
         }
         if (data) {
-            sendKeyStroke(keycode_to_key(data), keycode_to_modifier(data));
+            sendKeyStroke(keycode_to_key(data), keycode_to_modifier(data),sUseFeedbackLed);
         }
         return 1;
     }
 
-    //private: TODO: Make friend?
+    bool sUseFeedbackLed = false;
     uchar reportBuffer[2];    // buffer for HID reports [ 1 modifier byte + (len-1) key strokes]
     using Print::write;
 };

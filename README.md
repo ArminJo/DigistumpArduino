@@ -40,6 +40,44 @@ You may also test the [t85_agressive bootloader](firmware/configuration#overview
 It works for my boards but the USB timing is not guaranteed as stable as in the other configurations.
 Do not forget to change the `upload.maximum_size` entry in *%localappdata%\Arduino15\packages\digistump\hardware\avr\1.6.8\boards.txt* to **6778**.<br/>
 
+# Pin layout
+### ATtiny85 on Digispark
+
+```
+                       +-\/-+
+ RESET/ADC0 (D5) PB5  1|    |8  VCC
+  USB- ADC3 (D3) PB3  2|    |7  PB2 (D2) INT0/ADC1 - default TX Debug output for ATtinySerialOut
+  USB+ ADC2 (D4) PB4  3|    |6  PB1 (D1) MISO/DO/AIN1/OC0B/OC1A/PCINT1 - (Digispark) LED
+                 GND  4|    |5  PB0 (D0) OC0A/AIN0
+                       +----+
+  USB+ and USB- are each connected to a 3.3 volt Zener to GND and with a 68 Ohm series resistor to the ATtiny pin.
+  On boards with a micro USB connector, the series resistor is 22 Ohm instead of 68 Ohm. 
+  USB- has a 1k pullup resistor to indicate a low-speed device (standard says 1k5).                  
+  USB+ and USB- are each terminated on the host side with 15k to 25k pull-down resistors.
+```
+
+### ATtiny167 on Digispark pro
+Digital Pin numbers in braces are for ATTinyCore library
+
+```
+                  +-\/-+
+RX   6 (D0) PA0  1|    |20  PB0 (D8)  0 OC1AU
+TX   7 (D1) PA1  2|    |19  PB1 (D9)  1 OC1BU - (Digispark) LED
+     8 (D2) PA2  3|    |18  PB2 (D10) 2 OC1AV
+INT1 9 (D3) PA3  4|    |17  PB3 (D11) 4 OC1BV USB-
+           AVCC  5|    |16  GND
+           AGND  6|    |15  VCC
+    10 (D4) PA4  7|    |14  PB4 (D12)   XTAL1
+    11 (D5) PA5  8|    |13  PB5 (D13)   XTAL2
+    12 (D6) PA6  9|    |12  PB6 (D14) 3 INT0  USB+
+     5 (D7) PA7 10|    |11  PB7 (D15)   RESET
+                  +----+
+  USB+ and USB- are each connected to a 3.3 volt Zener to GND and with a 51 Ohm series resistor to the ATtiny pin.
+  USB- has a 1k5 pullup resistor to indicate a low-speed device.
+  USB+ and USB- are each terminated on the host side with 15k to 25k pull-down resistors.
+
+```
+
 ## Oak board
 The Arduino ESP8266 core available with https://arduino.esp8266.com/stable/package_esp8266com_index.json supports the *Digistump Oak* board now, better use that.
 
