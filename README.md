@@ -1,7 +1,7 @@
 # Improved version of Digistump avr core for Arduino
 Available as Arduino Board Manager entry "Digistump AVR Boards" using the Board Manager URL: https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json
 
-### [Version 1.6.8 ](https://github.com/ArminJo/DigistumpArduino/releases)
+### [Version 1.7.0 ](https://github.com/ArminJo/DigistumpArduino/releases)
 
 [![TestCompile](https://github.com/ArminJo/DigistumpArduino/workflows/TestCompile/badge.svg)](https://github.com/ArminJo/DigistumpArduino/actions)
 [![Hit Counter](https://hitcounter.pythonanywhere.com/count/tag.svg?url=https://github.com/ArminJo/DigistumpArduino)](https://github.com/brentvollebregt/hit-counter)
@@ -10,7 +10,6 @@ Available as Arduino Board Manager entry "Digistump AVR Boards" using the Board 
 - **To shrink generated code size by 5 to 15 percent** (depending on your code) the lto flag was added in `platform.txt`. To help finding code which consumes the flash, the generating of disassembler and memory map files are added. For Arduino IDE you will find these files in *C:\Users\<Name>\AppData\Local\Temp\arduino_build_<number>*.
 - To **reflect the smaller bootloader size** of [micronucleus version 2.5](https://github.com/ArminJo/micronucleus-firmware) which allow 6586 instead of 6012 bytes (+11%) the *upload.maximum_size* entry was changed in `boards.txt`.
 - Since the original gcc version does not support the lto flag, the compiler path was changed to the latest Arduino gcc (7.3.0-atmel3.6.1-arduino5) in the `package_digistump_index.json`.
-- Enabled *compiler.cpp.extra_flags*.
 
 ## Other improvements
 - Added `#define LED_BUILTIN ` in some *pins_arduino.h*.
@@ -20,9 +19,10 @@ Available as Arduino Board Manager entry "Digistump AVR Boards" using the Board 
 - Added recipe to update booltloader by Arduino IDE.
 - Removed the non trusted post_install.bat since Arduino code states: `// Set main and bundled indexes as trusted` => all others are untrusted.
 - Extended `DigisparkKeyboard` library with 22 keyboard layouts from [Teensyduino Core Library](https://github.com/PaulStoffregen/cores/blob/master/teensy/keylayouts.h), fixed bugs, **documented** and improved it. [Here](https://github.com/ArminJo/DigistumpArduino/blob/542aac12e56a1818af32b303c5709c655a12d98d/digistump-avr/libraries/DigisparkKeyboard/keylayouts.h#L80) it is documented how the mapping works, so now you can fix wrong mappings by your own (but please give me feedback to include the fix).
+- Fixed and extended a growing number of examples.
 
 # Installation
-To get all the benefits, just replace the old Digispark board URL **http://digistump.com/package_digistump_index.json** (e.g. in Arduino *File/Preferences*) by the new  **https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json** and install the **Digistump AVR Boards** version **1.6.8**.
+To get all the benefits, just replace the old Digispark board URL **http://digistump.com/package_digistump_index.json** (e.g. in Arduino *File/Preferences*) by the new  **https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json** and install the **Digistump AVR Boards** version **1.6.8** or later.
 ![Boards Manager](https://github.com/ArminJo/DigistumpArduino/blob/master/pictures/Digistump1.6.8.jpg)
 
 ## Driver installation
@@ -83,6 +83,9 @@ The Arduino ESP8266 core available with https://arduino.esp8266.com/stable/packa
 
 # Revision History
 
+### Version 1.7.0
+- Support of the cheap Chinese MH-ET LIVE Tiny88(16.0MHz) board.
+
 ### Version 1.6.8
 - The original Digistump version with `lto` and changed `upload.maximum_size` for [micronucleus bootloader 2.5](https://github.com/ArminJo/micronucleus-firmware).
 - Added `LED_BUILTIN` definition in *pins_arduino.h*.
@@ -99,6 +102,7 @@ The Arduino ESP8266 core available with https://arduino.esp8266.com/stable/packa
 - Redefining BIN to 2 for print. BIN can not longer be used as bit position (7) for the x5 ADC "Bipolar Input Mode".
 - Enabled all warnings at compile time and removed compiler warnings in tiny core.
 - Modified definition for yield() in *WProgram.h* to avoid error "undefined reference to `yield()'".
+- Enabled *compiler.cpp.extra_flags*.
 
 ## Requests for modifications / extensions
 Please write me a PM including your motivation/problem if you need a modification or an extension.

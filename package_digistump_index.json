@@ -12,6 +12,57 @@
          {
           "name": "Digistump AVR Boards",
           "architecture": "avr",
+          "version": "1.7.0",
+          "category": "Digistump",
+          "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/digistump-avr-1.7.0.zip",
+          "archiveFileName": "digistump-avr-1.7.0.zip",
+          "checksum": "SHA-256:da9103f36b0206e9519a70871542370ecef10017d8dd79199eefab07a5a023f9",
+          "size": "2175149",
+          "help": {
+            "online": "https://github.com/digistump/DigistumpArduino/issues"
+          },
+          "boards": [
+            {
+              "name": "Digispark (Default - 16.5 MHz)"
+            },
+            {
+              "name": "Digispark Pro (Default 16 MHz)"
+            },
+            {
+              "name": "Digispark Pro (16 MHz) (32 byte buffer)"
+            },
+            {
+              "name": "Digispark Pro (16 MHz) (64 byte buffer)"
+            },
+            {
+              "name": "Digispark (16 MHz - No USB)"
+            },
+            {
+              "name": "Digispark (8 MHz - No USB)"
+            },
+            {
+              "name": "Digispark (1 MHz - No USB)"
+            },
+            {
+              "name": "MH-ET LIVE Tiny88 (16 MHz)"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "arduino",
+              "name": "avr-gcc",
+              "version": "7.3.0-atmel3.6.1-arduino5"
+            },
+            {
+              "packager": "digistump",
+              "name": "micronucleus",
+              "version": "2.0a4"
+            }
+          ]
+        },
+         {
+          "name": "Digistump AVR Boards",
+          "architecture": "avr",
           "version": "1.6.8",
           "category": "Digistump",
           "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/digistump-avr-1.6.8.zip",
@@ -104,7 +155,7 @@
               "version": "2.0a4"
             }
           ]
-        },        
+        },
         {
           "name": "Digistump SAM Boards (32-bits ARM Cortex-M3)",
           "architecture": "sam",

@@ -4,7 +4,7 @@ menu.cpu=Processor
 
 ##############################################################
 
-digispark-tiny.name=Digispark (Default - 16.5mhz)
+digispark-tiny.name=Digispark (Default - 16.5 MHz)
 
 digispark-tiny.build.mcu=attiny85
 digispark-tiny.build.f_cpu=16500000L
@@ -26,7 +26,7 @@ digispark-tiny.bootloader.file=upgrade-t85_entry_on_power_on_no_pullup_fast_exit
 
 ##############################################################
 
-digispark-pro.name=Digispark Pro (Default 16 Mhz)
+digispark-pro.name=Digispark Pro (Default 16 MHz)
 
 digispark-pro.build.mcu=attiny167
 digispark-pro.build.f_cpu=16000000L
@@ -48,7 +48,7 @@ digispark-pro.bootloader.file=upgrade-t167_entry_on_power_on_no_pullup_fast_exit
 
 ##############################################################
 
-digispark-pro32.name=Digispark Pro (16 Mhz) (32 byte buffer)
+digispark-pro32.name=Digispark Pro (16 MHz) (32 byte buffer)
 
 digispark-pro32.build.mcu=attiny167
 digispark-pro32.build.f_cpu=16000000L
@@ -70,7 +70,7 @@ digispark-pro32.bootloader.file=upgrade-t167_entry_on_power_on_no_pullup_fast_ex
 
 ##############################################################
 
-digispark-pro64.name=Digispark Pro (16 Mhz) (64 byte buffer)
+digispark-pro64.name=Digispark Pro (16 MHz) (64 byte buffer)
 
 digispark-pro64.build.mcu=attiny167
 digispark-pro64.build.f_cpu=16000000L
@@ -92,7 +92,7 @@ digispark-tiny16.bootloader.file=upgrade-t167_entry_on_power_on_no_pullup_fast_e
 
 ##############################################################
 
-digispark-tiny16.name=Digispark (16mhz - No USB)
+digispark-tiny16.name=Digispark (16 MHz - No USB)
 
 digispark-tiny16.build.mcu=attiny85
 digispark-tiny16.build.f_cpu=16000000L
@@ -114,7 +114,7 @@ digispark-tiny16.bootloader.file=upgrade-t85_entry_on_power_on_no_pullup_fast_ex
 
 ##############################################################
 
-digispark-tiny8.name=Digispark (8mhz - No USB)
+digispark-tiny8.name=Digispark (8 MHz - No USB)
 
 digispark-tiny8.build.mcu=attiny85
 digispark-tiny8.build.f_cpu=8000000L
@@ -136,7 +136,7 @@ digispark-tiny8.bootloader.file=upgrade-t85_entry_on_power_on_no_pullup_fast_exi
 
 ##############################################################
 
-digispark-tiny1.name=Digispark (1mhz - No USB)
+digispark-tiny1.name=Digispark (1 MHz - No USB)
 
 digispark-tiny1.build.mcu=attiny85
 digispark-tiny1.build.f_cpu=1000000L
@@ -159,7 +159,7 @@ digispark-tiny1.bootloader.file=upgrade-t85_entry_on_power_on_no_pullup_fast_exi
 
 ##############################################################
 
-MHETtiny88.name=MH-ET LIVE Tiny88(16.0MHz)
+MHETtiny88.name=MH-ET LIVE Tiny88 (16 MHz)
 
 MHETtiny88.build.mcu=attiny88
 MHETtiny88.build.f_cpu=16000000L
