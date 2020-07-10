@@ -85,6 +85,7 @@ The Arduino ESP8266 core available with https://arduino.esp8266.com/stable/packa
 
 ### Version 1.7.0
 - Support of the cheap Chinese MH-ET LIVE Tiny88(16.0MHz) board.
+- Corrected wrong mouse buttons PR#2.
 
 ### Version 1.6.8
 - The original Digistump version with `lto` and changed `upload.maximum_size` for [micronucleus bootloader 2.5](https://github.com/ArminJo/micronucleus-firmware).

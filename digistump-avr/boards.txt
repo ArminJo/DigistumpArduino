@@ -164,7 +164,7 @@ MHETtiny88.name=MH-ET LIVE Tiny88 (16 MHz)
 MHETtiny88.build.mcu=attiny88
 MHETtiny88.build.f_cpu=16000000L
 MHETtiny88.build.board=AVR_DIGISPARKPRO
-MHETtiny88.build.core=tiny
+MHETtiny88.build.core=tiny88
 MHETtiny88.build.variant=tiny88
 
 MHETtiny88.upload.using=micronucleusprog

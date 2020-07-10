@@ -52,7 +52,7 @@
 #ifndef ATTINY_SERIAL_OUT_H_
 #define ATTINY_SERIAL_OUT_H_
 
-#if defined(__AVR_ATtiny25__) || defined(__AVR_ATtiny45__) || defined(__AVR_ATtiny85__) || defined(__AVR_ATtiny87__) || defined(__AVR_ATtiny167__)
+#if defined(__AVR_ATtiny25__) || defined(__AVR_ATtiny45__) || defined(__AVR_ATtiny85__) || defined(__AVR_ATtiny87__) || defined(__AVR_ATtiny167__) || defined(__AVR_ATtiny88__)
 #include <Arduino.h>
 
 #define VERSION_ATTINY_SERIAL_OUT "1.1.0"
@@ -68,7 +68,7 @@
  * or set it as Symbol like "-DTX_PIN PB1"
  * or when switching port (e.g. for ATiny167), then we need more Symbols like "-DTX_PIN PB1 -DTX_PORT PORTB -DTX_PORT_ADDR 0x05 -TX_DDR DDRB"
  */
-#if defined(__AVR_ATtiny87__) || defined(__AVR_ATtiny167__)
+#if defined(__AVR_ATtiny87__) || defined(__AVR_ATtiny167__) || defined(__AVR_ATtiny88__)
 #ifndef TX_PIN
 #define TX_PIN PA1 // (package pin 2 / TXD on Tiny167) - can use one of PA0 to PA7 here
 #endif
@@ -82,14 +82,14 @@
 //#define TX_DDR DDRB
 #endif
 
-#else // defined(__AVR_ATtiny87__) || defined(__AVR_ATtiny167__)
+#else // defined(__AVR_ATtiny87__) || defined(__AVR_ATtiny167__) || defined(__AVR_ATtiny88__)
 #ifndef TX_PIN
 #define TX_PIN PB2 // (package pin 7 on Tiny85) - can use one of PB0 to PB4 (+PB5) here
 #endif
 #define TX_PORT PORTB
 #define TX_PORT_ADDR 0x18 // PORTB
 #define TX_DDR DDRB
-#endif // defined(__AVR_ATtiny87__) || defined(__AVR_ATtiny167__)
+#endif // defined(__AVR_ATtiny87__) || defined(__AVR_ATtiny167__) || defined(__AVR_ATtiny88__)
 /*
  * @1 MHz use bigger (+120 bytes for unrolled loop) but faster code. Otherwise only 38400 baud is possible.
  * @8/16 MHz use 115200 baud instead of 230400 baud.
@@ -215,7 +215,7 @@ extern TinySerialOut Serial;
 #endif
 #define Print TinySerialOut
 
-#endif // defined(__AVR_ATtiny25__) || defined(__AVR_ATtiny45__) || defined(__AVR_ATtiny85__) || defined(__AVR_ATtiny87__) || defined(__AVR_ATtiny167__)
+#endif // defined(__AVR_ATtiny25__) || defined(__AVR_ATtiny45__) || defined(__AVR_ATtiny85__) || defined(__AVR_ATtiny87__) || defined(__AVR_ATtiny167__) || defined(__AVR_ATtiny88__)
 
 #endif /* ATTINY_SERIAL_OUT_H_ */
 

@@ -40,7 +40,7 @@ jobs:
 #          - digistump:avr:digispark-tiny   # ATtiny85 board @16.5 MHz
           - digistump:avr:digispark-tiny16 # ATtiny85 board @16 MHz
           - digistump:avr:digispark-pro
-#          - digistump:avr:MHETtiny88 # Chinese MH-Tiny ATTiny88
+          - digistump:avr:MHETtiny88 # Chinese MH-Tiny ATTiny88
 
         # Specify parameters for each board.
         # With examples-exclude you may exclude specific examples for a board. Use a comma separated list.
@@ -48,6 +48,9 @@ jobs:
         include:
           - arduino-boards-fqbn: digistump:avr:digispark-tiny16  # ATtiny85 board @16 MHz
             examples-exclude: Blink
+
+          - arduino-boards-fqbn: digistump:avr:MHETtiny88  # ATtiny85 board @16 MHz
+            examples-exclude: WiiClassicJoystick,BasicUsage,DigisparkOLED,SoftRcPulseInDebug,SoftRcPulseInOutDemo,SoftRcPulseInDemo,SoftRcPulseInOutDemo,TinySoftPwmDemo,DigiUSB2LCD,DigisparkUSBDemo,ArduinoNunchukDemo,DigisparkJoystickDemo,Tiny85_Temp,SoftSerialExample,TwoPortReceive,SoftPwm13Pins
 
       # Do not cancel all jobs / architectures if one job fails
       fail-fast: false
