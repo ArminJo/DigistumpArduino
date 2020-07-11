@@ -219,7 +219,7 @@ extern const uint8_t PROGMEM digital_pin_to_timer_PGM[];
 #define TIMER1B 4
 #define TIMER1C 5
 
-#ifdef defined(__AVR_ATtiny167__)
+#if defined(__AVR_ATtiny167__)
 #define TIMER1D 6
 
 #else
