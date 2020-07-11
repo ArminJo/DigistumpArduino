@@ -47,10 +47,13 @@ jobs:
         #############################################################################################################
         include:
           - arduino-boards-fqbn: digistump:avr:digispark-tiny16  # ATtiny85 board @16 MHz
-            examples-exclude: Blink
+            examples-exclude: digital_potentiometer,master_reader,master_writer,SFRRanger_reader,slave_receiver,slave_sender # All Wire examples
+
+          - arduino-boards-fqbn: digistump:avr:digispark-pro
+            examples-exclude: digital_potentiometer,master_reader,master_writer,SFRRanger_reader,slave_receiver,slave_sender # All Wire examples
 
           - arduino-boards-fqbn: digistump:avr:MHETtiny88  # ATtiny85 board @16 MHz
-            examples-exclude: WiiClassicJoystick,BasicUsage,DigisparkOLED,SoftRcPulseInDebug,SoftRcPulseInOutDemo,SoftRcPulseInDemo,SoftRcPulseInOutDemo,TinySoftPwmDemo,DigiUSB2LCD,DigisparkUSBDemo,ArduinoNunchukDemo,DigisparkJoystickDemo,Tiny85_Temp,SoftSerialExample,TwoPortReceive,SoftPwm13Pins
+            examples-exclude: WiiClassicJoystick,BasicUsage,DigisparkOLED,SoftRcPulseInDebug,SoftRcPulseInOutDemo,SoftRcPulseInDemo,SoftRcPulseInOutDemo,TinySoftPwmDemo,DigiUSB2LCD,DigisparkUSBDemo,ArduinoNunchukDemo,DigisparkJoystickDemo,Tiny85_Temp,Tiny85_Temp_LCD,Tiny85_Temp_LCD_RTC,SoftSerialExample,TwoPortReceive,SoftPwm13Pins
 
       # Do not cancel all jobs / architectures if one job fails
       fail-fast: false
