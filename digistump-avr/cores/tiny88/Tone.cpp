@@ -28,592 +28,646 @@ Version Modified By Date     Comments
                     09/11/25 Changed pin toggle method to XOR
                     09/11/25 Fixed timer0 from being excluded
 0006    D Mellis    09/12/29 Replaced objects with functions
-0007    M Sproul    10/08/29 Changed #ifdefs from cpu to register
-0008    S Kanemoto  12/06/22 Fixed for Leonardo by @maris_HY
-0009    J Reucker   15/04/10 Issue #292 Fixed problems with ATmega8 (thanks to Pete62)
-0010    jipp        15/04/13 added additional define check #2923
+0007    B Cook      10/05/03 Rewritten to only work with Timer1 and support direct hardware output
+0008    B Cook      10/05/03 Rewritten so the timer can be selected at compile time
+0009  T Carpenter 12/08/06 Rewritten to remove requirement for all the weird timer name creation macros.
+ 0010    Armin Jo    19/06/30 Added 87 and 167 support and corrected # indentations.
+
 *************************************************/
 
 #include <avr/interrupt.h>
-#include <avr/pgmspace.h>
 #include "Arduino.h"
+#include "wiring_private.h"
 #include "pins_arduino.h"
-
-#if defined(__AVR_ATmega8__) || defined(__AVR_ATmega128__)
-#define TCCR2A TCCR2
-#define TCCR2B TCCR2
-#define COM2A1 COM21
-#define COM2A0 COM20
-#define OCR2A OCR2
-#define TIMSK2 TIMSK
-#define OCIE2A OCIE2
-#define TIMER2_COMPA_vect TIMER2_COMP_vect
-#define TIMSK1 TIMSK
-#endif
 
 // timerx_toggle_count:
 //  > 0 - duration specified
 //  = 0 - stopped
 //  < 0 - infinitely (until stop() method called, or new play() called)
 
-#if !defined(__AVR_ATmega8__)
-volatile long timer0_toggle_count;
-volatile uint8_t *timer0_pin_port;
-volatile uint8_t timer0_pin_mask;
+static volatile long tone_timer_toggle_count;
+static volatile uint8_t *tone_timer_pin_register;
+static volatile uint8_t tone_timer_pin_mask;
+
+static uint8_t tone_pin = 255;
+static unsigned long freq=0;
+
+
+void tone( uint8_t _pin, unsigned long frequency, unsigned long duration )
+{
+  if(_pin==tone_pin && freq==frequency&&duration==0) {
+    return;
+  }
+  freq=frequency;
+
+  if ( tone_pin == 255 )
+  {
+    /* Set the timer to power-up conditions so we start from a known state */
+    // Ensure the timer is in the same state as power-up
+#if (TIMER_TO_USE_FOR_TONE == 0)
+    TCCR0B = (0<<FOC0A) | (0<<FOC0B) | (0<<WGM02) | (0<<CS02) | (0<<CS01) | (0<<CS00);
+    TCCR0A = (0<<COM0A1) | (0<<COM0A0) | (0<<COM0B1) | (0<<COM0B0) | (0<<WGM01) | (0<<WGM00);
+    // Reset the count to zero
+
+    TCNT0 = 0;
+    // Set the output compare registers to zero
+    OCR0A = 0;
+    OCR0B = 0;
+  #if defined(TIMSK)
+    // Disable all Timer0 interrupts
+    TIMSK &= ~((1<<OCIE0B) | (1<<OCIE0A) | (1<<TOIE0));
+    // Clear the Timer0 interrupt flags
+    TIFR |= ((1<<OCF0B) | (1<<OCF0A) | (1<<TOV0));
+  #elif defined(TIMSK1)
+    // Disable all Timer0 interrupts
+    TIMSK0 &= ~((1<<OCIE0B) | (1<<OCIE0A) | (1<<TOIE0));
+    // Clear the Timer0 interrupt flags
+    TIFR0 |= ((1<<OCF0B) | (1<<OCF0A) | (1<<TOV0));
+  #endif //TIMER_TO_USE_FOR_TONE==0
+
+#elif defined(__AVR_ATtiny43__)
+    TCCR1B = (0<<FOC1A) | (0<<FOC1B) | (0<<WGM12) | (0<<CS12) | (0<<CS11) | (0<<CS10);
+    TCCR1A = (0<<COM1A1) | (0<<COM1A0) | (0<<COM1B1) | (0<<COM1B0) | (0<<WGM11) | (0<<WGM10);
+    // Reset the count to zero
+
+    TCNT1 = 0;
+    // Set the output compare registers to zero
+    OCR1A = 0;
+    OCR1B = 0;
+    // Disable all Timer0 interrupts
+    TIMSK1 &= ~((1<<OCIE1B) | (1<<OCIE1A) | (1<<TOIE1));
+    // Clear the Timer0 interrupt flags
+    TIFR1 |= ((1<<OCF1B) | (1<<OCF1A) | (1<<TOV1));
+
+
+#elif (TIMER_TO_USE_FOR_TONE == 1) && defined(TCCR1) //START OF ATTINY 85
+    // Turn off Clear on Compare Match, turn off PWM A, disconnect the timer from the output pin, stop the clock
+    TCCR1 = (0<<CTC1) | (0<<PWM1A) | (0<<COM1A1) | (0<<COM1A0) | (0<<CS13) | (0<<CS12) | (0<<CS11) | (0<<CS10);
+    // Turn off PWM A, disconnect the timer from the output pin, no Force Output Compare Match, no Prescaler Reset
+    GTCCR &= ~((1<<PWM1B) | (1<<COM1B1) | (1<<COM1B0) | (1<<FOC1B) | (1<<FOC1A) | (1<<PSR1));
+    // Reset the count to zero
+    TCNT1 = 0;
+    // Set the output compare registers to zero
+    OCR1A = 0;
+    OCR1B = 0;
+    OCR1C = 0;
+    // Disable all Timer1 interrupts
+    TIMSK &= ~((1<<OCIE1A) | (1<<OCIE1B) | (1<<TOIE1));
+    // Clear the Timer1 interrupt flags
+    TIFR |= ((1<<OCF1A) | (1<<OCF1B) | (1<<TOV1));
+
+      //END OF ATTINY 85
+#elif (TIMER_TO_USE_FOR_TONE == 1) && defined(TCCR1E) //
+    TCCR1A = 0;
+    TCCR1B = 0;
+    TCCR1C = 0;
+    TCCR1D = 0;
+    TCCR1E = 0;
+    // Reset the count to zero
+    TCNT1 = 0;
+    // Set the output compare registers to zero
+    OCR1A = 0;
+    OCR1B = 0;
+    // Disable all Timer1 interrupts
+    TIMSK &= ~((1<<TOIE1) | (1<<OCIE1A) | (1<<OCIE1B) | (1<<OCIE1D));
+    // Clear the Timer1 interrupt flags
+    TIFR |= ((1<<TOV1) | (1<<OCF1A) | (1<<OCF1B) | (1<<OCF1D));
+
+
+#elif (TIMER_TO_USE_FOR_TONE == 1) //Well behaved timer
+    // Turn off Input Capture Noise Canceler, Input Capture Edge Select on Falling, stop the clock
+    TCCR1B = (0<<ICNC1) | (0<<ICES1) | (0<<WGM13) | (0<<WGM12) | (0<<CS12) | (0<<CS11) | (0<<CS10);
+    // Disconnect the timer from the output pins, Set Waveform Generation Mode to Normal
+    TCCR1A = (0<<COM1A1) | (0<<COM1A0) | (0<<COM1B1) | (0<<COM1B0) | (0<<WGM11) | (0<<WGM10);
+    // Reset the count to zero
+    TCNT1 = 0;
+    // Set the output compare registers to zero
+    OCR1A = 0;
+    OCR1B = 0;
+  #if defined(TCCR1D)
+    TCCR1C = 0;
+    TCCR1D = 0;
+  #endif
+    // Disable all Timer1 interrupts
+  #if defined(TIMSK)
+    TIMSK &= ~((1<<TOIE1) | (1<<OCIE1A) | (1<<OCIE1B) | (1<<ICIE1));
+    // Clear the Timer1 interrupt flags
+    TIFR |= ((1<<TOV1) | (1<<OCF1A) | (1<<OCF1B) | (1<<ICF1));
+  #elif defined(TIMSK1)
+    // Disable all Timer1 interrupts
+    TIMSK1 &= ~((1<<TOIE1) | (1<<OCIE1A) | (1<<OCIE1B) | (1<<ICIE1));
+    // Clear the Timer1 interrupt flags
+    TIFR1 |= ((1<<TOV1) | (1<<OCF1A) | (1<<OCF1B) | (1<<ICF1));
+  #endif
+
 #endif
 
-volatile long timer1_toggle_count;
-volatile uint8_t *timer1_pin_port;
-volatile uint8_t timer1_pin_mask;
-volatile long timer2_toggle_count;
-volatile uint8_t *timer2_pin_port;
-volatile uint8_t timer2_pin_mask;
+    /*
+      Compare Output Mode = Normal port operation, OCxA/OCxB disconnected.
+      Waveform Generation Mode = 4; 0100; CTC; (Clear Timer on Compare); OCR1A; Immediate; MAX
+      Clock Select = No clock source (Timer/Counter stopped).
+      Note: Turn off the clock first to avoid ticks and scratches.
+    */
+#if defined(__AVR_ATtiny43__)
 
-#if defined(TIMSK3)
-volatile long timer3_toggle_count;
-volatile uint8_t *timer3_pin_port;
-volatile uint8_t timer3_pin_mask;
-#endif
-
-#if defined(TIMSK4)
-volatile long timer4_toggle_count;
-volatile uint8_t *timer4_pin_port;
-volatile uint8_t timer4_pin_mask;
-#endif
-
-#if defined(TIMSK5)
-volatile long timer5_toggle_count;
-volatile uint8_t *timer5_pin_port;
-volatile uint8_t timer5_pin_mask;
-#endif
-
-
-#if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__)
-
-#define AVAILABLE_TONE_PINS 1
-#define USE_TIMER2
-
-const uint8_t PROGMEM tone_pin_to_timer_PGM[] = { 2 /*, 3, 4, 5, 1, 0 */ };
-static uint8_t tone_pins[AVAILABLE_TONE_PINS] = { 255 /*, 255, 255, 255, 255, 255 */ };
-
-#elif defined(__AVR_ATmega8__)
-
-#define AVAILABLE_TONE_PINS 1
-#define USE_TIMER2
-
-const uint8_t PROGMEM tone_pin_to_timer_PGM[] = { 2 /*, 1 */ };
-static uint8_t tone_pins[AVAILABLE_TONE_PINS] = { 255 /*, 255 */ };
-
-#elif defined(__AVR_ATmega32U4__)
- 
-#define AVAILABLE_TONE_PINS 1
-#define USE_TIMER3
- 
-const uint8_t PROGMEM tone_pin_to_timer_PGM[] = { 3 /*, 1 */ };
-static uint8_t tone_pins[AVAILABLE_TONE_PINS] = { 255 /*, 255 */ };
- 
+  cbi(TCCR1A,WGM00);
+  sbi(TCCR1A,WGM01);
+  cbi(TCCR1B,WGM02);
 #else
-
-#define AVAILABLE_TONE_PINS 1
-#define USE_TIMER2
-
-// Leave timer 0 to last.
-const uint8_t PROGMEM tone_pin_to_timer_PGM[] = { 2 /*, 1, 0 */ };
-static uint8_t tone_pins[AVAILABLE_TONE_PINS] = { 255 /*, 255, 255 */ };
-
+  #if TIMER_TO_USE_FOR_TONE == 1
+    #if defined(TCCR1)//START OF ATTINY 85
+  sbi(TCCR1,CTC1);
+    cbi(TCCR1,PWM1A);
+    cbi(GTCCR,PWM1B);
+    #elif defined(__AVR_ATtiny167__) || defined(__AVR_ATtiny87__)
+    // we know that TCCR1A and TCCR1B are 0
+    TCCR1A = (0<<WGM11) | (0<<WGM10);
+    TCCR1B = (0<<WGM13) | (1<<WGM12);
+    #elif !defined(TCCR1E)
+  cbi(TCCR1A,WGM10);
+  cbi(TCCR1A,WGM11);
+  sbi(TCCR1B,WGM12);
+  cbi(TCCR1B,WGM13);
+    #endif
+  #elif TIMER_TO_USE_FOR_TONE == 0
+  cbi(TCCR0A,WGM00);
+  sbi(TCCR0A,WGM01);
+  cbi(TCCR0B,WGM02);
+  #endif
 #endif
 
+    /* If the tone pin can be driven directly from the timer */
 
-
-static int8_t toneBegin(uint8_t _pin)
-{
-  int8_t _timer = -1;
-
-  // if we're already using the pin, the timer should be configured.  
-  for (int i = 0; i < AVAILABLE_TONE_PINS; i++) {
-    if (tone_pins[i] == _pin) {
-      return pgm_read_byte(tone_pin_to_timer_PGM + i);
-    }
-  }
-  
-  // search for an unused timer.
-  for (int i = 0; i < AVAILABLE_TONE_PINS; i++) {
-    if (tone_pins[i] == 255) {
-      tone_pins[i] = _pin;
-      _timer = pgm_read_byte(tone_pin_to_timer_PGM + i);
-      break;
-    }
-  }
-  
-  if (_timer != -1)
-  {
-    // Set timer specific stuff
-    // All timers in CTC mode
-    // 8 bit timers will require changing prescalar values,
-    // whereas 16 bit timers are set to either ck/1 or ck/64 prescalar
-    switch (_timer)
-    {
-      #if defined(TCCR0A) && defined(TCCR0B) && defined(WGM01)
-      case 0:
-        // 8 bit timer
-        TCCR0A = 0;
-        TCCR0B = 0;
-        bitWrite(TCCR0A, WGM01, 1);
-        bitWrite(TCCR0B, CS00, 1);
-        timer0_pin_port = portOutputRegister(digitalPinToPort(_pin));
-        timer0_pin_mask = digitalPinToBitMask(_pin);
-        break;
-      #endif
-
-      #if defined(TCCR1A) && defined(TCCR1B) && defined(WGM12)
-      case 1:
-        // 16 bit timer
-        TCCR1A = 0;
-        TCCR1B = 0;
-        bitWrite(TCCR1B, WGM12, 1);
-        bitWrite(TCCR1B, CS10, 1);
-        timer1_pin_port = portOutputRegister(digitalPinToPort(_pin));
-        timer1_pin_mask = digitalPinToBitMask(_pin);
-        break;
-      #endif
-
-      #if defined(TCCR2A) && defined(TCCR2B)
-      case 2:
-        // 8 bit timer
-        TCCR2A = 0;
-        TCCR2B = 0;
-        bitWrite(TCCR2A, WGM21, 1);
-        bitWrite(TCCR2B, CS20, 1);
-        timer2_pin_port = portOutputRegister(digitalPinToPort(_pin));
-        timer2_pin_mask = digitalPinToBitMask(_pin);
-        break;
-      #endif
-
-      #if defined(TCCR3A) && defined(TCCR3B) &&  defined(TIMSK3)
-      case 3:
-        // 16 bit timer
-        TCCR3A = 0;
-        TCCR3B = 0;
-        bitWrite(TCCR3B, WGM32, 1);
-        bitWrite(TCCR3B, CS30, 1);
-        timer3_pin_port = portOutputRegister(digitalPinToPort(_pin));
-        timer3_pin_mask = digitalPinToBitMask(_pin);
-        break;
-      #endif
-
-      #if defined(TCCR4A) && defined(TCCR4B) &&  defined(TIMSK4)
-      case 4:
-        // 16 bit timer
-        TCCR4A = 0;
-        TCCR4B = 0;
-        #if defined(WGM42)
-          bitWrite(TCCR4B, WGM42, 1);
-        #elif defined(CS43)
-          // TODO this may not be correct
-          // atmega32u4
-          bitWrite(TCCR4B, CS43, 1);
-        #endif
-        bitWrite(TCCR4B, CS40, 1);
-        timer4_pin_port = portOutputRegister(digitalPinToPort(_pin));
-        timer4_pin_mask = digitalPinToBitMask(_pin);
-        break;
-      #endif
-
-      #if defined(TCCR5A) && defined(TCCR5B) &&  defined(TIMSK5)
-      case 5:
-        // 16 bit timer
-        TCCR5A = 0;
-        TCCR5B = 0;
-        bitWrite(TCCR5B, WGM52, 1);
-        bitWrite(TCCR5B, CS50, 1);
-        timer5_pin_port = portOutputRegister(digitalPinToPort(_pin));
-        timer5_pin_mask = digitalPinToBitMask(_pin);
-        break;
-      #endif
-    }
-  }
-
-  return _timer;
-}
-
-
-
-// frequency (in hertz) and duration (in milliseconds).
-
-void tone(uint8_t _pin, unsigned int frequency, unsigned long duration)
-{
-  uint8_t prescalarbits = 0b001;
-  long toggle_count = 0;
-  uint32_t ocr = 0;
-  int8_t _timer;
-
-  _timer = toneBegin(_pin);
-
-  if (_timer >= 0)
-  {
-    // Set the pinMode as OUTPUT
-    pinMode(_pin, OUTPUT);
-    
-    // if we are using an 8 bit timer, scan through prescalars to find the best fit
-    if (_timer == 0 || _timer == 2)
-    {
-      ocr = F_CPU / frequency / 2 - 1;
-      prescalarbits = 0b001;  // ck/1: same for both timers
-      if (ocr > 255)
-      {
-        ocr = F_CPU / frequency / 2 / 8 - 1;
-        prescalarbits = 0b010;  // ck/8: same for both timers
-
-        if (_timer == 2 && ocr > 255)
-        {
-          ocr = F_CPU / frequency / 2 / 32 - 1;
-          prescalarbits = 0b011;
-        }
-
-        if (ocr > 255)
-        {
-          ocr = F_CPU / frequency / 2 / 64 - 1;
-          prescalarbits = _timer == 0 ? 0b011 : 0b100;
-
-          if (_timer == 2 && ocr > 255)
-          {
-            ocr = F_CPU / frequency / 2 / 128 - 1;
-            prescalarbits = 0b101;
+#if defined(__AVR_ATtiny167__) || defined(__AVR_ATtiny87__)
+      // do not interfere with analogWrite
+      /* Pin toggling is handled by the hardware */
+      tone_timer_pin_register = NULL;
+      tone_timer_pin_mask = 0;
+      uint8_t tShiftAmount;
+  #if (digitalPinHasPWM(11))
+      // New pin layout
+      if(_pin >= 8) {
+          tShiftAmount = (_pin - 8) >> 1;
+          if(_pin & 0x01) {
+              tShiftAmount += 4; // odd pins are controlled by the B outputs
+              /* Compare Output Mode = Toggle OC1Bx on Compare Match. */
+              cbi(TCCR1A, COM1B1);
+              sbi(TCCR1A, COM1B0);
+          } else {
+              /* Compare Output Mode = Toggle OC1Ax on Compare Match. */
+              cbi(TCCR1A, COM1A1);
+              sbi(TCCR1A, COM1A0);
           }
+          TCCR1D = 1 << tShiftAmount ;
+  #else
+      // Old pin layout
+      if((_pin >= 4 && _pin <= 9) || _pin == 2 || _pin == 15) {
+          if( _pin == 2 || _pin == 15) {
+              tShiftAmount = 3;
+          } else {
+              tShiftAmount = (_pin - 4) >> 1;
+          }
+          if(_pin & 0x01){
+              tShiftAmount += 4; // odd pins are controlled by the B outputs
+              /* Compare Output Mode = Toggle OC1Bx on Compare Match. */
+              cbi(TCCR1A, COM1B1);
+              sbi(TCCR1A, COM1B0);
+          } else {
+              /* Compare Output Mode = Toggle OC1Ax on Compare Match. */
+              cbi(TCCR1A, COM1A1);
+              sbi(TCCR1A, COM1A0);
+          }
+          TCCR1D = 1 << tShiftAmount ;
+  #endif
+#else
+#if (TIMER_TO_USE_FOR_TONE == 1) && defined(TCCR1E)
+    if ( (digitalPinToTimer(_pin) == TIMER1A) || (digitalPinToTimer(_pin) == TIMER1B)  || (digitalPinToTimer(_pin) == TIMER1D) )
+    {
+#elif (TIMER_TO_USE_FOR_TONE == 1)
+  #ifdef __AVR_ATtinyX5__
+    if ( _pin==1 || _pin==4 )
+  #else
+    if ( (digitalPinToTimer(_pin) == TIMER1A) || (digitalPinToTimer(_pin) == TIMER1B) )
+  #endif
+    {
+#elif (TIMER_TO_USE_FOR_TONE == 0)
+    if ( (digitalPinToTimer(_pin) == TIMER0A) || (digitalPinToTimer(_pin) == TIMER0B) )
+    {
+#else
+  if (0)
+  { //unsupported, so only use software.
+#endif
+      /* Pin toggling is handled by the hardware */
+      tone_timer_pin_register = NULL;
+      tone_timer_pin_mask = 0;
+      uint8_t timer = digitalPinToTimer(_pin);
+#ifdef __AVR_ATtinyX5__
+         if ( _pin==1) {timer=TIMER1A;}
+#endif
+#if defined(COM0A1)
+    //Just in case there are now pwm pins on timer0 (ATTiny861)
+      if (timer == TIMER0A)
+      {
+        /* Compare Output Mode = Toggle OC0A on Compare Match. */
+    cbi(TCCR0A,COM0A1);
+    sbi(TCCR0A,COM0A0);
+      }
+      else
+#endif
+    if (timer == TIMER1A)
+      {
+        /* Compare Output Mode = Toggle OC1A on Compare Match. */
+#if defined(TCCR1)
+    cbi(TCCR1,COM1A1);
+    sbi(TCCR1,COM1A0);
+#elif defined(TCCR1E)
+    cbi(TCCR1C,COM1A1S);
+    sbi(TCCR1C,COM1A0S);
+#else
+    cbi(TCCR1A,COM1A1);
+    sbi(TCCR1A,COM1A0);
+#endif
+      }
+#if defined(COM0B1)
+    //Just in case there are <2 pwm pins on timer0 (ATTiny861)
+      else if (timer == TIMER0B)
+      {
+        /* Compare Output Mode = Toggle OC0B on Compare Match. */
+    cbi(TCCR0A,COM0B1);
+    sbi(TCCR0A,COM0B0);
+      }
+#endif
+#if defined(COM1D1)
+    //in case there is a OCRD. (ATtiny861)
+    else if (timer == TIMER1D){
+        /* Compare Output Mode = Toggle OC1D on Compare Match. */
+  #if defined(TCCR1)
+    cbi(TCCR1,COM1D1);
+    sbi(TCCR1,COM1D0);
+  #elif defined(TCCR1E)
+    cbi(TCCR1C,COM1D1);
+    sbi(TCCR1C,COM1D0);
+  #else
+    cbi(TCCR1A,COM1D1);
+    sbi(TCCR1A,COM1D0);
+  #endif
+    }
+#endif
+      else
+      {
+        /* Compare Output Mode = Toggle OC1B on Compare Match. */
+#if defined(TCCR1)
+    cbi(GTCCR,COM1B1);
+    sbi(GTCCR,COM1B0);
+#elif defined(TCCR1E)
+    cbi(TCCR1C,COM1B1S);
+    sbi(TCCR1C,COM1B0S);
+#else
+    cbi(TCCR1A,COM1B1);
+    sbi(TCCR1A,COM1B0);
+#endif
+      }
+#endif //  defined(__AVR_ATtiny167__) || defined(__AVR_ATtiny87__)
 
-          if (ocr > 255)
+     }
+     else
+     {
+      /* Save information required by the interrupt service routine */
+      tone_timer_pin_register = portOutputRegister( digitalPinToPort( _pin ) );
+      tone_timer_pin_mask = digitalPinToBitMask( _pin );
+
+      /* Compare Output Mode = Normal port operation, OCxA disconnected. */
+#if (TIMER_TO_USE_FOR_TONE == 0)
+      TCCR0A &= ~((1<<COM0A1)|(1<<COM0A0)|(1<<COM0B1)|(1<<COM0B0));
+#elif (TIMER_TO_USE_FOR_TONE == 1) & defined(TCCR1)
+      TCCR1 &= ~((1<<COM1A1)|(1<<COM1A0));
+      GTCCR &= ~((1<<COM1B1)|(1<<COM1B0));
+#elif (TIMER_TO_USE_FOR_TONE == 1) && defined(TCCR1E)
+      TCCR1C &= ~((1<<COM1A1S)|(1<<COM1A0S)|(1<<COM1B1S)|(1<<COM1B0S)|(1<<COM1D1)|(1<<COM1D0));
+#elif (TIMER_TO_USE_FOR_TONE == 1)
+      TCCR1A &= ~((1<<COM1A1)|(1<<COM1A0)|(1<<COM1B1)|(1<<COM1B0));
+#endif
+    }
+
+    /* Ensure the pin is configured for output */
+    pinMode( _pin, OUTPUT );
+
+    tone_pin = _pin;
+  }
+
+  if ( tone_pin == _pin )
+  {
+    /* Stop the clock while we make changes, then set the counter to zero to reduce ticks and scratches. */
+
+    // Millis timer is always processor clock divided by MillisTimer_Prescale_Value (64)
+#if (TIMER_TO_USE_FOR_TONE == 0)
+    TCCR0B &= ~((1<<CS02)|(1<<CS01)|(1<<CS00));
+    TCNT0 = 0;
+#elif (TIMER_TO_USE_FOR_TONE == 1) && defined(TCCR1)
+    TCCR1 &= ~((1<<CS13)|(1<<CS12)|(1<<CS11)|(1<<CS10));
+    TCNT1 = 0;
+#elif (TIMER_TO_USE_FOR_TONE == 1) && defined(TCCR1E)
+    TCCR1B &= ~((1<<CS13)|(1<<CS12)|(1<<CS11)|(1<<CS10));
+    TCNT1 = 0;
+#elif (TIMER_TO_USE_FOR_TONE == 1)
+    TCCR1B &= ~((1<<CS12)|(1 << CS11)|(1 << CS10));
+    TCNT1 = 0;
+#endif
+
+    if ( frequency > 0 )
+    {
+      /* Determine which prescaler to use */
+      /* Set the Output Compare Register (rounding up) */
+
+#if TIMER_TO_USE_FOR_TONE == 1
+  #ifdef PLLTIMER1
+  uint32_t ocr = 64000000UL / frequency / 2;
+  #else
+    #ifdef LOWPLLTIMER1
+  uint32_t ocr = 32000000UL / frequency / 2;
+    #else
+  uint32_t ocr = F_CPU / frequency / 2;
+    #endif
+  #endif
+  #if defined(TCCR1E)
+      uint8_t prescalarbits = 0b0001;
+      if (ocr > 256)
+      {
+        ocr >>= 3; //divide by 8
+        prescalarbits = 0b0100;  // ck/8
+        if (ocr > 256)
+        {
+          ocr >>= 3; //divide by a further 8
+          prescalarbits = 0b0111; //ck/64
+          if (ocr > 256)
           {
-            ocr = F_CPU / frequency / 2 / 256 - 1;
-            prescalarbits = _timer == 0 ? 0b100 : 0b110;
-            if (ocr > 255)
+            ocr >>= 2; //divide by a further 4
+            prescalarbits = 0b1001; //ck/256
+            if (ocr > 256)
             {
               // can't do any better than /1024
-              ocr = F_CPU / frequency / 2 / 1024 - 1;
-              prescalarbits = _timer == 0 ? 0b101 : 0b111;
+              ocr >>= 2; //divide by a further 4
+              prescalarbits = 0b1011; //ck/1024
             }
           }
         }
       }
+  #else
+    #if defined(TCCR1) //Start FANCY ATtiny85 code
+       uint8_t prescalarbits = 0b0001;
+       while (ocr > 0xff && prescalarbits < 15) {
+          prescalarbits++;
+          ocr>>=1;
 
-#if defined(TCCR0B)
-      if (_timer == 0)
+       }
+       OCR1C=ocr-1;
+    #else
+        uint8_t prescalarbits = 0b001;
+       if (ocr > 0xffff)
+        {
+         ocr /= 64;
+          prescalarbits = 0b011;
+        }
+    #endif
+     ocr -= 1; //Note we are doing the subtraction of 1 here to save repeatedly calculating ocr from just the frequency in the if tree above
+    #if defined(__AVR_ATtiny167__) || defined(__AVR_ATtiny87__)
+        if(_pin & 0x01){
+          // odd pins are controlled by the B outputs
+          OCR1B = ocr;
+      }
+      // OCR1A is used for interrupts / duration
+    #endif
+      OCR1A = ocr;
+  #endif //  defined(TCCR1E)
+#elif TIMER_TO_USE_FOR_TONE == 0
+      uint32_t ocr = F_CPU / frequency / 2;
+      uint8_t prescalarbits = 0b001;  // ck/1
+      if (ocr > 256)
       {
-        TCCR0B = (TCCR0B & 0b11111000) | prescalarbits;
+        ocr >>= 3; //divide by 8
+        prescalarbits = 0b010;  // ck/8
+        if (ocr > 256)
+        {
+          ocr >>= 3; //divide by a further 8
+          prescalarbits = 0b011; //ck/64
+          if (ocr > 256)
+          {
+            ocr >>= 2; //divide by a further 4
+            prescalarbits = 0b100; //ck/256
+            if (ocr > 256)
+            {
+              // can't do any better than /1024
+              ocr >>= 2; //divide by a further 4
+              prescalarbits = 0b101; //ck/1024
+            }
+          }
+        }
+      }
+    ocr -= 1; //Note we are doing the subtraction of 1 here to save repeatedly calculating ocr from just the frequency in the if tree above
+      OCR0A = ocr;
+
+#endif
+
+      /* Does the caller want a specific duration? */
+      if ( duration > 0 )
+      {
+        /* Determine how many times the value toggles */
+        tone_timer_toggle_count = (2 * frequency * duration) / 1000;
+        /* Output Compare A Match Interrupt Enable */
+#if (TIMER_TO_USE_FOR_TONE == 1)
+  #if defined (TIMSK)
+        TIMSK |= (1<<OCIE1A);
+  #else
+        TIMSK1 |= (1 << OCIE1A);
+  #endif
+#elif (TIMER_TO_USE_FOR_TONE == 0)
+  #if defined (TIMSK)
+        TIMSK |= (1<<OCIE0A);
+  #else
+        TIMSK0 |= (1<<OCIE0A);
+  #endif
+#endif
       }
       else
-#endif
-#if defined(TCCR2B)
       {
-        TCCR2B = (TCCR2B & 0b11111000) | prescalarbits;
+        /* Indicate to the interrupt service routine that we'll be running until further notice */
+        tone_timer_toggle_count = -1;
+
+        /* All pins but the OCxA / OCxB pins have to be driven by software */
+#if (TIMER_TO_USE_FOR_TONE == 1)
+  #if defined(TCCR1E)
+        if ( (digitalPinToTimer(_pin) != TIMER1A) && (digitalPinToTimer(_pin) != TIMER1B) && (digitalPinToTimer(_pin) != TIMER1D) )
+  #elif defined(__AVR_ATtiny167__) || defined(__AVR_ATtiny87__)
+    #if (digitalPinHasPWM(11))
+        // New pin layout
+        if(_pin < 8)
+    #else
+        // Old pin layout
+        if(!((_pin >= 4 && _pin <= 9) || _pin == 2 || _pin == 15))
+    #endif
+  #else
+        if ( (digitalPinToTimer(_pin) != TIMER1A) && (digitalPinToTimer(_pin) != TIMER1B) )
+  #endif
+    {
+            /* Output Compare A Match Interrupt Enable (software control)*/
+  #if defined (TIMSK)
+            TIMSK |= (1<<OCIE1A);
+  #else
+            TIMSK1 |= (1 << OCIE1A);
+  #endif
+        }
+#elif (TIMER_TO_USE_FOR_TONE == 0)
+        if ( (digitalPinToTimer(_pin) != TIMER0A) && (digitalPinToTimer(_pin) != TIMER0B) )
+        {
+            /* Output Compare A Match Interrupt Enable (software control)*/
+  #if defined (TIMSK)
+            TIMSK |= (1<<OCIE0A);
+  #else
+            TIMSK0 |= (1<<OCIE0A);
+  #endif
+        }
+#endif
       }
+
+    //Clock is always stopped before this point, which means all of CS[0..2] are already 0, so can just use a bitwise OR to set required bits
+#if (TIMER_TO_USE_FOR_TONE == 0)
+      TCCR0B |= (prescalarbits << CS00);
+#elif (TIMER_TO_USE_FOR_TONE == 1) && defined(TCCR1)
+      TCCR1 |= (prescalarbits << CS10);
+#elif (TIMER_TO_USE_FOR_TONE == 1)
+      TCCR1B |= (prescalarbits << CS10);
+#endif
+
+    }
+    else
+    {
+      /* To be on the safe side, turn off all interrupts */
+#if defined (__AVR_ATtiny43__)
+      TIMSK1 |= (1<<OCIE0A);
+      TIMSK1 &= ~((1<<OCIE0B) | (1<<OCIE0A) | (1<<TOIE0));
 #else
-      {
-        // dummy place holder to make the above ifdefs work
-      }
-#endif
-    }
-    else
-    {
-      // two choices for the 16 bit timers: ck/1 or ck/64
-      ocr = F_CPU / frequency / 2 - 1;
-
-      prescalarbits = 0b001;
-      if (ocr > 0xffff)
-      {
-        ocr = F_CPU / frequency / 2 / 64 - 1;
-        prescalarbits = 0b011;
-      }
-
-      if (_timer == 1)
-      {
-#if defined(TCCR1B)
-        TCCR1B = (TCCR1B & 0b11111000) | prescalarbits;
-#endif
-      }
-#if defined(TCCR3B)
-      else if (_timer == 3)
-        TCCR3B = (TCCR3B & 0b11111000) | prescalarbits;
-#endif
-#if defined(TCCR4B)
-      else if (_timer == 4)
-        TCCR4B = (TCCR4B & 0b11111000) | prescalarbits;
-#endif
-#if defined(TCCR5B)
-      else if (_timer == 5)
-        TCCR5B = (TCCR5B & 0b11111000) | prescalarbits;
+  #if (TIMER_TO_USE_FOR_TONE == 1)
+    #if defined (TIMSK)
+      TIMSK |= (1<<OCIE1A);
+      TIMSK &= ~((1<<TOIE1) | (1<<OCIE1A) | (1<<OCIE1B));
+      #if defined(ICIE1)
+      TIMSK &= ~(1<<ICIE1);
+      #endif
+      #if defined(OCIE1D)
+      TIMSK &= ~(1<<OCIE1D);
+      #endif
+    #else
+      TIMSK1 |= (1 << OCIE1A);
+      TIMSK1 &= ~((1 << ICIE1) | (1 << OCIE1B) | (1 << OCIE1A) | (1 << TOIE1));
+    #endif
+  #elif (TIMER_TO_USE_FOR_TONE == 0)
+    #if defined (TIMSK)
+      TIMSK |= (1<<OCIE0A);
+      TIMSK &= ~((1<<OCIE0B) | (1<<OCIE0A) | (1<<TOIE0));
+    #else
+      TIMSK0 |= (1<<OCIE0A);
+      TIMSK0 &= ~((1<<OCIE0B) | (1<<OCIE0A) | (1<<TOIE0));
+    #endif
+  #endif
 #endif
 
-    }
-    
-
-    // Calculate the toggle count
-    if (duration > 0)
-    {
-      toggle_count = 2 * frequency * duration / 1000;
-    }
-    else
-    {
-      toggle_count = -1;
-    }
-
-    // Set the OCR for the given timer,
-    // set the toggle count,
-    // then turn on the interrupts
-    switch (_timer)
-    {
-
-#if defined(OCR0A) && defined(TIMSK0) && defined(OCIE0A)
-      case 0:
-        OCR0A = ocr;
-        timer0_toggle_count = toggle_count;
-        bitWrite(TIMSK0, OCIE0A, 1);
-        break;
-#endif
-
-      case 1:
-#if defined(OCR1A) && defined(TIMSK1) && defined(OCIE1A)
-        OCR1A = ocr;
-        timer1_toggle_count = toggle_count;
-        bitWrite(TIMSK1, OCIE1A, 1);
-#elif defined(OCR1A) && defined(TIMSK) && defined(OCIE1A)
-        // this combination is for at least the ATmega32
-        OCR1A = ocr;
-        timer1_toggle_count = toggle_count;
-        bitWrite(TIMSK, OCIE1A, 1);
-#endif
-        break;
-
-#if defined(OCR2A) && defined(TIMSK2) && defined(OCIE2A)
-      case 2:
-        OCR2A = ocr;
-        timer2_toggle_count = toggle_count;
-        bitWrite(TIMSK2, OCIE2A, 1);
-        break;
-#endif
-
-#if defined(OCR3A) && defined(TIMSK3) && defined(OCIE3A)
-      case 3:
-        OCR3A = ocr;
-        timer3_toggle_count = toggle_count;
-        bitWrite(TIMSK3, OCIE3A, 1);
-        break;
-#endif
-
-#if defined(OCR4A) && defined(TIMSK4) && defined(OCIE4A)
-      case 4:
-        OCR4A = ocr;
-        timer4_toggle_count = toggle_count;
-        bitWrite(TIMSK4, OCIE4A, 1);
-        break;
-#endif
-
-#if defined(OCR5A) && defined(TIMSK5) && defined(OCIE5A)
-      case 5:
-        OCR5A = ocr;
-        timer5_toggle_count = toggle_count;
-        bitWrite(TIMSK5, OCIE5A, 1);
-        break;
-#endif
-
+      /* Clock is stopped.  Counter is zero.  The only thing left to do is turn off the output. */
+      digitalWrite( _pin, 0 );
     }
   }
 }
 
 
-// XXX: this function only works properly for timer 2 (the only one we use
-// currently).  for the others, it should end the tone, but won't restore
-// proper PWM functionality for the timer.
-void disableTimer(uint8_t _timer)
+void noTone( uint8_t _pin )
 {
-  switch (_timer)
+  if ( (tone_pin != 255)
+        && ((tone_pin == _pin) || (_pin == 255)) )
   {
-    case 0:
-      #if defined(TIMSK0)
-        TIMSK0 = 0;
-      #elif defined(TIMSK)
-        TIMSK = 0; // atmega32
+    // Turn off all interrupts
+#if defined(__AVR_ATtiny43__)
+    TIMSK1 &= ~((1<<OCIE0B) | (1<<OCIE0A) | (1<<TOIE0));
+    TCCR1B &= ~((1<<CS02) | (1<<CS01) | (1<<CS00)); //stop the clock
+
+#else
+  #if (TIMER_TO_USE_FOR_TONE == 1)
+    #if defined (TIMSK)
+    TIMSK &= ~((1<<TOIE1) | (1<<OCIE1A) | (1<<OCIE1B));
+      #if defined(ICIE1)
+    TIMSK &= ~(1<<ICIE1);
       #endif
-      break;
-
-#if defined(TIMSK1) && defined(OCIE1A)
-    case 1:
-      bitWrite(TIMSK1, OCIE1A, 0);
-      break;
-#endif
-
-    case 2:
-      #if defined(TIMSK2) && defined(OCIE2A)
-        bitWrite(TIMSK2, OCIE2A, 0); // disable interrupt
+      #if defined(OCIE1D)
+    TIMSK &= ~(1<<OCIE1D);
       #endif
-      #if defined(TCCR2A) && defined(WGM20)
-        TCCR2A = (1 << WGM20);
-      #endif
-      #if defined(TCCR2B) && defined(CS22)
-        TCCR2B = (TCCR2B & 0b11111000) | (1 << CS22);
-      #endif
-      #if defined(OCR2A)
-        OCR2A = 0;
-      #endif
-      break;
+    #else
+    TIMSK1 &= ~((1<<ICIE1) | (1<<OCIE1B) | (1<<OCIE1A) | (1<<TOIE1));
+    #endif
+  #elif (TIMER_TO_USE_FOR_TONE == 0)
+    #if defined (TIMSK)
+    TIMSK &= ~((1<<OCIE0B) | (1<<OCIE0A) | (1<<TOIE0));
+    #else
+    TIMSK0 &= ~((1<<OCIE0B) | (1<<OCIE0A) | (1<<TOIE0));
+    #endif
+  #endif // (TIMER_TO_USE_FOR_TONE == 1)
 
-#if defined(TIMSK3) && defined(OCIE3A)
-    case 3:
-      bitWrite(TIMSK3, OCIE3A, 0);
-      break;
-#endif
-
-#if defined(TIMSK4) && defined(OCIE4A)
-    case 4:
-      bitWrite(TIMSK4, OCIE4A, 0);
-      break;
-#endif
-
-#if defined(TIMSK5) && defined(OCIE5A)
-    case 5:
-      bitWrite(TIMSK5, OCIE5A, 0);
-      break;
-#endif
-  }
-}
-
-
-void noTone(uint8_t _pin)
-{
-  int8_t _timer = -1;
-  
-  for (int i = 0; i < AVAILABLE_TONE_PINS; i++) {
-    if (tone_pins[i] == _pin) {
-      _timer = pgm_read_byte(tone_pin_to_timer_PGM + i);
-      tone_pins[i] = 255;
-      break;
+    // This just disables the tone. It doesn't reinitialise the PWM modules.
+  #if (TIMER_TO_USE_FOR_TONE == 0)
+    TCCR0B &= ~((1<<CS02) | (1<<CS01) | (1<<CS00)); //stop the clock
+  #elif (TIMER_TO_USE_FOR_TONE == 1) && defined(TCCR1)
+    TCCR1 &= ~((1<<CS13) | (1<<CS12) | (1<<CS11) | (1<<CS10)); //stop the clock
+  #elif (TIMER_TO_USE_FOR_TONE == 1) && defined(TCCR1E)
+    TCCR1B &= ~((1<<CS13) | (1<<CS12) | (1<<CS11) | (1<<CS10)); //stop the clock
+  #elif (TIMER_TO_USE_FOR_TONE == 1)
+    TCCR1B &= ~((1<<CS12) | (1<<CS11) | (1<<CS10)); //stop the clock
+  #endif
+#endif // defined(__AVR_ATtiny43__)
+    // Set the output low
+    if ( tone_timer_pin_register != NULL )
+    {
+      *tone_timer_pin_register &= ~(tone_timer_pin_mask);
     }
-  }
-  
-  disableTimer(_timer);
+    else
+    {
+#ifdef __AVR_ATtinyX5__
+         if ( tone_pin==1) TCCR1&=0xCF;
+#elif defined(__AVR_ATtiny167__) || defined(__AVR_ATtiny87__)
+         TCCR1D = 0; // Disable all output compare pins
+#endif
+      digitalWrite( tone_pin, LOW );
+    }
 
-  digitalWrite(_pin, 0);
+    tone_pin = 255;
+  }
 }
 
-#ifdef USE_TIMER0
+
+#if (TIMER_TO_USE_FOR_TONE == 0)
 ISR(TIMER0_COMPA_vect)
-{
-  if (timer0_toggle_count != 0)
-  {
-    // toggle the pin
-    *timer0_pin_port ^= timer0_pin_mask;
-
-    if (timer0_toggle_count > 0)
-      timer0_toggle_count--;
-  }
-  else
-  {
-    disableTimer(0);
-    *timer0_pin_port &= ~(timer0_pin_mask);  // keep pin low after stop
-  }
-}
-#endif
-
-
-#ifdef USE_TIMER1
+#elif (TIMER_TO_USE_FOR_TONE == 1)
 ISR(TIMER1_COMPA_vect)
+#else
+#error Tone timer Overflow vector not defined!
+#endif
 {
-  if (timer1_toggle_count != 0)
+  if ( tone_timer_toggle_count != 0 )
   {
-    // toggle the pin
-    *timer1_pin_port ^= timer1_pin_mask;
+    if ( tone_timer_toggle_count > 0 )
+    {
+      --tone_timer_toggle_count;
 
-    if (timer1_toggle_count > 0)
-      timer1_toggle_count--;
+      if ( tone_timer_toggle_count == 0 )
+      {
+        // Shutdown the hardware
+        noTone( 255 );
+
+        // Skip the rest.  We're finished.
+        return;
+      }
+    }
+    *tone_timer_pin_register ^= tone_timer_pin_mask;
   }
   else
   {
-    disableTimer(1);
-    *timer1_pin_port &= ~(timer1_pin_mask);  // keep pin low after stop
+    // Shutdown the hardware
+    noTone( 255 );
   }
 }
-#endif
-
-
-#ifdef USE_TIMER2
-ISR(TIMER2_COMPA_vect)
-{
-
-  if (timer2_toggle_count != 0)
-  {
-    // toggle the pin
-    *timer2_pin_port ^= timer2_pin_mask;
-
-    if (timer2_toggle_count > 0)
-      timer2_toggle_count--;
-  }
-  else
-  {
-    // need to call noTone() so that the tone_pins[] entry is reset, so the
-    // timer gets initialized next time we call tone().
-    // XXX: this assumes timer 2 is always the first one used.
-    noTone(tone_pins[0]);
-//    disableTimer(2);
-//    *timer2_pin_port &= ~(timer2_pin_mask);  // keep pin low after stop
-  }
-}
-#endif
-
-
-#ifdef USE_TIMER3
-ISR(TIMER3_COMPA_vect)
-{
-  if (timer3_toggle_count != 0)
-  {
-    // toggle the pin
-    *timer3_pin_port ^= timer3_pin_mask;
-
-    if (timer3_toggle_count > 0)
-      timer3_toggle_count--;
-  }
-  else
-  {
-    disableTimer(3);
-    *timer3_pin_port &= ~(timer3_pin_mask);  // keep pin low after stop
-  }
-}
-#endif
-
-
-#ifdef USE_TIMER4
-ISR(TIMER4_COMPA_vect)
-{
-  if (timer4_toggle_count != 0)
-  {
-    // toggle the pin
-    *timer4_pin_port ^= timer4_pin_mask;
-
-    if (timer4_toggle_count > 0)
-      timer4_toggle_count--;
-  }
-  else
-  {
-    disableTimer(4);
-    *timer4_pin_port &= ~(timer4_pin_mask);  // keep pin low after stop
-  }
-}
-#endif
-
-
-#ifdef USE_TIMER5
-ISR(TIMER5_COMPA_vect)
-{
-  if (timer5_toggle_count != 0)
-  {
-    // toggle the pin
-    *timer5_pin_port ^= timer5_pin_mask;
-
-    if (timer5_toggle_count > 0)
-      timer5_toggle_count--;
-  }
-  else
-  {
-    disableTimer(5);
-    *timer5_pin_port &= ~(timer5_pin_mask);  // keep pin low after stop
-  }
-}
-#endif

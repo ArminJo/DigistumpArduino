@@ -10,14 +10,14 @@
  */
 
 #include <Arduino.h>
-#include <Wire.h>
+#include <TinyWireM.h>
 #include "ArduinoWiiClassicController.h"
 
 #define ADDRESS 0x52
 
 void ArduinoWiiClassicController::init()
 {
-  Wire.begin();
+  TinyWireM.begin();
 
   ArduinoWiiClassicController::_sendByte(0x55, 0xF0);
   ArduinoWiiClassicController::_sendByte(0x00, 0xFB);
@@ -31,10 +31,10 @@ void ArduinoWiiClassicController::update()
   int values[6];
 
   //Read data
-  Wire.requestFrom(ADDRESS, 6);
-  while(Wire.available())
+  TinyWireM.requestFrom(ADDRESS, 6);
+  while(TinyWireM.available())
   {
-    values[count] = Wire.receive();
+    values[count] = TinyWireM.receive();
     count++;
   }
 
@@ -84,12 +84,12 @@ void ArduinoWiiClassicController::update()
 
 void ArduinoWiiClassicController::_sendByte(byte data, byte location)
 {
-  Wire.beginTransmission(ADDRESS);
+  TinyWireM.beginTransmission(ADDRESS);
 
-  Wire.send(location);
-  Wire.send(data);
+  TinyWireM.send(location);
+  TinyWireM.send(data);
 
-  Wire.endTransmission();
+  TinyWireM.endTransmission();
 
   delay(10);
 }

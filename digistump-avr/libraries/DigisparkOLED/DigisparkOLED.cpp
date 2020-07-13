@@ -89,10 +89,10 @@ void SSD1306Device::ssd1306_send_command_stop(void) {
 
 void SSD1306Device::ssd1306_send_data_byte(uint8_t byte)
 {
-	if(Wire.writeAvailable()){
+//	if(Wire.writeAvailable()){
 		ssd1306_send_data_stop();
 		ssd1306_send_data_start();
-	}
+//	}
 	Wire.write(byte);
 	
 }

@@ -25,7 +25,7 @@
 #include <inttypes.h>
 #include "Print.h"
 
-// compatability macros for testing
+// compatibility macros for testing
 /*
 #define   getInt()            parseInt()
 #define   getInt(ignore)    parseInt(ignore)
@@ -51,14 +51,15 @@ class Stream : public Print
   protected:
     unsigned long _timeout;      // number of milliseconds to wait for the next char before aborting timed read
     unsigned long _startMillis;  // used for timeout measurement
-    int timedRead();    // read stream with timeout
-    int timedPeek();    // peek stream with timeout
+    int timedRead();    // private method to read stream with timeout
+    int timedPeek();    // private method to peek stream with timeout
     int peekNextDigit(LookaheadMode lookahead, bool detectDecimal); // returns the next numeric digit in the stream or -1 if timeout
 
   public:
     virtual int available() = 0;
     virtual int read() = 0;
     virtual int peek() = 0;
+    virtual void flush() = 0;
 
     Stream() {_timeout=1000;}
 
@@ -66,7 +67,7 @@ class Stream : public Print
 
   void setTimeout(unsigned long timeout);  // sets maximum milliseconds to wait for stream data, default is 1 second
   unsigned long getTimeout(void) { return _timeout; }
-  
+
   bool find(char *target);   // reads data from the stream until the target string is found
   bool find(uint8_t *target) { return find ((char *)target); }
   // returns true if target string is found, false if timed out (see setTimeout)

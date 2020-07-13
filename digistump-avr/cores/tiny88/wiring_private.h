@@ -18,6 +18,10 @@
   Public License along with this library; if not, write to the
   Free Software Foundation, Inc., 59 Temple Place, Suite 330,
   Boston, MA  02111-1307  USA
+
+  $Id: wiring.h 239 2007-01-12 17:58:39Z mellis $
+
+  Modified 28-08-2009 for attiny84 R.Wiersma
 */
 
 #ifndef WiringPrivate_h
@@ -41,26 +45,128 @@ extern "C"{
 #define sbi(sfr, bit) (_SFR_BYTE(sfr) |= _BV(bit))
 #endif
 
-uint32_t countPulseASM(volatile uint8_t *port, uint8_t bit, uint8_t stateMask, unsigned long maxloops);
+#if defined( EXT_INT0_vect )
+  #define EXTERNAL_INTERRUPT_0_vect EXT_INT0_vect
+#elif defined( INT0_vect )
+  #define EXTERNAL_INTERRUPT_0_vect INT0_vect
+#endif
 
-#define EXTERNAL_INT_0 0
-#define EXTERNAL_INT_1 1
-#define EXTERNAL_INT_2 2
-#define EXTERNAL_INT_3 3
-#define EXTERNAL_INT_4 4
-#define EXTERNAL_INT_5 5
-#define EXTERNAL_INT_6 6
-#define EXTERNAL_INT_7 7
+#if defined( EXT_INT1_vect )
+  #define EXTERNAL_INTERRUPT_1_vect EXT_INT1_vect
+#elif defined( INT1_vect )
+  #define EXTERNAL_INTERRUPT_1_vect INT1_vect
+#endif
 
-#if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega128RFA1__) || defined(__AVR_ATmega256RFR2__) || \
-    defined(__AVR_AT90USB82__) || defined(__AVR_AT90USB162__) || defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega16U2__) || defined(__AVR_ATmega8U2__)
-#define EXTERNAL_NUM_INTERRUPTS 8
-#elif defined(__AVR_ATmega1284__) || defined(__AVR_ATmega1284P__) || defined(__AVR_ATmega644__) || defined(__AVR_ATmega644A__) || defined(__AVR_ATmega644P__) || defined(__AVR_ATmega644PA__)
-#define EXTERNAL_NUM_INTERRUPTS 3
-#elif defined(__AVR_ATmega32U4__)
-#define EXTERNAL_NUM_INTERRUPTS 5
+#if defined( EXT_INT2_vect )
+  #define EXTERNAL_INTERRUPT_2_vect EXT_INT2_vect
+#elif defined( INT2_vect )
+  #define EXTERNAL_INTERRUPT_2_vect INT2_vect
+#endif
+
+#if defined( EXT_INT3_vect )
+  #define EXTERNAL_INTERRUPT_3_vect EXT_INT3_vect
+#elif defined( INT3_vect )
+  #define EXTERNAL_INTERRUPT_3_vect INT3_vect
+#endif
+
+#if defined( EXT_INT4_vect )
+  #define EXTERNAL_INTERRUPT_4_vect EXT_INT4_vect
+#elif defined( INT4_vect )
+  #define EXTERNAL_INTERRUPT_4_vect INT4_vect
+#endif
+
+#if defined( EXT_INT5_vect )
+  #define EXTERNAL_INTERRUPT_5_vect EXT_INT5_vect
+#elif defined( INT5_vect )
+  #define EXTERNAL_INTERRUPT_5_vect INT5_vect
+#endif
+
+#if defined( EXT_INT6_vect )
+  #define EXTERNAL_INTERRUPT_6_vect EXT_INT6_vect
+#elif defined( INT6_vect )
+  #define EXTERNAL_INTERRUPT_6_vect INT6_vect
+#endif
+
+#if defined( EXT_INT7_vect )
+  #define EXTERNAL_INTERRUPT_7_vect EXT_INT7_vect
+#elif defined( INT7_vect )
+  #define EXTERNAL_INTERRUPT_7_vect INT7_vect
+#endif
+
+#if defined( EXT_INT8_vect )
+  #define EXTERNAL_INTERRUPT_8_vect EXT_INT8_vect
+#elif defined( INT8_vect )
+  #define EXTERNAL_INTERRUPT_8_vect INT8_vect
+#endif
+
+#if defined( EXT_INT9_vect )
+  #define EXTERNAL_INTERRUPT_9_vect EXT_INT9_vect
+#elif defined( INT9_vect )
+  #define EXTERNAL_INTERRUPT_9_vect INT9_vect
+#endif
+
+#if defined( EXTERNAL_INTERRUPT_9_vect )
+  #define NUMBER_EXTERNAL_INTERRUPTS (10)
+#elif defined( EXTERNAL_INTERRUPT_8_vect )
+  #define NUMBER_EXTERNAL_INTERRUPTS (9)
+#elif defined( EXTERNAL_INTERRUPT_7_vect )
+  #define NUMBER_EXTERNAL_INTERRUPTS (8)
+#elif defined( EXTERNAL_INTERRUPT_6_vect )
+  #define NUMBER_EXTERNAL_INTERRUPTS (7)
+#elif defined( EXTERNAL_INTERRUPT_5_vect )
+  #define NUMBER_EXTERNAL_INTERRUPTS (6)
+#elif defined( EXTERNAL_INTERRUPT_4_vect )
+  #define NUMBER_EXTERNAL_INTERRUPTS (5)
+#elif defined( EXTERNAL_INTERRUPT_3_vect )
+  #define NUMBER_EXTERNAL_INTERRUPTS (4)
+#elif defined( EXTERNAL_INTERRUPT_2_vect )
+  #define NUMBER_EXTERNAL_INTERRUPTS (3)
+#elif defined( EXTERNAL_INTERRUPT_1_vect )
+  #define NUMBER_EXTERNAL_INTERRUPTS (2)
+#elif defined( EXTERNAL_INTERRUPT_0_vect )
+  #define NUMBER_EXTERNAL_INTERRUPTS (1)
 #else
-#define EXTERNAL_NUM_INTERRUPTS 2
+  #define NUMBER_EXTERNAL_INTERRUPTS (0)
+#endif
+
+#if NUMBER_EXTERNAL_INTERRUPTS >= 1
+  #define EXTERNAL_INTERRUPT_0 (0)
+#endif
+
+#if NUMBER_EXTERNAL_INTERRUPTS >= 2
+  #define EXTERNAL_INTERRUPT_1 (1)
+#endif
+
+#if NUMBER_EXTERNAL_INTERRUPTS >= 3
+  #define EXTERNAL_INTERRUPT_2 (2)
+#endif
+
+#if NUMBER_EXTERNAL_INTERRUPTS >= 4
+  #define EXTERNAL_INTERRUPT_3 (3)
+#endif
+
+#if NUMBER_EXTERNAL_INTERRUPTS >= 5
+  #define EXTERNAL_INTERRUPT_4 (4)
+#endif
+
+#if NUMBER_EXTERNAL_INTERRUPTS >= 6
+  #define EXTERNAL_INTERRUPT_5 (5)
+#endif
+
+#if NUMBER_EXTERNAL_INTERRUPTS >= 7
+  #define EXTERNAL_INTERRUPT_6 (6)
+#endif
+
+#if NUMBER_EXTERNAL_INTERRUPTS >= 8
+  #define EXTERNAL_INTERRUPT_7 (7)
+#endif
+
+#if NUMBER_EXTERNAL_INTERRUPTS >= 9
+  #define EXTERNAL_INTERRUPT_8 (8)
+#endif
+
+#if NUMBER_EXTERNAL_INTERRUPTS >= 10
+  #define EXTERNAL_INTERRUPT_9 (9)
 #endif
 
 typedef void (*voidFuncPtr)(void);

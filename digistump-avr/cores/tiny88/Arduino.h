@@ -1,22 +1,3 @@
-/*
-  Arduino.h - Main include file for the Arduino SDK
-  Copyright (c) 2005-2013 Arduino Team.  All right reserved.
-
-  This library is free software; you can redistribute it and/or
-  modify it under the terms of the GNU Lesser General Public
-  License as published by the Free Software Foundation; either
-  version 2.1 of the License, or (at your option) any later version.
-
-  This library is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  Lesser General Public License for more details.
-
-  You should have received a copy of the GNU Lesser General Public
-  License along with this library; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-*/
-
 #ifndef Arduino_h
 #define Arduino_h
 
@@ -35,9 +16,9 @@
 extern "C"{
 #endif
 
-void yield(void);
+#define ATTINY_CORE 1
 
-#define ATTINY_CORE 1//
+void yield(void);
 
 #define HIGH 0x1
 #define LOW  0x0
@@ -46,15 +27,12 @@ void yield(void);
 #define OUTPUT 0x1
 #define INPUT_PULLUP 0x2
 
-#define true 0x1//
-#define false 0x0//
 
 #define PI 3.1415926535897932384626433832795
 #define HALF_PI 1.5707963267948966192313216916398
 #define TWO_PI 6.283185307179586476925286766559
 #define DEG_TO_RAD 0.017453292519943295769236907684886
 #define RAD_TO_DEG 57.295779513082320876798154814105
-#define EULER 2.718281828459045235360287471352
 
 #define SERIAL  0x0
 #define DISPLAY 0x1
@@ -66,33 +44,7 @@ void yield(void);
 #define FALLING 2
 #define RISING 3
 
-#if defined(__AVR_ATtiny24__) || defined(__AVR_ATtiny44__) || defined(__AVR_ATtiny84__)
-  #define DEFAULT 0
-  #define EXTERNAL 1
-  #define INTERNAL1V1 2
-  #define INTERNAL INTERNAL1V1
-#elif defined(__AVR_ATtiny25__) || defined(__AVR_ATtiny45__) || defined(__AVR_ATtiny85__)
-  #define DEFAULT 0
-  #define EXTERNAL 4
-  #define INTERNAL1V1 8
-  #define INTERNAL INTERNAL1V1
-  #define INTERNAL2V56 9
-  #define INTERNAL2V56_EXTCAP 13
-#elif defined(__AVR_ATtiny88__)
-  #define DEFAULT 4
-  #define EXTERNAL 4
-  #define INTERNAL1V1 0
-  #define INTERNAL INTERNAL1V1
-#else  
-#if defined(__AVR_ATmega1280__) || defined(__AVR_ATmega2560__) || defined(__AVR_ATmega1284__) || defined(__AVR_ATmega1284P__) || defined(__AVR_ATmega644__) || defined(__AVR_ATmega644A__) || defined(__AVR_ATmega644P__) || defined(__AVR_ATmega644PA__)
-#define INTERNAL1V1 2
-#define INTERNAL2V56 3
-#else
-#define INTERNAL 3
-#endif
-#define DEFAULT 1
-#define EXTERNAL 0
-#endif
+#define NOT_AN_INTERRUPT -1
 
 // undefine stdlib's abs if encountered
 #ifdef abs
@@ -111,7 +63,21 @@ void yield(void);
 #define interrupts() sei()
 #define noInterrupts() cli()
 
+#if F_CPU < 1000000L
+//Prevent a divide by 0 is
+#warning Clocks per microsecond < 1. To prevent divide by 0, it is rounded up to 1.
+//static inline unsigned long clockCyclesPerMicrosecond() __attribute__ ((always_inline));
+//static inline unsigned long clockCyclesPerMicrosecond()
+//{//
+//Inline function will be optimised out.
+//  return 1;
+//}
+  //WTF were they thinking?!
+#define clockCyclesPerMicrosecond() 1L
+#else
 #define clockCyclesPerMicrosecond() ( F_CPU / 1000000L )
+#endif
+
 #define clockCyclesToMicroseconds(a) ( ((a) * 1000L) / (F_CPU / 1000L) )
 #define microsecondsToClockCycles(a) ( ((a) * (F_CPU / 1000L)) / 1000L )
 
@@ -123,23 +89,16 @@ void yield(void);
 #define bitClear(value, bit) ((value) &= ~(1UL << (bit)))
 #define bitWrite(value, bit, bitvalue) (bitvalue ? bitSet(value, bit) : bitClear(value, bit))
 
-// avr-libc defines _NOP() since 1.6.2
-#ifndef _NOP
-#define _NOP() do { __asm__ volatile ("nop"); } while (0)
-#endif
 
 typedef unsigned int word;
 
 #define bit(b) (1UL << (b))
 
-typedef bool boolean;
+typedef uint8_t boolean;
 typedef uint8_t byte;
 
-void init(void);
-void initVariant(void);
 void initToneTimer(void);
-
-int atexit(void (*func)()) __attribute__((weak));
+void init(void);
 
 void pinMode(uint8_t, uint8_t);
 void digitalWrite(uint8_t, uint8_t);
@@ -148,12 +107,13 @@ int analogRead(uint8_t);
 void analogReference(uint8_t mode);
 void analogWrite(uint8_t, int);
 
+#ifndef DISABLEMILLIS
 unsigned long millis(void);
 unsigned long micros(void);
+#endif
 void delay(unsigned long);
 void delayMicroseconds(unsigned int us);
 unsigned long pulseIn(uint8_t pin, uint8_t state, unsigned long timeout);
-unsigned long pulseInLong(uint8_t pin, uint8_t state, unsigned long timeout);
 
 void shiftOut(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder, uint8_t val);
 uint8_t shiftIn(uint8_t dataPin, uint8_t clockPin, uint8_t bitOrder);
@@ -169,20 +129,17 @@ void loop(void);
 
 #define analogInPinToBit(P) (P)
 
-// On the ATmega1280, the addresses of some of the port registers are
-// greater than 255, so we can't store them in uint8_t's.
 extern const uint16_t PROGMEM port_to_mode_PGM[];
 extern const uint16_t PROGMEM port_to_input_PGM[];
 extern const uint16_t PROGMEM port_to_output_PGM[];
 
 extern const uint8_t PROGMEM digital_pin_to_port_PGM[];
-// extern const uint8_t PROGMEM digital_pin_to_bit_PGM[];
 extern const uint8_t PROGMEM digital_pin_to_bit_mask_PGM[];
 extern const uint8_t PROGMEM digital_pin_to_timer_PGM[];
 
 // Get the bit location within the hardware port of the given virtual pin.
 // This comes from the pins_*.c file for the active board configuration.
-// 
+//
 // These perform slightly better as macros compared to inline functions
 //
 #define digitalPinToPort(P) ( pgm_read_byte( digital_pin_to_port_PGM + (P) ) )
@@ -196,49 +153,71 @@ extern const uint8_t PROGMEM digital_pin_to_timer_PGM[];
 #define NOT_A_PIN 0
 #define NOT_A_PORT 0
 
-#define NOT_AN_INTERRUPT -1
-
-#ifdef ARDUINO_MAIN
 #define PA 1
 #define PB 2
 #define PC 3
 #define PD 4
-#define PE 5
-#define PF 6
-#define PG 7
-#define PH 8
-#define PJ 10
-#define PK 11
-#define PL 12
-#endif
 
 #define NOT_ON_TIMER 0
 #define TIMER0A 1
 #define TIMER0B 2
 #define TIMER1A 3
 #define TIMER1B 4
-#define TIMER1C 5
+#define TIMER1D 5
 
-#if defined(__AVR_ATtiny167__)
-#define TIMER1D 6
+#include "pins_arduino.h"
 
-#else
-#define TIMER2  6
-#define TIMER2A 7
-#define TIMER2B 8
-
-#define TIMER3A 9
-#define TIMER3B 10
-#define TIMER3C 11
-#define TIMER4A 12
-#define TIMER4B 13
-#define TIMER4C 14
-#define TIMER4D 15
-#define TIMER5A 16
-#define TIMER5B 17
-#define TIMER5C 18
-
+#ifndef USE_SOFTWARE_SERIAL
+//Default to hardware serial.
+#define USE_SOFTWARE_SERIAL 0
 #endif
+
+/*=============================================================================
+  Allow the ADC to be optional for low-power applications
+=============================================================================*/
+
+#ifndef TIMER_TO_USE_FOR_MILLIS
+#define TIMER_TO_USE_FOR_MILLIS                     0
+#endif
+/*
+  Tone goes on whichever timer was not used for millis.
+*/
+#if TIMER_TO_USE_FOR_MILLIS == 1
+#define TIMER_TO_USE_FOR_TONE                     0
+#else
+#define TIMER_TO_USE_FOR_TONE                     1
+#endif
+
+#if NUM_ANALOG_INPUTS > 0
+  #define HAVE_ADC                  1
+  #ifndef INITIALIZE_ANALOG_TO_DIGITAL_CONVERTER
+    #define INITIALIZE_ANALOG_TO_DIGITAL_CONVERTER   1
+  #endif
+#else
+  #define HAVE_ADC                0
+  #if defined(INITIALIZE_ANALOG_TO_DIGITAL_CONVERTER)
+    #undef INITIALIZE_ANALOG_TO_DIGITAL_CONVERTER
+  #endif
+  #define INITIALIZE_ANALOG_TO_DIGITAL_CONVERTER  0
+#endif
+
+#if !HAVE_ADC
+  #undef INITIALIZE_ANALOG_TO_DIGITAL_CONVERTER
+  #define INITIALIZE_ANALOG_TO_DIGITAL_CONVERTER  0
+#else
+  #ifndef INITIALIZE_ANALOG_TO_DIGITAL_CONVERTER
+    #define INITIALIZE_ANALOG_TO_DIGITAL_CONVERTER   1
+  #endif
+#endif
+
+/*=============================================================================
+  Allow the "secondary timers" to be optional for low-power applications
+=============================================================================*/
+
+#ifndef INITIALIZE_SECONDARY_TIMERS
+  #define INITIALIZE_SECONDARY_TIMERS               1
+#endif
+
 
 #ifdef __cplusplus
 } // extern "C"
@@ -248,10 +227,7 @@ extern const uint8_t PROGMEM digital_pin_to_timer_PGM[];
 #include "WCharacter.h"
 #include "WString.h"
 #include "HardwareSerial.h"
-#include "SoftwareSerial.h"
-#if defined(HAVE_HWSERIAL0) && defined(HAVE_CDCSERIAL)
-#error "Targets with both UART0 and CDC serial not supported"
-#endif
+#include "TinySoftwareSerial.h"
 
 uint16_t makeWord(uint16_t w);
 uint16_t makeWord(byte h, byte l);
@@ -259,19 +235,45 @@ uint16_t makeWord(byte h, byte l);
 #define word(...) makeWord(__VA_ARGS__)
 
 unsigned long pulseIn(uint8_t pin, uint8_t state, unsigned long timeout = 1000000L);
-unsigned long pulseInLong(uint8_t pin, uint8_t state, unsigned long timeout = 1000000L);
 
-void tone(uint8_t _pin, unsigned int frequency, unsigned long duration = 0);
-void noTone(uint8_t _pin);
+void tone(uint8_t _pin, unsigned long frequency, unsigned long duration = 0);
+void noTone(uint8_t _pin = 255);
 
 // WMath prototypes
 long random(long);
 long random(long, long);
-void randomSeed(unsigned long);
+void randomSeed(unsigned int);
 long map(long, long, long, long, long);
 
 #endif
 
-#include "pins_arduino.h"
+/*=============================================================================
+  Aliases for the interrupt service routine vector numbers so the code
+  doesn't have to be riddled with #ifdefs.
+=============================================================================*/
+
+#if defined( TIM0_COMPA_vect ) && ! defined( TIMER0_COMPA_vect )
+#define TIMER0_COMPA_vect TIM0_COMPA_vect
+#endif
+
+#if defined( TIM0_COMPB_vect ) && ! defined( TIMER0_COMPB_vect )
+#define TIMER0_COMPB_vect TIM0_COMPB_vect
+#endif
+
+#if defined( TIM0_OVF_vect ) && ! defined( TIMER0_OVF_vect )
+#define TIMER0_OVF_vect TIM0_OVF_vect
+#endif
+
+#if defined( TIM1_COMPA_vect ) && ! defined( TIMER1_COMPA_vect )
+#define TIMER1_COMPA_vect TIM1_COMPA_vect
+#endif
+
+#if defined( TIM1_COMPB_vect ) && ! defined( TIMER1_COMPB_vect )
+#define TIMER1_COMPB_vect TIM1_COMPB_vect
+#endif
+
+#if defined( TIM1_OVF_vect ) && ! defined( TIMER1_OVF_vect )
+#define TIMER1_OVF_vect TIM1_OVF_vect
+#endif
 
 #endif

@@ -1,13 +1,28 @@
 # See: http://code.google.com/p/arduino/wiki/Platforms
 
-menu.cpu=Processor
+menu.clock=Clock
+menu.chip=Chip
+menu.buffer=Serial buffer size
+menu.bod=B.O.D. Level
+menu.eesave=Save EEPROM
+menu.LTO=LTO (1.6.11+ only)
+menu.neopixelport=tinyNeoPixel Port
+menu.millis=millis()/micros()
+menu.micronucleus=Micronucleus variant
 
 ##############################################################
 
-digispark-tiny.name=Digispark (Default - 16.5 MHz)
+digispark-tiny.name=Digispark
 
 digispark-tiny.build.mcu=attiny85
-digispark-tiny.build.f_cpu=16500000L
+digispark-tiny.menu.clock.clock165=Default - 16.5 MHz
+digispark-tiny.menu.clock.clock16=16 MHz - No USB
+digispark-tiny.menu.clock.clock8=8 MHz - No USB
+digispark-tiny.menu.clock.clock1=1 MHz - No USB
+digispark-tiny.menu.clock.clock165.build.f_cpu=16500000L
+digispark-tiny.menu.clock.clock16.build.f_cpu=16000000L
+digispark-tiny.menu.clock.clock8.build.f_cpu=8000000L
+digispark-tiny.menu.clock.clock1.build.f_cpu=1000000L
 digispark-tiny.build.board=AVR_DIGISPARK
 digispark-tiny.build.core=tiny
 digispark-tiny.build.variant=digispark
@@ -15,14 +30,24 @@ digispark-tiny.build.variant=digispark
 digispark-tiny.upload.using=micronucleusprog
 digispark-tiny.upload.protocol=usb
 digispark-tiny.upload.tool=micronucleus
-digispark-tiny.upload.maximum_size=6586
 digispark-tiny.upload.maximum_data_size=496
 digispark-tiny.upload.wait_for_upload_port = false
 digispark-tiny.upload.use_1200bps_touch = false
 digispark-tiny.upload.disable_flushing = false
 
+digispark-tiny.menu.micronucleus.default=Default (6586 bytes avail.)
+digispark-tiny.menu.micronucleus.default.upload.maximum_size=6586
+digispark-tiny.menu.micronucleus.default.bootloader.file=upgrade-t85_default.hex
+digispark-tiny.menu.micronucleus.recommended=Recommended (6586 bytes avail.)
+digispark-tiny.menu.micronucleus.recommended.upload.maximum_size=6586
+digispark-tiny.menu.micronucleus.recommended.bootloader.file=upgrade-t85_entry_on_power_on_no_pullup_fast_exit_on_no_USB.hex
+digispark-tiny.menu.micronucleus.entryReset=Entry on reset (6586 bytes avail.)
+digispark-tiny.menu.micronucleus.entryReset.upload.maximum_size=6586
+digispark-tiny.menu.micronucleus.entryReset.bootloader.file=upgrade-t85_entry_on_reset_no_pullup.hex
+digispark-tiny.menu.micronucleus.agressive=Agressive (6780)
+digispark-tiny.menu.micronucleus.agressive.upload.maximum_size=6780
+digispark-tiny.menu.micronucleus.agressive.bootloader.file=upgrade-t85_aggressive.hex
 digispark-tiny.bootloader.tool=micronucleus
-digispark-tiny.bootloader.file=upgrade-t85_entry_on_power_on_no_pullup_fast_exit_on_no_USB.hex
 
 ##############################################################
 
@@ -34,128 +59,31 @@ digispark-pro.build.board=AVR_DIGISPARKPRO
 digispark-pro.build.core=pro
 digispark-pro.build.variant=pro
 
+digispark-pro.menu.buffer.buffer16=16 byte serial buffer
+digispark-pro.menu.buffer.buffer32=32 byte serial buffer
+digispark-pro.menu.buffer.buffer64=64 byte serial buffer
+digispark-pro.menu.buffer.buffer16.build.SerialBufferSize=16
+digispark-pro.menu.buffer.buffer32.build.SerialBufferSize=32
+digispark-pro.menu.buffer.buffer64.build.SerialBufferSize=64
+
 digispark-pro.upload.using=micronucleusprog
 digispark-pro.upload.protocol=usb
 digispark-pro.upload.tool=micronucleus
-digispark-pro.upload.maximum_size=14842
 digispark-pro.upload.maximum_data_size=496
 digispark-pro.upload.wait_for_upload_port = false
 digispark-pro.upload.use_1200bps_touch = false
 digispark-pro.upload.disable_flushing = false
 
+digispark-pro.menu.micronucleus.default=Default (14970 bytes avail.)
+digispark-pro.menu.micronucleus.default.upload.maximum_size=14970
+digispark-pro.menu.micronucleus.default.bootloader.file=upgrade-t167_default.hex
+digispark-pro.menu.micronucleus.recommended=Recommended (14842 bytes avail.)
+digispark-pro.menu.micronucleus.recommended.upload.maximum_size=14842
+digispark-pro.menu.micronucleus.recommended.bootloader.file=upgrade-t167_entry_on_power_on_no_pullup_fast_exit_on_no_USB.hex
+digispark-pro.menu.micronucleus.entryReset=Entry on reset (6586 bytes avail.)
+digispark-pro.menu.micronucleus.entryReset.upload.maximum_size=6586
+digispark-pro.menu.micronucleus.entryReset.bootloader.file=upgrade-t167_entry_on_reset_no_pullup.hex
 digispark-pro.bootloader.tool=micronucleus
-digispark-pro.bootloader.file=upgrade-t167_entry_on_power_on_no_pullup_fast_exit_on_no_USB.hex
-
-##############################################################
-
-digispark-pro32.name=Digispark Pro (16 MHz) (32 byte buffer)
-
-digispark-pro32.build.mcu=attiny167
-digispark-pro32.build.f_cpu=16000000L
-digispark-pro32.build.board=AVR_DIGISPARKPRO
-digispark-pro32.build.core=pro
-digispark-pro32.build.variant=pro32buffer
-
-digispark-pro32.upload.using=micronucleusprog
-digispark-pro32.upload.protocol=usb
-digispark-pro32.upload.tool=micronucleus
-digispark-pro32.upload.maximum_size=14842
-digispark-pro32.upload.maximum_data_size=496
-digispark-pro32.upload.wait_for_upload_port = false
-digispark-pro32.upload.use_1200bps_touch = false
-digispark-pro32.upload.disable_flushing = false
-
-digispark-pro32.bootloader.tool=micronucleus
-digispark-pro32.bootloader.file=upgrade-t167_entry_on_power_on_no_pullup_fast_exit_on_no_USB.hex
-
-##############################################################
-
-digispark-pro64.name=Digispark Pro (16 MHz) (64 byte buffer)
-
-digispark-pro64.build.mcu=attiny167
-digispark-pro64.build.f_cpu=16000000L
-digispark-pro64.build.board=AVR_DIGISPARKPRO
-digispark-pro64.build.core=pro
-digispark-pro64.build.variant=pro64buffer
-
-digispark-pro64.upload.using=micronucleusprog
-digispark-pro64.upload.protocol=usb
-digispark-pro64.upload.tool=micronucleus
-digispark-pro64.upload.maximum_size=14842
-digispark-pro64.upload.maximum_data_size=496
-digispark-pro64.upload.wait_for_upload_port = false
-digispark-pro64.upload.use_1200bps_touch = false
-digispark-pro64.upload.disable_flushing = false
-
-digispark-pro64.bootloader.tool=micronucleus
-digispark-tiny16.bootloader.file=upgrade-t167_entry_on_power_on_no_pullup_fast_exit_on_no_USB.hex
-
-##############################################################
-
-digispark-tiny16.name=Digispark (16 MHz - No USB)
-
-digispark-tiny16.build.mcu=attiny85
-digispark-tiny16.build.f_cpu=16000000L
-digispark-tiny16.build.board=AVR_DIGISPARK
-digispark-tiny16.build.core=tiny
-digispark-tiny16.build.variant=digispark
-
-digispark-tiny16.upload.using=micronucleusprog
-digispark-tiny16.upload.protocol=usb
-digispark-tiny16.upload.tool=micronucleus
-digispark-tiny16.upload.maximum_size=6586
-digispark-tiny16.upload.maximum_data_size=496
-digispark-tiny16.upload.wait_for_upload_port = false
-digispark-tiny16.upload.use_1200bps_touch = false
-digispark-tiny16.upload.disable_flushing = false
-
-digispark-tiny16.bootloader.tool=micronucleus
-digispark-tiny16.bootloader.file=upgrade-t85_entry_on_power_on_no_pullup_fast_exit_on_no_USB.hex
-
-##############################################################
-
-digispark-tiny8.name=Digispark (8 MHz - No USB)
-
-digispark-tiny8.build.mcu=attiny85
-digispark-tiny8.build.f_cpu=8000000L
-digispark-tiny8.build.board=AVR_DIGISPARK
-digispark-tiny8.build.core=tiny
-digispark-tiny8.build.variant=digispark
-
-digispark-tiny8.upload.using=micronucleusprog
-digispark-tiny8.upload.protocol=usb
-digispark-tiny8.upload.tool=micronucleus
-digispark-tiny8.upload.maximum_size=6586
-digispark-tiny8.upload.maximum_data_size=496
-digispark-tiny8.upload.wait_for_upload_port = false
-digispark-tiny8.upload.use_1200bps_touch = false
-digispark-tiny8.upload.disable_flushing = false
-
-digispark-tiny8.bootloader.tool=micronucleus
-digispark-tiny8.bootloader.file=upgrade-t85_entry_on_power_on_no_pullup_fast_exit_on_no_USB.hex
-
-##############################################################
-
-digispark-tiny1.name=Digispark (1 MHz - No USB)
-
-digispark-tiny1.build.mcu=attiny85
-digispark-tiny1.build.f_cpu=1000000L
-digispark-tiny1.build.board=AVR_DIGISPARK
-digispark-tiny1.build.core=tiny
-digispark-tiny1.build.variant=digispark
-
-digispark-tiny1.upload.using=micronucleusprog
-digispark-tiny1.upload.protocol=usb
-digispark-tiny1.upload.tool=micronucleus
-digispark-tiny1.upload.maximum_size=6586
-digispark-tiny1.upload.maximum_data_size=496
-
-digispark-tiny1.upload.wait_for_upload_port = false
-digispark-tiny1.upload.use_1200bps_touch = false
-digispark-tiny1.upload.disable_flushing = false
-
-digispark-tiny1.bootloader.tool=micronucleus
-digispark-tiny1.bootloader.file=upgrade-t85_entry_on_power_on_no_pullup_fast_exit_on_no_USB.hex
 
 ##############################################################
 
@@ -163,19 +91,116 @@ MHETtiny88.name=MH-ET LIVE Tiny88 (16 MHz)
 
 MHETtiny88.build.mcu=attiny88
 MHETtiny88.build.f_cpu=16000000L
-MHETtiny88.build.board=AVR_DIGISPARKPRO
+#use ATTinyCore
+MHETtiny88.build.board=AVR_ATTINYX8
 MHETtiny88.build.core=tiny88
-MHETtiny88.build.variant=tiny88
+MHETtiny88.build.variant=MHtiny88
 
 MHETtiny88.upload.using=micronucleusprog
 MHETtiny88.upload.protocol=usb
 MHETtiny88.upload.tool=micronucleus
-MHETtiny88.upload.maximum_size=6650
 MHETtiny88.upload.maximum_data_size=496
 
 MHETtiny88.upload.wait_for_upload_port = false
 MHETtiny88.upload.use_1200bps_touch = false
 MHETtiny88.upload.disable_flushing = false
 
+MHETtiny88.menu.micronucleus.default=Default (6714 bytes avail.)
+MHETtiny88.menu.micronucleus.default.upload.maximum_size=6714
+MHETtiny88.menu.micronucleus.default.bootloader.file=upgrade-t88_default.hex
+MHETtiny88.menu.micronucleus.recommended=Recommended (6650 bytes avail.)
+MHETtiny88.menu.micronucleus.recommended.upload.maximum_size=6650
+MHETtiny88.menu.micronucleus.recommended.bootloader.file=upgrade-t88_entry_on_power_on_no_pullup_fast_exit_on_no_USB.hex
 MHETtiny88.bootloader.tool=micronucleus
-MHETtiny88.bootloader.file=upgrade-t88_entry_on_power_on_no_pullup_fast_exit_on_no_USB.hex
+
+##############################################################
+
+# The ATTinyCore variant
+
+attinyx8.name=ATtiny48/88 (micronucleus)
+attinyx8.upload.tool=avrdude
+attinyx8.build.board=AVR_ATTINYX8
+attinyx8.bootloader.tool=avrdude
+attinyx8.bootloader.unlock_bits=0xFF
+attinyx8.bootloader.lock_bits=0xFF
+attinyx8.build.core=tiny88
+attinyx8.build.export_merged_output=false
+attinyx8.menu.LTO.enable=Enabled
+attinyx8.menu.LTO.enable.ltocflags=-flto -fno-fat-lto-objects
+attinyx8.menu.LTO.enable.ltoelfflags=-g -flto -fuse-linker-plugin
+attinyx8.menu.LTO.enable.ltocppflags=-flto
+attinyx8.menu.LTO.enable.ltoarcmd=gcc-
+attinyx8.menu.LTO.disable=Disabled
+attinyx8.menu.LTO.disable.ltocflags=
+attinyx8.menu.LTO.disable.ltoelfflags=
+attinyx8.menu.LTO.disable.ltocppflags=
+attinyx8.menu.LTO.disable.ltoarcmd=
+attinyx8.menu.chip.88=ATtiny88
+attinyx8.menu.chip.88.build.mcu=attiny88
+attinyx8.menu.chip.88.upload.maximum_size=6650
+attinyx8.menu.chip.88.upload.maximum_data_size=496
+attinyx8.menu.chip.48=ATtiny48
+attinyx8.menu.chip.48.build.mcu=attiny48
+attinyx8.menu.chip.48.upload.maximum_size=4096
+attinyx8.menu.chip.48.upload.maximum_data_size=256
+attinyx8.bootloader.extended_fuses=0xff
+attinyx8.bootloader.file=empty/empty_all.hex
+attinyx8.menu.clock.8internal=8 MHz (internal)
+attinyx8.menu.clock.8internal.bootloader.low_fuses=0xE2
+attinyx8.menu.clock.8internal.build.f_cpu=8000000L
+attinyx8.menu.clock.8internal.build.clocksource=0
+attinyx8.menu.clock.1internal=1 MHz (internal)
+attinyx8.menu.clock.1internal.bootloader.low_fuses=0x62
+attinyx8.menu.clock.1internal.build.f_cpu=1000000L
+attinyx8.menu.clock.1internal.build.clocksource=0
+attinyx8.menu.clock.4internal=4 MHz (internal)
+attinyx8.menu.clock.4internal.bootloader.low_fuses=0x62
+attinyx8.menu.clock.4internal.build.f_cpu=4000000L
+attinyx8.menu.clock.4internal.build.clocksource=0
+attinyx8.menu.clock.128internal=128 kHz (internal WDT)
+attinyx8.menu.clock.128internal.bootloader.low_fuses=0xC3
+attinyx8.menu.clock.128internal.build.f_cpu=128000L
+attinyx8.menu.clock.128external.build.clocksource=3
+attinyx8.menu.clock.8external=8 MHz (external CLOCK - Danger: see docs!)
+attinyx8.menu.clock.8external.bootloader.low_fuses=0xE0
+attinyx8.menu.clock.8external.build.f_cpu=8000000L
+attinyx8.menu.clock.8external.build.clocksource=2
+attinyx8.menu.clock.12external=12 MHz (external CLOCK - Danger: see docs!)
+attinyx8.menu.clock.12external.bootloader.low_fuses=0xE0
+attinyx8.menu.clock.12external.build.f_cpu=12000000L
+attinyx8.menu.clock.12external.build.clocksource=2
+attinyx8.menu.clock.16external=16 MHz (external CLOCK, overclocked - Danger: see docs!)
+attinyx8.menu.clock.16external.bootloader.low_fuses=0xE0
+attinyx8.menu.clock.16external.build.f_cpu=16000000L
+attinyx8.menu.clock.16external.build.clocksource=2
+attinyx8.bootloader.high_fuses=0b1101{bootloader.eesave_bit}{bootloader.bod_bits}
+attinyx8.menu.eesave.aenable=EEPROM retained
+attinyx8.menu.eesave.aenable.bootloader.eesave_bit=0
+attinyx8.menu.eesave.disable=EEPROM not retained
+attinyx8.menu.eesave.disable.bootloader.eesave_bit=1
+attinyx8.menu.bod.disable=B.O.D. Disabled
+attinyx8.menu.bod.disable.bootloader.bod_bits=111
+attinyx8.menu.bod.1v8=B.O.D. Enabled (1.8v)
+attinyx8.menu.bod.1v8.bootloader.bod_bits=110
+attinyx8.menu.bod.2v7=B.O.D. Enabled (2.7v)
+attinyx8.menu.bod.2v7.bootloader.bod_bits=101
+attinyx8.menu.bod.4v3=B.O.D. Enabled (4.3v)
+attinyx8.menu.bod.4v3.bootloader.bod_bits=100
+attinyx8.build.variant=tinyX8
+attinyx8.menu.millis.enabled=Enabled
+attinyx8.menu.millis.disabled=Disabled (saves flash)
+attinyx8.menu.millis.enabled.build.millis=
+attinyx8.menu.millis.disabled.build.millis=-DDISABLEMILLIS
+attinyx8.menu.neopixelport.porta=Port A (pins 23~26)
+attinyx8.menu.neopixelport.portb=Port B (pins 16~22,27)
+attinyx8.menu.neopixelport.portc=Port C (pins 9~13)
+attinyx8.menu.neopixelport.portd=Port D (pins 0~7)
+attinyx8.menu.neopixelport.porta.build.neopixelport=-DNEOPIXELPORT=PORTA
+attinyx8.menu.neopixelport.portb.build.neopixelport=-DNEOPIXELPORT=PORTB
+attinyx8.menu.neopixelport.portc.build.neopixelport=-DNEOPIXELPORT=PORTC
+attinyx8.menu.neopixelport.portd.build.neopixelport=-DNEOPIXELPORT=PORTD
+attinyx8.build.extra_flags={build.millis} {build.neopixelport} -DCLOCK_SOURCE={build.clocksource}
+
+attinyx8.bootloader.tool=micronucleus
+attinyx8.bootloader.file=upgrade-t88_entry_on_power_on_no_pullup_fast_exit_on_no_USB.hex
+

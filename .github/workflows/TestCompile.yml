@@ -37,8 +37,7 @@ jobs:
         # You may add a suffix behind the fqbn with "|" to specify one board for e.g. different compile options like arduino:avr:uno|trace
         #############################################################################################################
         arduino-boards-fqbn:
-#          - digistump:avr:digispark-tiny   # ATtiny85 board @16.5 MHz
-          - digistump:avr:digispark-tiny16 # ATtiny85 board @16 MHz
+          - digistump:avr:digispark-tiny   # ATtiny85 board @16.5 MHz
           - digistump:avr:digispark-pro
           - digistump:avr:MHETtiny88 # Chinese MH-Tiny ATTiny88
 
@@ -46,11 +45,12 @@ jobs:
         # With examples-exclude you may exclude specific examples for a board. Use a comma separated list.
         #############################################################################################################
         include:
-          - arduino-boards-fqbn: digistump:avr:digispark-tiny16  # ATtiny85 board @16 MHz
+          - arduino-boards-fqbn: digistump:avr:digispark-tiny  # ATtiny85 board @16.5 MHz
             examples-exclude: Blink # All Wire examples
 
-          - arduino-boards-fqbn: digistump:avr:MHETtiny88  # ATtiny85 board @16 MHz
-            examples-exclude: WiiClassicJoystick,BasicUsage,DigisparkOLED,SoftRcPulseInDebug,SoftRcPulseInOutDemo,SoftRcPulseInDemo,SoftRcPulseInOutDemo,TinySoftPwmDemo,DigiUSB2LCD,DigisparkUSBDemo,ArduinoNunchukDemo,DigisparkJoystickDemo,Tiny85_Temp,Tiny85_Temp_LCD,Tiny85_Temp_LCD_RTC,SoftSerialExample,TwoPortReceive,SoftPwm13Pins
+          - arduino-boards-fqbn: digistump:avr:MHETtiny88  # ATtiny88 Chino clone board @16 MHz
+            # Examples to exclude because of incompatible I2C Hardware, the original library uses TiniWireM library. SoftPwm is not required and not working
+            examples-exclude: WiiClassicJoystick,BasicUsage,DigisparkOLED,SoftPwm13Pins,TinySoftPwmDemo,DigiUSB2LCD,DigisparkUSBDemo,ArduinoNunchukDemo,DigisparkJoystickDemo
 
       # Do not cancel all jobs / architectures if one job fails
       fail-fast: false

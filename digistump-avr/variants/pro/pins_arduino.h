@@ -31,9 +31,29 @@
 #define __AVR_ATtiny167__
 #endif
 
+///////////////////////////////
+// Additions from ATTiny core
+#  define DDR_USI DDRB
+#  define PORT_USI PORTB
+#  define PIN_USI PINB
+#  define PORT_USI_SDA PORTB0
+#  define PORT_USI_SCL PORTB2
+#  define PIN_USI_SDA PINB0
+#  define PIN_USI_SCL PINB2
+#  define USI_START_VECTOR USI_START_vect
+#  define USI_OVERFLOW_VECTOR USI_OVF_vect
+#  define DDR_USI_CL DDR_USI
+#  define PORT_USI_CL PORT_USI
+#  define PIN_USI_CL PIN_USI
+#ifndef USI_START_COND_INT
+#  define USI_START_COND_INT USISIF
+#endif
+// END additions
+////////////////////
+
 #define LED_BUILTIN 1 // On a Digispark Pro we have PB1 / D1 (Digispark library) or D9 (ATtinyCore lib) / on DigisparkBoard labeled as pin 1
 
-#define SERIAL_BUFFER_SIZE 16
+// #define SERIAL_BUFFER_SIZE 16 // noe defined by menu
 
 #include <avr/pgmspace.h>
 

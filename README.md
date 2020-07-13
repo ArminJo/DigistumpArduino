@@ -1,7 +1,7 @@
 # Improved version of Digistump avr core for Arduino
 Available as Arduino Board Manager entry "Digistump AVR Boards" using the Board Manager URL: https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json
 
-### [Version 1.7.0 ](https://github.com/ArminJo/DigistumpArduino/releases)
+### [Version 1.7.0 ](https://github.com/ArminJo/DigistumpArduino/releases) - **WORK IN PROGRESS**
 
 [![TestCompile](https://github.com/ArminJo/DigistumpArduino/workflows/TestCompile/badge.svg)](https://github.com/ArminJo/DigistumpArduino/actions)
 [![Hit Counter](https://hitcounter.pythonanywhere.com/count/tag.svg?url=https://github.com/ArminJo/DigistumpArduino)](https://github.com/brentvollebregt/hit-counter)
@@ -36,7 +36,7 @@ To **update** your old flash consuming **bootloader**, open the Arduino IDE, sel
 The bootloader is the recommended configuration [`entry_on_power_on_no_pullup_fast_exit_on_no_USB`](https://github.com/ArminJo/micronucleus-firmware#recommended-configuration).<br/>
 **Or** use one of the window [scripts](https://github.com/ArminJo/micronucleus-firmware/tree/master/utils)
 like e.g. [Burn_upgrade-t85_default.cmd](https://github.com/ArminJo/micronucleus-firmware/tree/master/utils/Burn_upgrade-t85_default.cmd).<br/>
-You may also test the [t85_agressive bootloader](firmware/configuration#overview).
+You may also test the [t85_agressive bootloader](https://github.com/ArminJo/micronucleus-firmware#configuration-overview).
 It works for my boards but the USB timing is not guaranteed as stable as in the other configurations.
 Do not forget to change the `upload.maximum_size` entry in *%localappdata%\Arduino15\packages\digistump\hardware\avr\1.6.8\boards.txt* to **6778**.<br/>
 
