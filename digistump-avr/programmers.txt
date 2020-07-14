@@ -1,4 +1,4 @@
-micronucleusprog.name=Micronucleus 
+micronucleusprog.name=Micronucleus.2.0a4
 micronucleusprog.communication=usb
 micronucleusprog.protocol=micronucleus
 micronucleusprog.program.tool={runtime.tools.micronucleus.path}/micronucleus

@@ -51,7 +51,7 @@ digispark-tiny.bootloader.tool=micronucleus
 
 ##############################################################
 
-digispark-pro.name=Digispark Pro (Default 16 MHz)
+digispark-pro.name=Digispark Pro (16 MHz)
 
 digispark-pro.build.mcu=attiny167
 digispark-pro.build.f_cpu=16000000L
@@ -80,14 +80,14 @@ digispark-pro.menu.micronucleus.default.bootloader.file=upgrade-t167_default.hex
 digispark-pro.menu.micronucleus.recommended=Recommended (14842 bytes avail.)
 digispark-pro.menu.micronucleus.recommended.upload.maximum_size=14842
 digispark-pro.menu.micronucleus.recommended.bootloader.file=upgrade-t167_entry_on_power_on_no_pullup_fast_exit_on_no_USB.hex
-digispark-pro.menu.micronucleus.entryReset=Entry on reset (6586 bytes avail.)
-digispark-pro.menu.micronucleus.entryReset.upload.maximum_size=6586
+digispark-pro.menu.micronucleus.entryReset=Entry on reset (14842 bytes avail.)
+digispark-pro.menu.micronucleus.entryReset.upload.maximum_size=14842
 digispark-pro.menu.micronucleus.entryReset.bootloader.file=upgrade-t167_entry_on_reset_no_pullup.hex
 digispark-pro.bootloader.tool=micronucleus
 
 ##############################################################
 
-MHETtiny88.name=MH-ET LIVE Tiny88 (16 MHz)
+MHETtiny88.name=MH-ET LIVE Tiny88 (16 MHz ATTinyCore)
 
 MHETtiny88.build.mcu=attiny88
 MHETtiny88.build.f_cpu=16000000L
@@ -117,7 +117,7 @@ MHETtiny88.bootloader.tool=micronucleus
 
 # The ATTinyCore variant
 
-attinyx8.name=ATtiny48/88 (micronucleus)
+attinyx8.name=ATtiny48/88 (ATTinyCore)
 attinyx8.upload.tool=avrdude
 attinyx8.build.board=AVR_ATTINYX8
 attinyx8.bootloader.tool=avrdude
