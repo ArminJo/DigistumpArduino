@@ -301,15 +301,20 @@ void init(void)
   // clock calibration stuff
   // recalibrate clock if it was calibrated by bootloader (like micronucleus)
   #if F_CPU != 16500000L
-    if (OSCCAL != read_factory_calibration()) {
-      // adjust the calibration down from 16.5mhz to 16.0mhz
-      if (OSCCAL >= 128) {
-        // maybe 8 is better? oh well - only about 0.3% out anyway
-        OSCCAL -= 7;
-      } else {
-        OSCCAL -= 5;
-      }
-    }
+    // On my Digispark board, micronucleus sets OSCCAL from 82 to 85 (or 58 to 5A) for 16.5 MHz.
+    // So do not use the rule of thumb below, since this will lead to a clock being too slow.
+    // (I only discovered it, because my serial did not worked with the original code).
+    // Restoring just the factory calibration value is more reliable!
+    OSCCAL = read_factory_calibration();
+//    if (OSCCAL != read_factory_calibration()) {
+//      // adjust the calibration down from 16.5mhz to 16.0mhz
+//      if (OSCCAL >= 128) {
+//        // maybe 8 is better? oh well - only about 0.3% out anyway
+//        OSCCAL -= 7;
+//      } else {
+//        OSCCAL -= 5;
+//      }
+//    }
   #endif
     
   // TODO: detect if fuses set to PLL, regular internal oscillator or external and change behaviour in this next section...
