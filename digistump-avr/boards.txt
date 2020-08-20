@@ -27,7 +27,7 @@ digispark-tiny.build.board=AVR_DIGISPARK
 digispark-tiny.build.core=tiny
 digispark-tiny.build.variant=digispark
 
- # not required for tiny
+# not required for tiny
 digispark-tiny.build.SerialBufferSize=
 
 digispark-tiny.upload.using=micronucleusprog
