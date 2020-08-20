@@ -5,6 +5,7 @@ Available as Arduino Board Manager entry "Digistump AVR Boards" using the Board 
 
 [![TestCompile](https://github.com/ArminJo/DigistumpArduino/workflows/TestCompile/badge.svg)](https://github.com/ArminJo/DigistumpArduino/actions)
 [![Hit Counter](https://hitcounter.pythonanywhere.com/count/tag.svg?url=https://github.com/ArminJo/DigistumpArduino)](https://github.com/brentvollebregt/hit-counter)
+Another **great core for ATtinies** with ongoing support is the [ATTinyCore](https://github.com/SpenceKonde/ATTinyCore) of Spence Konde, which **currently added micronucleus support**. Use the Board Manager URL: http://drazzy.com/package_drazzy.com_index.json for it.
 
 ## Reduced code size was enabled by the following changes:
 - **To shrink generated code size by 5 to 15 percent** (depending on your code) the lto flag was added in `platform.txt`. To help finding code which consumes the flash, the generating of disassembler and memory map files are added. For Arduino IDE you will find these files in *C:\Users\<Name>\AppData\Local\Temp\arduino_build_<number>*.
@@ -52,7 +53,7 @@ Do not forget to change the `upload.maximum_size` entry in *%localappdata%\Ardui
                        +----+
   USB+ and USB- are each connected to a 3.3 volt Zener to GND and with a 68 Ohm series resistor to the ATtiny pin.
   On boards with a micro USB connector, the series resistor is 22 Ohm instead of 68 Ohm. 
-  USB- has a 1k pullup resistor to indicate a low-speed device (standard says 1k5).                  
+  USB- has a 1.5k pullup resistor to indicate a low-speed device.                  
   USB+ and USB- are each terminated on the host side with 15k to 25k pull-down resistors.
 ```
 
@@ -88,6 +89,7 @@ The Arduino ESP8266 core available with https://arduino.esp8266.com/stable/packa
 - Corrected wrong mouse buttons PR#2.
 - Updated `boards.txt` to make use of menus. Therefore some board names changed like `digispark-tiny1` -> `digispark-tiny:clock=clock1` etc.
 - Set `OSCCAL` to factory default instead of using a rule of thumb, which was not reliable.
+- Added linker flag `-mrelax`. This reduces code size at least for ATtiny167.
 
 ### Version 1.6.8
 - The original Digistump version with `lto` and changed `upload.maximum_size` for [micronucleus bootloader 2.5](https://github.com/ArminJo/micronucleus-firmware).

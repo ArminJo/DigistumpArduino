@@ -15,7 +15,7 @@ version=1.7.0
 compiler.path={runtime.tools.avr-gcc.path}/bin/
 compiler.c.cmd=avr-gcc
 compiler.c.flags=-c -g -Os -Wall -Wextra -std=gnu11 -ffunction-sections -fdata-sections -flto -MMD
-compiler.c.elf.flags=-Os -g -Wl,--gc-sections
+compiler.c.elf.flags=-Os -g -Wl,--gc-sections -mrelax -fmerge-all-constants
 compiler.c.elf.cmd=avr-gcc
 compiler.S.flags=-c -g -x assembler-with-cpp -flto
 compiler.cpp.cmd=avr-g++

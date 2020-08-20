@@ -107,7 +107,7 @@ ISR(MILLISTIMER_OVF_vect, ISR_NOBLOCK)
 ...rmv */
 
   f += FRACT_INC;
-  
+
   if (f >= FRACT_MAX) 
   {
     f -= FRACT_MAX;
@@ -150,7 +150,7 @@ unsigned long micros()
     m++;
 
   SREG = oldSREG;
-  
+
 #if (MillisTimer_Prescale_Value >= clockCyclesPerMicrosecond())
   return ((m << 8) + t) * (MillisTimer_Prescale_Value / clockCyclesPerMicrosecond());
 #else
@@ -183,7 +183,7 @@ void delay(unsigned long ms)
   		// 11 nops
   		asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");asm("NOP");
   		asm("NOP");asm("NOP");asm("NOP");
-    
+
   		us -= 2;
   	}
   }
@@ -316,7 +316,7 @@ void init(void)
 //      }
 //    }
   #endif
-    
+
   // TODO: detect if fuses set to PLL, regular internal oscillator or external and change behaviour in this next section...
   #if F_CPU < 16000000L
     cli();
@@ -339,7 +339,7 @@ void init(void)
       #warning "Cannot prescale chip to specified F_CPU speed"
     #endif
   #endif
-  
+
   // this needs to be called before setup() or some functions won't work there
   sei();
 

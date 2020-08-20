@@ -2,11 +2,11 @@
    "packages":[
       {
          "name":"digistump",
-         "maintainer":"Digistump",
-         "websiteURL":"http://digistump.com",
-         "email":"support@digistump.com",
+         "maintainer":"Digistump,ArminJo",
+         "websiteURL":"https://github.com/ArminJo/DigistumpArduino",
+         "email":"armin.arduino@gmail.com",
          "help":{
-            "online":"https://digistump.com/board"
+            "online":"https://github.com/ArminJo/DigistumpArduino"
          },
          "platforms":[
          {
