@@ -1,7 +1,7 @@
 # Improved version of Digistump avr core for Arduino
 Available as Arduino Board Manager entry "Digistump AVR Boards" using the Board Manager URL: https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json
 
-### [Version 1.7.0 ](https://github.com/ArminJo/DigistumpArduino/releases) - **WORK IN PROGRESS**
+### [Version 1.7.0 ](https://github.com/ArminJo/DigistumpArduino/releases) - work in progress
 
 [![TestCompile](https://github.com/ArminJo/DigistumpArduino/workflows/TestCompile/badge.svg)](https://github.com/ArminJo/DigistumpArduino/actions)
 [![Hit Counter](https://hitcounter.pythonanywhere.com/count/tag.svg?url=https://github.com/ArminJo/DigistumpArduino)](https://github.com/brentvollebregt/hit-counter)
@@ -22,6 +22,8 @@ Another **great core for ATtinies** with ongoing support is the [ATTinyCore](htt
 - Extended `DigisparkKeyboard` library with 22 keyboard layouts from [Teensyduino Core Library](https://github.com/PaulStoffregen/cores/blob/master/teensy/keylayouts.h), fixed bugs, **documented** and improved it. [Here](https://github.com/ArminJo/DigistumpArduino/blob/542aac12e56a1818af32b303c5709c655a12d98d/digistump-avr/libraries/DigisparkKeyboard/keylayouts.h#L80) it is documented how the mapping works, so now you can fix wrong mappings by your own (but please give me feedback to include the fix).
 - Fixed and extended a growing number of examples.
 
+![Digisparks](https://github.com/ArminJo/micronucleus-firmware/blob/master/pictures/Digisparks.jpg)
+
 # Installation
 To get all the benefits, just replace the old Digispark board URL **http://digistump.com/package_digistump_index.json** (e.g. in Arduino *File/Preferences*) by the new  **https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json** and install the **Digistump AVR Boards** version **1.6.8** or later.
 ![Boards Manager](https://github.com/ArminJo/DigistumpArduino/blob/master/pictures/Digistump1.6.8.jpg)
@@ -40,6 +42,10 @@ like e.g. [Burn_upgrade-t85_default.cmd](https://github.com/ArminJo/micronucleus
 You may also test the [t85_agressive bootloader](https://github.com/ArminJo/micronucleus-firmware#configuration-overview).
 It works for my boards but the USB timing is not guaranteed as stable as in the other configurations.
 Do not forget to change the `upload.maximum_size` entry in *%localappdata%\Arduino15\packages\digistump\hardware\avr\1.6.8\boards.txt* to **6778**.<br/>
+
+# Power reducing
+Information about reducing power consumption can be found [here](https://github.com/ArminJo/micronucleus-firmware#measured-digispark-pll-clock-supply-current).
+![Final power reduction](https://github.com/ArminJo/Arduino-OpenWindowAlarm/blob/master/pictures/Final-Version-Detail_annotated.jpg)
 
 # Pin layout
 ### ATtiny85 on Digispark

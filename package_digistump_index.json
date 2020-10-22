@@ -29,6 +29,9 @@
               "name": "Digispark Pro (Default 16 MHz)"
             },
             {
+              "name": "Digispark Pro (16 MHz) (16 byte buffer)"
+            },
+            {
               "name": "Digispark Pro (16 MHz) (32 byte buffer)"
             },
             {
@@ -44,7 +47,7 @@
               "name": "Digispark (1 MHz - No USB)"
             },
             {
-              "name": "MH-ET LIVE Tiny88 (16 MHz)"
+              "name": "MH-ET LIVE Tiny88 (16 MHz ATTinyCore)"
             }
           ],
           "toolsDependencies": [
