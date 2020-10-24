@@ -16,8 +16,8 @@
           "category": "Digistump",
           "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/digistump-avr-1.7.0.zip",
           "archiveFileName": "digistump-avr-1.7.0.zip",
-          "checksum": "SHA-256:4182463988733f6eb6ff970a5f6e45136100ae55bde353d63888004ffe124ac1",
-          "size": "2288751",
+          "checksum": "SHA-256:d2b6dd49589ec705c78bf8a030ef06673c9ca321b69a4e32bf1ef7b3c9cfe4a8",
+          "size": "2288562",
           "help": {
             "online": "https://github.com/digistump/DigistumpArduino/issues"
           },
