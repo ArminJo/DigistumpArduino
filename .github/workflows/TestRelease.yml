@@ -1,26 +1,24 @@
-# TestCompile.yml
-# Github workflow script to test compile all examples of an Arduino core repository.
+# TestRelease.yml
+# Github workflow script to test compile all examples of an Arduino library repository.
 #
 # Copyright (C) 2020  Armin Joachimsmeyer
 # https://github.com/ArminJo/Github-Actions
 #
 
 # This is the name of the workflow, visible on GitHub UI.
-name: TestCompile
+name: TestRelease
 on:
   push: # see: https://help.github.com/en/actions/reference/events-that-trigger-workflows#pull-request-event-pull_request
     paths:
-    - '**.ino'
-    - '**.cpp'
-    - '**.h'
-    - '**TestCompile.yml'
-  pull_request:
+    - 'package_digistump_index.json'
+  release:
+    types: [released, prereleased]
 jobs:
   build:
-    name: Test compiling examples for Digispark
+    name: Test release for Digispark
     runs-on: ubuntu-latest
     env:
-      # PLATFORM_DEFAULT_URL: https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json
+      PLATFORM_DEFAULT_URL: https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json
       # Comma separated list without double quotes around the list.
       REQUIRED_LIBRARIES:
 
@@ -49,12 +47,8 @@ jobs:
             sketches-exclude: Blink # All Wire examples
 
           - arduino-boards-fqbn: digistump:avr:MHETtiny88  # ATtiny88 Chino clone board @16 MHz
-            # 1.TinyWireM not usable; 2. incompatible I2C Hardware for Wire.h; 3. SoftPwm is not required and not working
-            sketches-exclude:
-              WiiClassicJoystick
-              BasicUsage,DigisparkOLED,DigiUSB2LCD
-              SoftPwm13Pins,TinySoftPwmDemo
-              DigisparkUSBDemo ArduinoNunchukDemo DigisparkJoystickDemo # Nunchuck library: incompatible I2C Hardware, the original library uses TinyWireM library
+            # Examples to exclude because of incompatible I2C Hardware, the original library uses TiniWireM library. SoftPwm is not required and not working
+            sketches-exclude: WiiClassicJoystick,BasicUsage,DigisparkOLED,SoftPwm13Pins,TinySoftPwmDemo,DigiUSB2LCD,DigisparkUSBDemo,ArduinoNunchukDemo,DigisparkJoystickDemo
 
       # Do not cancel all jobs / architectures if one job fails
       fail-fast: false
@@ -62,23 +56,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
 
-      - name: Use this repo as Arduino core
-        run: |
-          mkdir --parents $HOME/.arduino15/packages/digistump/hardware/avr/0.0.7 # dummy release number
-          # cannot move, since we want to compile the examples in the library subfolder :-)
-          cp --recursive $GITHUB_WORKSPACE/digistump-avr/* $HOME/.arduino15/packages/digistump/hardware/avr/0.0.7/
-          #ls -l --dereference --recursive --all $HOME/.arduino15/packages/digistump/hardware/avr/0.0.7/
-
       - name: Compile all examples
         uses: ArminJo/arduino-test-compile@master
         with:
           required-libraries: ${{ env.REQUIRED_LIBRARIES }}
           arduino-board-fqbn: ${{ matrix.arduino-boards-fqbn }}
-          arduino-platform: digistump:avr,arduino:avr # we require the C compiler from it. See dependencies of package_digistump_index.json
-          #platform-default-url: ${{ env.PLATFORM_DEFAULT_URL }}
+          platform-default-url: ${{ env.PLATFORM_DEFAULT_URL }}
           #platform-url: ${{ matrix.platform-url }}
           sketches-exclude: ${{ matrix.sketches-exclude }}
           build-properties: ${{ toJson(matrix.build-properties) }}
           sketch-names: "*.ino"
           sketch-names-find-start: digistump-avr/libraries/*/examples/
-          debug-install: true

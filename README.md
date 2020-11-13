@@ -4,7 +4,9 @@ Available as Arduino Board Manager entry "Digistump AVR Boards" using the Board 
 ### [Version 1.7.0 ](https://github.com/ArminJo/DigistumpArduino/releases) - work in progress
 
 [![TestCompile](https://github.com/ArminJo/DigistumpArduino/workflows/TestCompile/badge.svg)](https://github.com/ArminJo/DigistumpArduino/actions)
+[![Commits since latest](https://img.shields.io/github/commits-since/ArminJo/DigistumpArduino/latest)](https://github.com/ArminJo/DigistumpArduino/commits/master)
 [![Hit Counter](https://hitcounter.pythonanywhere.com/count/tag.svg?url=https://github.com/ArminJo/DigistumpArduino)](https://github.com/brentvollebregt/hit-counter)
+
 Another **great core for ATtinies** with ongoing support is the [ATTinyCore](https://github.com/SpenceKonde/ATTinyCore) of Spence Konde, which **currently added micronucleus support**. Use the Board Manager URL: http://drazzy.com/package_drazzy.com_index.json for it.
 
 ## Reduced code size was enabled by the following changes:
