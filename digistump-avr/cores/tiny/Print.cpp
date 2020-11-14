@@ -100,7 +100,7 @@ size_t Print::print(double n, int digits)
   return printFloat(n, digits);
 }
 
-size_t Print::print( fstr_t* s )
+size_t Print::print( fstr_t *s )
 {
   size_t n = 0;
   char ch;
@@ -193,7 +193,7 @@ size_t Print::println(double num, int digits)
   return n;
 }
 
-size_t Print::println( fstr_t* s )
+size_t Print::println( fstr_t *s )
 {
   size_t n = print( s );
   n += println();
