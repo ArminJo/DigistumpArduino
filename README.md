@@ -1,7 +1,7 @@
 # Improved version of Digistump avr core for Arduino
 Available as Arduino Board Manager entry "Digistump AVR Boards" using the Board Manager URL: https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json
 
-### [Version 1.7.0 ](https://github.com/ArminJo/DigistumpArduino/releases) - work in progress
+### [Version 1.7.1 ](https://github.com/ArminJo/DigistumpArduino/releases) - work in progress
 
 [![TestCompile](https://github.com/ArminJo/DigistumpArduino/workflows/TestCompile/badge.svg)](https://github.com/ArminJo/DigistumpArduino/actions)
 [![Commits since latest](https://img.shields.io/github/commits-since/ArminJo/DigistumpArduino/latest)](https://github.com/ArminJo/DigistumpArduino/commits/master)
@@ -30,6 +30,13 @@ Another **great core for ATtinies** with ongoing support is the [ATTinyCore](htt
 To get all the benefits, just replace the old Digispark board URL **http://digistump.com/package_digistump_index.json** (e.g. in Arduino *File/Preferences*) by the new  **https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json** and install the **Digistump AVR Boards** version **1.6.8** or later.
 ![Boards Manager](https://github.com/ArminJo/DigistumpArduino/blob/master/pictures/Digistump1.6.8.jpg)
 
+## Manual installation
+1. Download this repo.
+2. Create a directory *C:\Users<YourName>\AppData\Local\Arduino15\packages\digistump\hardware\avr\1.7.0* and extract the *digistump-avr-1.7.0.zip* to it.
+3. Create a directory *C:\Users<YourName>\AppData\Local\Arduino15\packages\digistump\tools\micronucleus\2.0a4* and extract the *tools\micronucleus-2.0a4-win.zip* to it.
+
+As reference you may look at your *C:\Users<YourName>\AppData\Local\Arduino\packages* directory to see how other packages are installed.
+
 ## Driver installation
 For Windows you must install the **Digispark driver** before you can program the board.<br/>
 if you have the *Diigistump AVR Boards* already installed, then the driver is located in `%UserProfile%\AppData\Local\Arduino15\packages\digistump\tools\micronucleus\2.0a4`. Just execute the `Install_Digistump_Drivers.bat` file.<br/>
@@ -46,7 +53,7 @@ It works for my boards but the USB timing is not guaranteed as stable as in the 
 Do not forget to change the `upload.maximum_size` entry in *%localappdata%\Arduino15\packages\digistump\hardware\avr\1.6.8\boards.txt* to **6778**.<br/>
 
 # Power reducing
-Information about reducing power consumption can be found [here](https://github.com/ArminJo/micronucleus-firmware#measured-digispark-pll-clock-supply-current).
+Information about reducing power consumption can be found [here](https://github.com/ArminJo/micronucleus-firmware#reducing-current-of-digispark-bords-for-low-power-applications) and [here](https://www.instructables.com/Reducing-Battery-Power-Consumption-for-Digispark-A/).
 ![Final power reduction](https://github.com/ArminJo/Arduino-OpenWindowAlarm/blob/master/pictures/Final-Version-Detail_annotated.jpg)
 
 # Pin layout
@@ -91,6 +98,8 @@ INT1 9 (D3) PA3  4|    |17  PB3 (D11) 4 OC1BV USB-
 The Arduino ESP8266 core available with https://arduino.esp8266.com/stable/package_esp8266com_index.json supports the *Digistump Oak* board now, better use that.
 
 # Revision History
+
+### Version 1.7.1 - work in progress
 
 ### Version 1.7.0
 - Support of the cheap Chinese MH-ET LIVE Tiny88(16.0MHz) board with ATTinyCore.
