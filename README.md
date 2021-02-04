@@ -1,7 +1,7 @@
 # Improved version of Digistump avr core for Arduino
 Available as Arduino Board Manager entry "Digistump AVR Boards" using the Board Manager URL: https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json
 
-### [Version 1.7.1 ](https://github.com/ArminJo/DigistumpArduino/releases) - work in progress
+### [Version 1.7.1 ](https://github.com/ArminJo/DigistumpArduino/archive/master.zip) - work in progress
 
 [![TestCompile](https://github.com/ArminJo/DigistumpArduino/workflows/TestCompile/badge.svg)](https://github.com/ArminJo/DigistumpArduino/actions)
 [![Commits since latest](https://img.shields.io/github/commits-since/ArminJo/DigistumpArduino/latest)](https://github.com/ArminJo/DigistumpArduino/commits/master)
@@ -57,6 +57,10 @@ It works for my boards but the USB timing is not guaranteed as stable as in the 
 ## Flash the bootloader to a bricked device
 This can only be done by means of a [High Voltage programmer](https://github.com/ArminJo/ATtiny-HighVoltageProgrammer_FuseEraser).
 
+# 16.5 MHz or 16 MHz?
+You require **16.5 MHz only if your appliction uses the V-USB library**, i.e. if it acts as an USB devive like mouse, keyboard etc.<br/>
+In all other cases it is recommended to use the standard CPU frequencies of 16, 8, 1 MHz.
+
 # Power reducing
 Information about reducing power consumption can be found [here](https://github.com/ArminJo/micronucleus-firmware#reducing-current-of-digispark-bords-for-low-power-applications) and [here](https://www.instructables.com/Reducing-Battery-Power-Consumption-for-Digispark-A/).
 ![Final power reduction](https://github.com/ArminJo/Arduino-OpenWindowAlarm/blob/master/pictures/Final-Version-Detail_annotated.jpg)
@@ -104,7 +108,9 @@ The Arduino ESP8266 core available with https://arduino.esp8266.com/stable/packa
 
 # Revision History
 
-### Version 1.7.1 - work in progress
+### Version 1.7.1
+- New micronucleus binaries for all platforms.
+- Bootloaders with updated MCUSR handling.
 
 ### Version 1.7.0
 - Support of the cheap Chinese MH-ET LIVE Tiny88(16.0MHz) board with ATTinyCore.

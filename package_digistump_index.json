@@ -12,6 +12,60 @@
         {
           "name": "Digistump AVR Boards",
           "architecture": "avr",
+          "version": "1.7.1",
+          "category": "Digistump",
+          "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/digistump-avr-1.7.1.zip",
+          "archiveFileName": "digistump-avr-1.7.1.zip",
+          "checksum": "SHA-256:1579447273fcec89bd137b3cd1f2583128db752e9e8e407b586928361b39247c",
+          "size": "2288602",
+          "help": {
+            "online": "https://github.com/digistump/DigistumpArduino"
+          },
+          "boards": [
+            {
+              "name": "Digispark (Default - 16.5 MHz)"
+            },
+            {
+              "name": "Digispark Pro (Default 16 MHz)"
+            },
+            {
+              "name": "Digispark Pro (16 MHz) (16 byte buffer)"
+            },
+            {
+              "name": "Digispark Pro (16 MHz) (32 byte buffer)"
+            },
+            {
+              "name": "Digispark Pro (16 MHz) (64 byte buffer)"
+            },
+            {
+              "name": "Digispark (16 MHz - No USB)"
+            },
+            {
+              "name": "Digispark (8 MHz - No USB)"
+            },
+            {
+              "name": "Digispark (1 MHz - No USB)"
+            },
+            {
+              "name": "MH-ET LIVE Tiny88 (16 MHz ATTinyCore)"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "arduino",
+              "name": "avr-gcc",
+              "version": "7.3.0-atmel3.6.1-arduino5"
+            },
+            {
+              "packager": "digistump",
+              "name": "micronucleus",
+              "version": "2.5"
+            }
+          ]
+        },
+        {
+          "name": "Digistump AVR Boards",
+          "architecture": "avr",
           "version": "1.7.0",
           "category": "Digistump",
           "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/digistump-avr-1.7.0.zip",
@@ -163,6 +217,54 @@
       "tools": [
         {
           "name": "micronucleus",
+          "version": "2.5",
+          "systems": [
+            {
+              "host": "arm-linux-gnueabihf",
+              "archiveFileName": "micronucleus-cli-2.5-arm-linux-gnueabihf.zip",
+              "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/tools/micronucleus-cli-2.5-arm-linux-gnueabihf.zip",
+              "checksum": "SHA-256:7b1023986e3956baa7f67801908097c520f5435e9110b6154ed9c7d98b14dc3f",
+              "size": "268299"
+            },
+            {
+              "host": "aarch64-linux-gnu",
+              "archiveFileName": "micronucleus-cli-2.5-aarch64-linux-gnu.zip",
+              "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/tools/micronucleus-cli-2.5-aarch64-linux-gnu.zip",
+              "checksum": "SHA-256:00338761a68b4002537f37900f1bdee661d6798cf46daf4446bc06d861512274",
+              "size": "324066"
+            },
+            {
+              "host": "x86_64-apple-darwin",
+              "archiveFileName": "micronucleus-2.5-x86_64-apple-darwin.zip",
+              "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/tools/micronucleus-cli-2.5-x86_64-apple-darwin.zip",
+              "checksum": "SHA-256:992906351c4b73febeb2f5e32f64cfe84b2642778e5adb31724ac8d7d8ed5e22",
+              "size": "51390"
+            },
+            {
+              "host": "i686-mingw32",
+              "archiveFileName": "micronucleus-cli-2.5-i686-mingw32.zip",
+              "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/tools/micronucleus-cli-2.5-i686-mingw32.zip",
+              "checksum": "SHA-256:4a4939b7324ae3c11b6eb4b485831007aa24b182aaa3fbe03961cdccf150db47",
+              "size": "253793"
+            },
+            {
+              "host": "x86_64-linux-gnu",
+              "archiveFileName": "micronucleus-cli-2.5-x86_64-linux-gnu.zip",
+              "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/tools/micronucleus-cli-2.5-x86_64-linux-gnu.zip",
+              "checksum": "SHA-256:22eb52c60743d332d4c47eead66f529d95bf42a514ff6952dc88fdf246740869",
+              "size": "421200"
+            },
+            {
+              "host": "i686-linux-gnu",
+              "archiveFileName": "micronucleus-cli-2.5-i686-linux-gnu.zip",
+              "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/tools/micronucleus-cli-2.5-i686-linux-gnu.zip",
+              "checksum": "SHA-256:d2671347b756040c23b50c72c6c0627e17f9e67779a46d87907098ea14dcf34d",
+              "size": "377853"
+            }
+          ]
+        },
+        {
+          "name": "micronucleus",
           "version": "2.0a4",
           "systems": [
             {
@@ -175,9 +277,9 @@
             {
               "host": "i686-mingw32",
               "archiveFileName": "micronucleus-2.0a4-win.zip",
-              "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/tools/micronucleus-2.0a4-win.zip",
-              "checksum": "SHA-256:BA9D4A327FCDEE92B72DDD353EF547FB071110E9EB7BE73F83A685CB76D3F939",
-              "size": "1711851"
+              "url": "https://github.com/digistump/DigistumpArduino/releases/download/1.6.5a/micronucleus-2.0a4-win.zip",
+              "checksum": "SHA-256:7027971118FDE88484AACB5D8CA7867D66E273839EC3B2592616829317BB70E4",
+              "size": "1712005"
             },
             {
               "host": "i686-linux-gnu",

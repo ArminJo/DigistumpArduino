@@ -67,3 +67,4 @@ jobs:
           build-properties: ${{ toJson(matrix.build-properties) }}
           sketch-names: "*.ino"
           sketch-names-find-start: digistump-avr/libraries/*/examples/
+          debug-install: true

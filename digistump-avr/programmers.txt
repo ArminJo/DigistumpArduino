@@ -1,5 +1,5 @@
-micronucleusprog.name=Micronucleus.2.0a4
+micronucleusprog.name=micronucleus.2.5
 micronucleusprog.communication=usb
 micronucleusprog.protocol=micronucleus
 micronucleusprog.program.tool={runtime.tools.micronucleus.path}/micronucleus
-micronucleusprog.program.extra_params=-Pusb
+micronucleusprog.program.extra_params=
