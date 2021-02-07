@@ -1,3 +1,9 @@
+/******************************************************************************
+ * Attention!
+ * This example likely will not work with 
+ * windows versions > XP and current Linux kernels
+ * see: http://digistump.com/board/index.php/topic,2720.msg13422.html#msg13422
+ ******************************************************************************/
 #include <DigiCDC.h>
 void setup() {                
   // initialize the digital pin as an output.

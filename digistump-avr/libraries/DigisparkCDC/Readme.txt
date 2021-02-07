@@ -1,3 +1,9 @@
+=======================================================================================
+Attention!
+This example likely will not work with windows versions > XP and current Linux kernels
+see: http://digistump.com/board/index.php/topic,2720.msg13422.html#msg13422
+=======================================================================================
+ 
 This is the Readme file to Objective Development's firmware-only USB driver
 for Atmel AVR microcontrollers. For more information please visit
 http://www.obdev.at/vusb/
