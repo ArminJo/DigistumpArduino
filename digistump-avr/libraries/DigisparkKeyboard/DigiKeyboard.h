@@ -18,6 +18,8 @@
 
 typedef uint8_t byte;
 
+#define TEST_STRING "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 1234567890 !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
+
 #define BUFFER_SIZE 2 // Minimum of 2: 1 for modifiers + 1 for keystroke
 
 static uchar idleRate;           // in 4 ms units

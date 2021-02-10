@@ -1,0 +1,2 @@
+Install_Digistump_Drivers.bat just executes DPinst64.exe or DPinst.exe according to your operating system.
+DigiUSB.inf and DigiX.inf are not longer contained in this version, since they seem to be useless for Windows 10.

@@ -39,9 +39,9 @@ To get all the benefits, just replace the old Digispark board URL **http://digis
 As reference you may look at your *C:\Users<YourName>\AppData\Local\Arduino\packages* directory to see how other packages are installed.
 
 ## Driver installation
-For Windows you must install the **Digispark driver** before you can program the board.<br/>
-if you have the *Diigistump AVR Boards* already installed, then the driver is located in `%UserProfile%\AppData\Local\Arduino15\packages\digistump\tools\micronucleus\2.0a4`. Just execute the `Install_Digistump_Drivers.bat` file.<br/>
-**Or** download it [here](https://github.com/digistump/DigistumpArduino/releases/download/1.6.7/Digistump.Drivers.zip), open it and run `InstallDrivers.exe`. 
+For **Windows** you must install the **Digispark driver** before you can program the board.<br/>
+if you have the *Diigistump AVR Boards* already installed, then the driver is located in `%UserProfile%\AppData\Local\Arduino15\packages\digistump\tools\micronucleus\2.5\Digistump_Drivers`. Just execute the `Install_Digistump_Drivers.bat` file.<br/>
+**Or** download it [here](https://github.com/digistump/DigistumpArduino/releases/download/1.6.7/Digistump.Drivers.zip), open it and run `InstallDrivers.exe`.
 
 ## Update the bootloader to a new version
 Different bootloader configurations are available [here](https://github.com/ArminJo/micronucleus-firmware#configuration-overview).<br/>
