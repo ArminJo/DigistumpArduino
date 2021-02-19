@@ -1,6 +1,6 @@
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(9600); //open connection to bt/ble module
+  Serial.begin(9600);
   botInit();  //setup the pins for the bot
   
 }

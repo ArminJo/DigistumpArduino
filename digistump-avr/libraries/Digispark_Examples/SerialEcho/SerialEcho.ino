@@ -1,6 +1,5 @@
 
 void setup() {                
-  //If prompted for a pairing code it is 1234, 12345, or 000000
   Serial.begin(9600); 
 }
 

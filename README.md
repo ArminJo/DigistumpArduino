@@ -1,7 +1,7 @@
 # Improved version of Digistump avr core for Arduino
 Available as Arduino Board Manager entry "Digistump AVR Boards" using the Board Manager URL: https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json
 
-### [Version 1.7.1 ](https://github.com/ArminJo/DigistumpArduino/archive/master.zip) - work in progress
+### [Version 1.7.3 ](https://github.com/ArminJo/DigistumpArduino/archive/master.zip) - work in progress
 
 [![TestCompile](https://github.com/ArminJo/DigistumpArduino/workflows/TestCompile/badge.svg)](https://github.com/ArminJo/DigistumpArduino/actions)
 [![Commits since latest](https://img.shields.io/github/commits-since/ArminJo/DigistumpArduino/latest)](https://github.com/ArminJo/DigistumpArduino/commits/master)
@@ -27,20 +27,20 @@ Another **great core for ATtinies** with ongoing support is the [ATTinyCore](htt
 ![Digisparks](https://github.com/ArminJo/micronucleus-firmware/blob/master/pictures/Digisparks.jpg)
 
 # Installation
-To get all the benefits, just replace the old Digispark board URL **http://digistump.com/package_digistump_index.json** (e.g. in Arduino *File/Preferences*) by the new  **https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json** and install the **Digistump AVR Boards** version **1.6.8** or later.
+To get all the benefits, just replace the old Digispark board URL **http://digistump.com/package_digistump_index.json** (e.g. in Arduino *File/Preferences*) by the new  **https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json** and install the **Digistump AVR Boards** version **1.7.2** or later.
 ![Boards Manager](https://github.com/ArminJo/DigistumpArduino/blob/master/pictures/Digistump1.6.8.jpg)
 
 ## Manual installation
 1. Download this repo.
-2. Create a directory *C:\Users<YourName>\AppData\Local\Arduino15\packages\digistump\hardware\avr\1.7.0* and extract the *digistump-avr-1.7.0.zip* to it.
-3. Create a directory *C:\Users<YourName>\AppData\Local\Arduino15\packages\digistump\tools\micronucleus\2.0a4* and extract the *tools\micronucleus-2.0a4-win.zip* to it.
+2. Create a directory *C:\Users<YourName>\AppData\Local\Arduino15\packages\digistump\hardware\avr\1.7.x* and extract the *digistump-avr-1.7.x.zip* to it.
+3. Create a directory *C:\Users<YourName>\AppData\Local\Arduino15\packages\digistump\tools\micronucleus\2.5* and extract the *tools\micronucleus-cli-2.5-i686-mingw32.zip* to it.
 4. Extract the file *package_digistump_index.json* to *C:\Users<YourName>\AppData\Local\Arduino15\*.
 
 As reference you may look at your *C:\Users<YourName>\AppData\Local\Arduino\packages* directory to see how other packages are installed.
 
 ## Driver installation
 For **Windows** you must install the **Digispark driver** before you can program the board.<br/>
-if you have the *Diigistump AVR Boards* already installed, then the driver is located in `%UserProfile%\AppData\Local\Arduino15\packages\digistump\tools\micronucleus\2.5\Digistump_Drivers`. Just execute the `Install_Digistump_Drivers.bat` file.<br/>
+if you have the *Digistump AVR Boards* already installed, then the driver is located in `%UserProfile%\AppData\Local\Arduino15\packages\digistump\tools\micronucleus\2.5\Digistump_Drivers`. Just execute the `Install_Digistump_Drivers.bat` file.<br/>
 **Or** download it [here](https://github.com/digistump/DigistumpArduino/releases/download/1.6.7/Digistump.Drivers.zip), open it and run `InstallDrivers.exe`.
 
 ## Update the bootloader to a new version
@@ -50,8 +50,8 @@ To **update** your old, flash consuming **bootloader**, you have 2 choices.
 ![Burn Bootloader](https://github.com/ArminJo/DigistumpArduino/blob/master/pictures/Micronucleus_Burn_Bootloader.jpg)<br/>
 
 2. Run one of the Windows [scripts](https://github.com/ArminJo/micronucleus-firmware/tree/master/utils)
-like e.g. the [Burn_upgrade-t85_default.cmd](utils/Burn_upgrade-t85_default.cmd). The internal mechanism is described [here](https://github.com/ArminJo/micronucleus-firmware/blob/master/firmware/upgrades/README.md).<br/>
-You may also test the [t85_agressive bootloader](https://github.com/ArminJo/micronucleus-firmware#configuration-overview).
+like e.g. the [0_Upgrade-t85_recommended.cmd](https://github.com/ArminJo/micronucleus-firmware/tree/master/utils/0_Upgrade-t85_recommended.cmd). The internal mechanism is described [here](https://github.com/ArminJo/micronucleus-firmware/blob/master/firmware/upgrades/README.md).<br/>
+You may also test the t85_agressive bootloader, [a configuration overwiew is available here](https://github.com/ArminJo/micronucleus-firmware#configuration-overview).
 It works for my boards but the USB timing is not guaranteed as stable as in the other configurations.
 
 ## Flash the bootloader to a bricked device
@@ -107,8 +107,13 @@ INT1 9 (D3) PA3  4|    |17  PB3 (D11) 4 OC1BV USB-
 The Arduino ESP8266 core available with https://arduino.esp8266.com/stable/package_esp8266com_index.json supports the *Digistump Oak* board now, better use that.
 
 # Revision History
+### Version 1.7.3 - work in progress
 
-### Version 1.7.1
+### Version 1.7.2
+- Updated examples and added warnings for CDC examples.
+- Version to force update of all 1.7.1 changes.
+
+### Version 1.7.1 - rolling version
 - New micronucleus binaries for all platforms.
 - Bootloaders with updated MCUSR handling.
 
