@@ -274,53 +274,53 @@
           "version": "2.5",
           "systems": [
             {
-              "host": "arm-linux-gnueabihf",
-              "archiveFileName": "micronucleus-cli-2.5-arm-linux-gnueabihf.tar.gz",
-              "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/tools/micronucleus-cli-2.5-arm-linux-gnueabihf.tar.gz",
-              "checksum": "SHA-256:79d53ee61ec12a0173999e1c433e96ae1c9bfb76692c1f399dc5e87c35c77bdc",
-              "size": "269360"
-            },
-            {
               "host": "aarch64-linux-gnu",
               "archiveFileName": "micronucleus-cli-2.5-aarch64-linux-gnu.tar.gz",
               "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/tools/micronucleus-cli-2.5-aarch64-linux-gnu.tar.gz",
-              "checksum": "SHA-256:cc7fc56fa97135ad6b16e66cb80d5d4bab62f36d10c102cdd8b5d3bfc8ff89ce",
-              "size": "325145"
+              "checksum": "SHA-256:ddbbba9d94f8a2b34c7894a0e00ea605f120c8ad40145e569afc78b5e7ba7aac",
+              "size": "325158"
             },
             {
-              "host": "x86_64-apple-darwin",
-              "archiveFileName": "micronucleus-2.5-x86_64-apple-darwin.tar.gz",
-              "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/tools/micronucleus-cli-2.5-x86_64-apple-darwin.tar.gz",
-              "checksum": "SHA-256:55c02b32075fc9f6f096eda9f71f4dc1768e7aaa9a859a7da41d7a6d6f28d011",
-              "size": "51224"
-            },
-            {
-              "host": "i686-mingw32",
-              "archiveFileName": "micronucleus-cli-2.5-i686-mingw32.zip",
-              "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/tools/micronucleus-cli-2.5-i686-mingw32.zip",
-              "checksum": "SHA-256:50624e5811f19cef2fdd34dc1091f99a24aeabefb7c482b1d987d7390c3eb1a5",
-              "size": "1127581"
-            },
-            {
-              "host": "x86_64-mingw32",
-              "archiveFileName": "micronucleus-cli-2.5-x86_64-mingw32.zip",
-              "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/tools/micronucleus-cli-2.5-x86_64-mingw32.zip",
-              "checksum": "SHA-256:4203d388d09cac21c149dd4d905f187ed94fab3eb3170b75e438e842cb0436f3",
-              "size": "1133541"
-            },
-            {
-              "host": "x86_64-linux-gnu",
-              "archiveFileName": "micronucleus-cli-2.5-x86_64-linux-gnu.tar.gz",
-              "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/tools/micronucleus-cli-2.5-x86_64-linux-gnu.tar.gz",
-              "checksum": "SHA-256:7efc6a656001091c3b7f667c6085ca9e5b2fe989ba339e33a7fe0d7a695f64d4",
-              "size": "437710"
+              "host": "arm-linux-gnueabihf",
+              "archiveFileName": "micronucleus-cli-2.5-arm-linux-gnueabihf.tar.gz",
+              "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/tools/micronucleus-cli-2.5-arm-linux-gnueabihf.tar.gz",
+              "checksum": "SHA-256:ed954d7f7bca0b841fed2bccfde065e4dd08321a61fc019872409bb349584ff4",
+              "size": "269397"
             },
             {
               "host": "i686-linux-gnu",
               "archiveFileName": "micronucleus-cli-2.5-i686-linux-gnu.tar.gz",
               "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/tools/micronucleus-cli-2.5-i686-linux-gnu.tar.gz",
-              "checksum": "SHA-256:a7d3d168a7cfedb92978a8abe79809208ab6fb6eead6ce013b9f2d1b9516e3ca",
-              "size": "379477"
+              "checksum": "SHA-256:080ec60cdb50246dfe6af0e49baf2fb0bd19d20fd0c548fccec5ec0f269c6b07",
+              "size": "379441"
+            },
+            {
+              "host": "i686-mingw32",
+              "archiveFileName": "micronucleus-cli-2.5-i686-mingw32.zip",
+              "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/tools/micronucleus-cli-2.5-i686-mingw32.zip",
+              "checksum": "SHA-256:9285b6a864d72c63876058205e1584982631b9710d3dff9606fe431f040871a5",
+              "size": "1127648"
+            },
+            {
+              "host": "x86_64-apple-darwin",
+              "archiveFileName": "micronucleus-2.5-x86_64-apple-darwin.tar.gz",
+              "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/tools/micronucleus-cli-2.5-x86_64-apple-darwin.tar.gz",
+              "checksum": "SHA-256:89a44a5a8ad450abb55561b086e7f9af4f55f396f2e0f74930cd61abe69488ad",
+              "size": "51241"
+            },
+            {
+              "host": "x86_64-linux-gnu",
+              "archiveFileName": "micronucleus-cli-2.5-x86_64-linux-gnu.tar.gz",
+              "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/tools/micronucleus-cli-2.5-x86_64-linux-gnu.tar.gz",
+              "checksum": "SHA-256:8e87d4d4d456adae2d352452bc0da221c68f2f9dbd40bbef5fab7d47a208a3a0",
+              "size": "437750"
+            },
+            {
+              "host": "x86_64-mingw32",
+              "archiveFileName": "micronucleus-cli-2.5-x86_64-mingw32.zip",
+              "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/tools/micronucleus-cli-2.5-x86_64-mingw32.zip",
+              "checksum": "SHA-256:358b745bec7217fb0b81c8dfeeee8d4a7d66b59f4f27bfcf977ac42ebb1be7e9",
+              "size": "1133591"
             }
           ]
         },
