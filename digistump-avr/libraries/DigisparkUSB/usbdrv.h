@@ -604,65 +604,6 @@ int usbDescriptorStringSerialNumber[];
 
 #define USB_BUFSIZE     11  /* PID, 8 bytes data, 2 bytes CRC */
 
-/* ----- Try to find registers and bits responsible for ext interrupt 0 ----- */
-
-#ifndef USB_INTR_CFG    /* allow user to override our default */
-#   if defined  EICRA
-#       define USB_INTR_CFG EICRA
-#   else
-#       define USB_INTR_CFG MCUCR
-#   endif
-#endif
-#ifndef USB_INTR_CFG_SET    /* allow user to override our default */
-#   if defined(USB_COUNT_SOF) || defined(USB_SOF_HOOK)
-#       define USB_INTR_CFG_SET (1 << ISC01)                    /* cfg for falling edge */
-        /* If any SOF logic is used, the interrupt must be wired to D- where
-         * we better trigger on falling edge
-         */
-#   else
-#       define USB_INTR_CFG_SET ((1 << ISC00) | (1 << ISC01))   /* cfg for rising edge */
-#   endif
-#endif
-#ifndef USB_INTR_CFG_CLR    /* allow user to override our default */
-#   define USB_INTR_CFG_CLR 0    /* no bits to clear */
-#endif
-
-#ifndef USB_INTR_ENABLE     /* allow user to override our default */
-#   if defined GIMSK
-#       define USB_INTR_ENABLE  GIMSK
-#   elif defined EIMSK
-#       define USB_INTR_ENABLE  EIMSK
-#   else
-#       define USB_INTR_ENABLE  GICR
-#   endif
-#endif
-#ifndef USB_INTR_ENABLE_BIT /* allow user to override our default */
-#   define USB_INTR_ENABLE_BIT  INT0
-#endif
-
-#ifndef USB_INTR_PENDING    /* allow user to override our default */
-#   if defined  EIFR
-#       define USB_INTR_PENDING EIFR
-#   else
-#       define USB_INTR_PENDING GIFR
-#   endif
-#endif
-#ifndef USB_INTR_PENDING_BIT    /* allow user to override our default */
-#   define USB_INTR_PENDING_BIT INTF0
-#endif
-
-/*
-The defines above don't work for the following chips
-at90c8534: no ISC0?, no PORTB, can't find a data sheet
-at86rf401: no PORTB, no MCUCR etc, low clock rate
-atmega103: no ISC0? (maybe omission in header, can't find data sheet)
-atmega603: not defined in avr-libc
-at43usb320, at43usb355, at76c711: have USB anyway
-at94k: is different...
-
-at90s1200, attiny11, attiny12, attiny15, attiny28: these have no RAM
-*/
-
 /* ------------------------------------------------------------------------- */
 /* ----------------- USB Specification Constants and Types ----------------- */
 /* ------------------------------------------------------------------------- */

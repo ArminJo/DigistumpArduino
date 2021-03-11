@@ -48,7 +48,7 @@ jobs:
           - arduino-boards-fqbn: digistump:avr:digispark-tiny  # ATtiny85 board @16.5 MHz
             sketches-exclude: Blink # All Wire examples
 
-          - arduino-boards-fqbn: digistump:avr:MHETtiny88  # ATtiny88 Chino clone board @16 MHz
+          - arduino-boards-fqbn: digistump:avr:MHETtiny88  # ATtiny88 China clone board @16 MHz
             # 1.TinyWireM not usable; 2. incompatible I2C Hardware for Wire.h; 3. SoftPwm is not required and not working
             sketches-exclude:
               WiiClassicJoystick
