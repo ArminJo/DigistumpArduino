@@ -36,6 +36,11 @@ section at the end of this file).
 #define USB_CFG_DMINUS_BIT      3
 #define USB_CFG_DPLUS_BIT       4
 
+#elif defined (__AVR_ATtiny88__)
+#define USB_CFG_IOPORTNAME      D
+#define USB_CFG_DMINUS_BIT      1
+#define USB_CFG_DPLUS_BIT       2
+
 #elif defined (__AVR_ATtiny87__) || defined (__AVR_ATtiny167__)
 #define USB_CFG_IOPORTNAME      B
 #define USB_CFG_DMINUS_BIT      3
@@ -51,6 +56,14 @@ section at the end of this file).
 #define USB_CFG_DMINUS_BIT      3
 #define USB_CFG_DPLUS_BIT       2
 #endif
+/* This is the bit number in USB_CFG_IOPORT where the USB D+ line is connected.
+ * This may be any bit in the port. Please note that D+ must also be connected
+ * to interrupt pin INT0! [You can also use other interrupts, see section
+ * "Optional MCU Description" below, or you can connect D- to the interrupt, as
+ * it is required if you use the USB_COUNT_SOF feature. If you use D- for the
+ * interrupt, the USB interrupt will also be triggered at Start-Of-Frame
+ * markers every millisecond.]
+ */
 #define USB_CFG_CLOCK_KHZ       (F_CPU/1000)
 /* Clock rate of the AVR in kHz. Legal values are 12000, 12800, 15000, 16000,
  * 16500 and 20000. The 12.8 MHz and 16.5 MHz versions of the code require no
@@ -173,7 +186,7 @@ section at the end of this file).
 /* This macro (if defined) is executed when a USB SET_ADDRESS request was
  * received.
  */
-#define USB_COUNT_SOF                   1
+#define USB_COUNT_SOF                   0
 /* define this macro to 1 if you need the global variable "usbSofCount" which
  * counts SOF packets. This feature requires that the hardware interrupt is
  * connected to D- instead of D+.
@@ -221,7 +234,7 @@ section at the end of this file).
 
 /* -------------------------- Device Description --------------------------- */
 
-#define  USB_CFG_VENDOR_ID       0xc0, 0x16 /* = 0x16c0 = 5824 = voti.nl */
+#define USB_CFG_VENDOR_ID 0xc0, 0x16
 /* USB vendor ID for the device, low byte first. If you have registered your
  * own Vendor ID, define it here. Otherwise you may use one of obdev's free
  * shared VID/PID pairs. Be sure to read USB-IDs-for-free.txt for rules!
@@ -230,7 +243,7 @@ section at the end of this file).
  * with libusb: 0x16c0/0x5dc.  Use this VID/PID pair ONLY if you understand
  * the implications!
  */
-#define  USB_CFG_DEVICE_ID       0xdf, 0x05 /* obdev's shared PID for HIDs */
+#define USB_CFG_DEVICE_ID 0xdb, 0x27
 /* This is the ID of the product, low byte first. It is interpreted in the
  * scope of the vendor ID. If you have registered your own VID with usb.org
  * or if you have licensed a PID from somebody else, define it here. Otherwise
@@ -254,12 +267,8 @@ section at the end of this file).
  * obdev's free shared VID/PID pair. See the file USB-IDs-for-free.txt for
  * details.
  */
-#ifndef USB_CFG_DEVICE_NAME
-
-#define USB_CFG_DEVICE_NAME     'D','i','g','i','U','S','B'
+#define USB_CFG_DEVICE_NAME     'D','i','g','i','K','e','y'
 #define USB_CFG_DEVICE_NAME_LEN 7
- 
- #endif
 /* Same as above for the device name. If you don't want a device name, undefine
  * the macros. See the file USB-IDs-for-free.txt before you assign a name if
  * you use a shared VID/PID.
@@ -279,14 +288,14 @@ section at the end of this file).
  * Class 0xff is "vendor specific".
  */
 #define USB_CFG_INTERFACE_CLASS     0x03  /* HID */ /* define class here if not at device level */
-#define USB_CFG_INTERFACE_SUBCLASS  0
-#define USB_CFG_INTERFACE_PROTOCOL  0
+#define USB_CFG_INTERFACE_SUBCLASS  0x01
+#define USB_CFG_INTERFACE_PROTOCOL  0x01
 /* See USB specification if you want to conform to an existing device class or
  * protocol. The following classes must be set at interface level:
  * HID class is 3, no subclass and protocol required (but may be useful!)
  * CDC class is 2, use subclass 2 and protocol 1 for ACM
  */
-#define USB_CFG_HID_REPORT_DESCRIPTOR_LENGTH    22
+#define USB_CFG_HID_REPORT_DESCRIPTOR_LENGTH    35
 /* Define this to the length of the HID report descriptor, if you implement
  * an HID device. Otherwise don't define it or define it to 0.
  * If you use this define, you must add a PROGMEM character array named
@@ -370,6 +379,20 @@ section at the end of this file).
  * which is not fully supported (such as IAR C) or if you use a differnt
  * interrupt than INT0, you may have to define some of these.
  */
+/* #define USB_INTR_CFG            MCUCR */
+/* #define USB_INTR_CFG_SET        ((1 << ISC00) | (1 << ISC01)) */
+/* #define USB_INTR_CFG_CLR        0 */
+/* #define USB_INTR_ENABLE         GIMSK */
+/* #define USB_INTR_ENABLE_BIT     INT0 */
+/* #define USB_INTR_PENDING        GIFR */
+/* #define USB_INTR_PENDING_BIT    INTF0 */
+/* #define USB_INTR_VECTOR         SIG_INTERRUPT0 */
+
+ #ifndef SIG_INTERRUPT0
+#define SIG_INTERRUPT0			_VECTOR(1)
+#endif
+
+
  #if defined (__AVR_ATtiny45__) || defined (__AVR_ATtiny85__) 
 #define USB_INTR_CFG            PCMSK
 #define USB_INTR_CFG_SET        (1<<USB_CFG_DPLUS_BIT)

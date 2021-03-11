@@ -3,12 +3,12 @@
 // the setup routine runs once when you press reset:
 void setup() {
     // initialize the digital pin as an output.
-    pinMode(0, OUTPUT); //LED on Model B - Never seen Model B in the wild
+    pinMode(0, OUTPUT); //LED on MH-ET LIVE Tiny88 or Model B - Never seen Model B in the wild
     pinMode(LED_BUILTIN, OUTPUT); //LED on Model A or Pro
 }
 
 // the loop routine runs over and over again forever:
-// If you only see short flashes, you own a Model B
+// If you only see short flashes, you own a Model B Or you have an MH-ET LIVE Tiny88 board
 void loop() {
     digitalWrite(0, HIGH);   // turn the LED on (HIGH is the voltage level)
     digitalWrite(LED_BUILTIN, HIGH);

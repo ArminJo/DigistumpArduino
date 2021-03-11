@@ -77,12 +77,12 @@ Information about reducing power consumption can be found [here](https://github.
                        +----+
   USB+ and USB- are each connected to a 3.3 volt Zener to GND and with a 68 Ohm series resistor to the ATtiny pin.
   On boards with a micro USB connector, the series resistor is 22 Ohm instead of 68 Ohm. 
-  USB- has a 1.5k pullup resistor to indicate a low-speed device.                  
+  USB- has a 1.5k pullup resistor to indicate a low-speed device.
   USB+ and USB- are each terminated on the host side with 15k to 25k pull-down resistors.
 ```
 
 ### ATtiny167 on Digispark pro
-Digital Pin numbers in braces are for ATTinyCore library
+Digital Pin numbers in parenthesis are for ATTinyCore library
 
 ```
                   +-\/-+
@@ -103,11 +103,42 @@ INT1 9 (D3) PA3  4|    |17  PB3 (D11) 4 OC1BV USB-
 
 ```
 
+### MH-ET LIVE Tiny88 (16.0MHz) board
+Digital Pin numbers in parenthesis are for ATTinyCore library
+
+```
+                       USB
+                     +-\__/-+
+              PA2  15|      |14  PB7
+              PA3  16|      |13  PB5 SCK
+           17 PA0  A6|      |12  PB4 MISO
+           18 PA1  A7|      |11  PB3 MOSI
+     (D17) 19 PC0  A0|      |10  PB2 OC1B/PWM SS
+     (D18) 20 PC1  A1|      |9   PB1 OC1A/PWM
+     (D19) 21 PC2  A2|      |8   PB0
+     (D20) 22 PC3  A3|      |7   PD7 RX
+SDA  (D21) 23 PC4  A4|      |6   PD6 TX
+SCL  (D22) 24 PC5  A5|      |5   PD5
+     (D23)    PC1  25|      |4   PD4
+RESET         PC6 RST|      |3   PD3 INT1
+LED           PD0   0|      |5V
+USB-          PD1   1|      |GND
+USB+  INT0    PD2   2|      |VIN
+                     +------+
+  USB+ and USB- are each connected to a 3.3 volt Zener to GND and with a 68 Ohm series resistor to the ATtiny pin.
+  USB- has a 1k0 pullup resistor to indicate a low-speed device.
+  USB+ and USB- are each terminated on the host side with 15k to 25k pull-down resistors.
+
+  Pins not available: PB6 is CLOCK_IN, PC7 is 25
+
+```
 ## Oak board
 The Arduino ESP8266 core available with https://arduino.esp8266.com/stable/package_esp8266com_index.json supports the *Digistump Oak* board now, better use that.
 
 # Revision History
 ### Version 1.7.3 - work in progress
+- Improved bootloaders
+- Added Attiny support to usbconfig.h.
 
 ### Version 1.7.2
 - Updated examples and added warnings for CDC examples.

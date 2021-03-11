@@ -36,6 +36,11 @@ section at the end of this file).
 #define USB_CFG_DMINUS_BIT      3
 #define USB_CFG_DPLUS_BIT       4
 
+#elif defined (__AVR_ATtiny88__)
+#define USB_CFG_IOPORTNAME      D
+#define USB_CFG_DMINUS_BIT      1
+#define USB_CFG_DPLUS_BIT       2
+
 #elif defined (__AVR_ATtiny87__) || defined (__AVR_ATtiny167__)
 #define USB_CFG_IOPORTNAME      B
 #define USB_CFG_DMINUS_BIT      3
