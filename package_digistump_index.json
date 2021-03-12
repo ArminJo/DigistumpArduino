@@ -12,6 +12,60 @@
         {
           "name": "Digistump AVR Boards",
           "architecture": "avr",
+          "version": "1.7.3",
+          "category": "Digistump",
+          "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/digistump-avr-1.7.3.zip",
+          "archiveFileName": "digistump-avr-1.7.3.zip",
+          "checksum": "SHA-256:1ac8a1932d5dea14a37a84ff797779cc6e8990d774704bb61b6fef1227cf4578",
+          "size": "2327725",
+          "help": {
+            "online": "https://github.com/digistump/DigistumpArduino"
+          },
+          "boards": [
+            {
+              "name": "Digispark (Default - 16.5 MHz)"
+            },
+            {
+              "name": "Digispark Pro (Default 16 MHz)"
+            },
+            {
+              "name": "Digispark Pro (16 MHz) (16 byte buffer)"
+            },
+            {
+              "name": "Digispark Pro (16 MHz) (32 byte buffer)"
+            },
+            {
+              "name": "Digispark Pro (16 MHz) (64 byte buffer)"
+            },
+            {
+              "name": "Digispark (16 MHz - No USB)"
+            },
+            {
+              "name": "Digispark (8 MHz - No USB)"
+            },
+            {
+              "name": "Digispark (1 MHz - No USB)"
+            },
+            {
+              "name": "MH-ET LIVE Tiny88 (16 MHz ATTinyCore)"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "arduino",
+              "name": "avr-gcc",
+              "version": "7.3.0-atmel3.6.1-arduino7"
+            },
+            {
+              "packager": "digistump",
+              "name": "micronucleus",
+              "version": "2.5"
+            }
+          ]
+        },
+        {
+          "name": "Digistump AVR Boards",
+          "architecture": "avr",
           "version": "1.7.2",
           "category": "Digistump",
           "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/digistump-avr-1.7.2.zip",
@@ -302,7 +356,7 @@
               "size": "1127648"
             },
             {
-              "host": "x86_64-apple-darwin",
+              "host": "x86_64-apple-darwin14",
               "archiveFileName": "micronucleus-2.5-x86_64-apple-darwin.tar.gz",
               "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/tools/micronucleus-cli-2.5-x86_64-apple-darwin.tar.gz",
               "checksum": "SHA-256:89a44a5a8ad450abb55561b086e7f9af4f55f396f2e0f74930cd61abe69488ad",

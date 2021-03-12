@@ -139,6 +139,8 @@ The Arduino ESP8266 core available with https://arduino.esp8266.com/stable/packa
 ### Version 1.7.3 - work in progress
 - Improved bootloaders
 - Added Attiny support to usbconfig.h.
+- Added `Burn Bootloader Method` like in ATTinyCore.
+- Removed digistump-sam from repo.
 
 ### Version 1.7.2
 - Updated examples and added warnings for CDC examples.

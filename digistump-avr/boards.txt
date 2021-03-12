@@ -9,6 +9,7 @@ menu.LTO=LTO (1.6.11+ only)
 menu.neopixelport=tinyNeoPixel Port
 menu.millis=millis()/micros()
 menu.micronucleus=Micronucleus variant
+menu.burnmode=Burn Bootloader Method
 
 ##############################################################
 
@@ -30,13 +31,15 @@ digispark-tiny.build.variant=digispark
 # not required for tiny
 digispark-tiny.build.SerialBufferSize=
 
-digispark-tiny.upload.using=micronucleusprog
 digispark-tiny.upload.protocol=usb
+# Name of variant of tools.* in platform.txt and tools: section in index.json
 digispark-tiny.upload.tool=micronucleus
+# RAM available. Is set to PROPERTY_UPLOAD_MAX_DATA_SIZE and used in sizer.go for printing sketch size
 digispark-tiny.upload.maximum_data_size=512
+# Calls waitForNewSerialPort(), sets serial.port and serial.port.file
 digispark-tiny.upload.wait_for_upload_port = false
+# Perform reset via 1200bps touch if requested
 digispark-tiny.upload.use_1200bps_touch = false
-digispark-tiny.upload.disable_flushing = false
 
 digispark-tiny.menu.micronucleus.default=Default (6650 bytes avail.)
 digispark-tiny.menu.micronucleus.default.upload.maximum_size=6650
@@ -50,7 +53,11 @@ digispark-tiny.menu.micronucleus.entryReset.bootloader.file=upgrade-t85_entry_on
 digispark-tiny.menu.micronucleus.agressive=Agressive (6778)
 digispark-tiny.menu.micronucleus.agressive.upload.maximum_size=6778
 digispark-tiny.menu.micronucleus.agressive.bootloader.file=upgrade-t85_aggressive.hex
-digispark-tiny.bootloader.tool=micronucleus
+
+digispark-tiny.menu.burnmode.upgrade=Upgrade (via USB)
+digispark-tiny.menu.burnmode.upgrade.bootloader.tool=micronucleus
+digispark-tiny.menu.burnmode.install=Fresh Install (via ISP)
+digispark-tiny.menu.burnmode.install.bootloader.tool=avrdude
 
 ##############################################################
 
@@ -69,13 +76,11 @@ digispark-pro.menu.buffer.buffer16.build.SerialBufferSize=16
 digispark-pro.menu.buffer.buffer32.build.SerialBufferSize=32
 digispark-pro.menu.buffer.buffer64.build.SerialBufferSize=64
 
-digispark-pro.upload.using=micronucleusprog
 digispark-pro.upload.protocol=usb
 digispark-pro.upload.tool=micronucleus
 digispark-pro.upload.maximum_data_size=512
 digispark-pro.upload.wait_for_upload_port = false
 digispark-pro.upload.use_1200bps_touch = false
-digispark-pro.upload.disable_flushing = false
 
 digispark-pro.menu.micronucleus.default=Default (14970 bytes avail.)
 digispark-pro.menu.micronucleus.default.upload.maximum_size=14970
@@ -86,7 +91,11 @@ digispark-pro.menu.micronucleus.recommended.bootloader.file=upgrade-t167_entry_o
 digispark-pro.menu.micronucleus.entryReset=Entry on reset (14970 bytes avail.)
 digispark-pro.menu.micronucleus.entryReset.upload.maximum_size=14970
 digispark-pro.menu.micronucleus.entryReset.bootloader.file=upgrade-t167_entry_on_reset_activePullup_fastExit.hex
-digispark-pro.bootloader.tool=micronucleus
+
+digispark-pro.menu.burnmode.upgrade=Upgrade (via USB)
+digispark-pro.menu.burnmode.upgrade.bootloader.tool=micronucleus
+digispark-pro.menu.burnmode.install=Fresh Install (via ISP)
+digispark-pro.menu.burnmode.install.bootloader.tool=avrdude
 
 ##############################################################
 
@@ -102,14 +111,11 @@ MHETtiny88.build.variant=MHtiny88
 # to be compatible with ATTinyCore
 MHETtiny88.build.SerialBufferSize=32
 
-MHETtiny88.upload.using=micronucleusprog
 MHETtiny88.upload.protocol=usb
 MHETtiny88.upload.tool=micronucleus
 MHETtiny88.upload.maximum_data_size=512
-
 MHETtiny88.upload.wait_for_upload_port = false
 MHETtiny88.upload.use_1200bps_touch = false
-MHETtiny88.upload.disable_flushing = false
 
 MHETtiny88.menu.micronucleus.default=Default (6778 bytes avail.)
 MHETtiny88.menu.micronucleus.default.upload.maximum_size=6778
@@ -117,4 +123,8 @@ MHETtiny88.menu.micronucleus.default.bootloader.file=upgrade-t88_default.hex
 MHETtiny88.menu.micronucleus.recommended=Recommended (6778 bytes avail.)
 MHETtiny88.menu.micronucleus.recommended.upload.maximum_size=6778
 MHETtiny88.menu.micronucleus.recommended.bootloader.file=upgrade-t88_entry_on_powerOn_activePullup_fastExit.hex
-MHETtiny88.bootloader.tool=micronucleus
+
+MHETtiny88.menu.burnmode.upgrade=Upgrade (via USB)
+MHETtiny88.menu.burnmode.upgrade.bootloader.tool=micronucleus
+MHETtiny88.menu.burnmode.install=Fresh Install (via ISP)
+MHETtiny88.menu.burnmode.install.bootloader.tool=avrdude
