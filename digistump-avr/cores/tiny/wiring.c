@@ -89,22 +89,17 @@ volatile unsigned long millis_timer_millis = 0;
 static unsigned char millis_timer_fract = 0;
 
 // bluebie changed isr to noblock so it wouldn't mess up USB libraries
+// Keyboard example works without ISR_NOBLOCK :-)
+#if F_CPU == 16500000L // ISR_NOBLOCK only if V-USB will be used
 ISR(MILLISTIMER_OVF_vect, ISR_NOBLOCK)
+#else
+ISR(MILLISTIMER_OVF_vect)
+#endif
 {
   // copy these to local variables so they can be stored in registers
   // (volatile variables must be read from memory on every access)
   unsigned long m = millis_timer_millis;
   unsigned char f = millis_timer_fract;
-
-/* rmv: The code below generates considerably less code (emtpy Sketch is 326 versus 304)...
-
-  m += MILLIS_INC;
-  f += FRACT_INC;
-  if (f >= FRACT_MAX) {
-    f -= FRACT_MAX;
-    m += 1;
-  }
-...rmv */
 
   f += FRACT_INC;
 
