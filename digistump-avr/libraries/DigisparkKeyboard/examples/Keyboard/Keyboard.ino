@@ -28,22 +28,30 @@
 #include "DigiKeyboard.h"
 
 void setup() {
-  // don't need to set anything up to use DigiKeyboard
+    DigiKeyboard.enableLEDFeedback();
 }
 
-
+// The loop function is called in an endless loop
 void loop() {
-  // this is generally not necessary but with some older systems it seems to
-  // prevent missing the first character after a delay:
-  DigiKeyboard.sendKeyStroke(0);
-  
-  // Type out this string letter by letter on the computer (assumes US-style
-  // keyboard)
-  DigiKeyboard.println("Hello Digispark!");
-  DigiKeyboard.println(TEST_STRING);
-  
-  // It's better to use DigiKeyboard.delay() over the regular Arduino delay()
-  // if doing keyboard stuff because it keeps talking to the computer to make
-  // sure the computer knows the keyboard is alive and connected
-  DigiKeyboard.delay(5000);
+
+    // It's better to use DigiKeyboard.delay() over the regular Arduino delay()
+    // if doing keyboard stuff because it keeps talking to the computer to make
+    // sure the computer knows the keyboard is alive and connected
+    DigiKeyboard.delay(5000);
+
+    // this is generally not necessary but with some older systems it seems to
+    // prevent missing the first character after a delay:
+//    DigiKeyboard.sendKeyDEStroke(0);
+
+    DigiKeyboard.print("Hello Digispark!");
+    DigiKeyboard.write('\n');
+    //    DigiKeyboard.println(F("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 1234567890 !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"));
+    DigiKeyboard.println(TEST_STRING);
+
+    // Send all ASCII codes in a loop
+//    for (uint8_t tSendChar = 0x20; tSendChar < 0x7F; ++tSendChar) {
+//        DigiKeyboard.write(tSendChar);
+//        DigiKeyboard.delay(50);
+//    }
+//    DigiKeyboard.write('\n');
 }

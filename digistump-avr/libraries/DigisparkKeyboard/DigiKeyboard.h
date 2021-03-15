@@ -102,6 +102,7 @@ public:
 
     void enableLEDFeedback() {
         sUseFeedbackLed = true;
+        pinMode(LED_BUILTIN, OUTPUT);
     }
 
     void disableLEDFeedback() {
@@ -110,18 +111,18 @@ public:
 
     //sendKeyStroke: sends a key press AND release with modifiers
     void sendKeyStroke(byte keyStroke, byte modifiers) {
-        sendKeyStroke(keyStroke, modifiers,false);
+        sendKeyStroke(keyStroke, modifiers, false);
     }
 
     //sendKeyStroke: sends a key press AND release with modifiers
     void sendKeyStroke(byte keyStroke, byte modifiers, bool aUseFeedbackLed) {
-        if(aUseFeedbackLed) {
+        if (aUseFeedbackLed) {
             digitalWrite(LED_BUILTIN, HIGH);
         }
         sendKeyPress(keyStroke, modifiers);
         // This stops endlessly repeating keystrokes:
         sendKeyPress(0, 0);
-        if(aUseFeedbackLed) {
+        if (aUseFeedbackLed) {
             digitalWrite(LED_BUILTIN, LOW);
         }
     }
@@ -171,11 +172,11 @@ public:
     /*
      * Mask keycodes to ascii subset (+ a few F keys)
      */
-    uint8_t keycode_to_key(KEYCODE_TYPE keycode) {
-        uint8_t key = keycode;
-        // the only valid ASCII code > 63
-        if (keycode != KEY_NON_US_BS) {
-            key = key & 0x3F;
+    uint8_t keycode_to_key(uint8_t keycode) {
+        uint8_t key = keycode & KEYCODE_MASK_SCANCODE;
+        // the only valid ASCII code which has a scancode > 63
+        if (key == KEY_NON_US_BS_MAPPING) {
+            key = (uint8_t) KEY_NON_US_BS;
         }
         return key;
     }
@@ -185,16 +186,20 @@ public:
      */
     size_t write(uint8_t chr) {
         uint8_t data = 0;
-        if (chr == 0x09) {
-            data = (uint8_t) KEY_TAB;
-        } else if (chr == 0x0a) {
-            data = (uint8_t) KEY_ENTER;
+        if (chr == '\b') {
+            data = (uint8_t) KEY_BACKSPACE; // 0x08
+        } else if (chr == '\t') {
+            data = (uint8_t) KEY_TAB;       // 0x09
+        } else if (chr == '\n') {
+            data = (uint8_t) KEY_ENTER;     // 0x0A
+        } else if (chr == '\r') {
+            data = (uint8_t) KEY_ENTER;     // 0x0D
         } else if (chr >= 0x20) {
             // read from mapping table
             data = pgm_read_byte_near(keycodes_ascii + (chr - 0x20));
         }
         if (data) {
-            sendKeyStroke(keycode_to_key(data), keycode_to_modifier(data),sUseFeedbackLed);
+            sendKeyStroke(keycode_to_key(data), keycode_to_modifier(data), sUseFeedbackLed);
         }
         return 1;
     }
@@ -211,7 +216,7 @@ extern "C" {
 #endif
 // USB_PUBLIC uchar usbFunctionSetup
 uchar usbFunctionSetup(uchar data[8]) {
-    usbRequest_t *rq = (usbRequest_t *) ((void *) data);
+    usbRequest_t *rq = (usbRequest_t*) ((void*) data);
 
     usbMsgPtr = DigiKeyboard.reportBuffer; //
     if ((rq->bmRequestType & USBRQ_TYPE_MASK) == USBRQ_TYPE_CLASS) {

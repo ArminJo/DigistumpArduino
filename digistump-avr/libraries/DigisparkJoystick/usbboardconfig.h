@@ -148,7 +148,7 @@ section at the end of this file).
 #   else
 #       define USB_INTR_CFG MCUCR
 #   endif
-/* included here since you can not use USB_COUNT_SOF or USB_SOF_HOOK with pin change interrupts, you must use INT0!"
+/* included here since you can not use USB_COUNT_SOF or USB_SOF_HOOK with pin change interrupts, you must use INT0! */
 /* This relies on the settings of USB_COUNT_SOF and USB_SOF_HOOK, so this file must be included after these defines */
 # ifndef USB_INTR_CFG_SET    /* allow user to override our default */
 #   if defined(USB_COUNT_SOF) || defined(USB_SOF_HOOK)
