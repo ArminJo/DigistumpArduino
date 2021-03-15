@@ -352,7 +352,7 @@
               "host": "i686-mingw32",
               "archiveFileName": "micronucleus-cli-2.5-i686-mingw32.zip",
               "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/tools/micronucleus-cli-2.5-i686-mingw32.zip",
-              "checksum": "SHA-256:9285b6a864d72c63876058205e1584982631b9710d3dff9606fe431f040871a5",
+              "checksum": "SHA-256:748b6813a498bb144afbd3169d967c603073f5567cb468db393091c9bea8ff88",
               "size": "1127648"
             },
             {
@@ -373,7 +373,7 @@
               "host": "x86_64-mingw32",
               "archiveFileName": "micronucleus-cli-2.5-x86_64-mingw32.zip",
               "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/tools/micronucleus-cli-2.5-x86_64-mingw32.zip",
-              "checksum": "SHA-256:358b745bec7217fb0b81c8dfeeee8d4a7d66b59f4f27bfcf977ac42ebb1be7e9",
+              "checksum": "SHA-256:ceb4cbd34863bb0c78c4e32ae3fcfe7e67aac1b2adabfc3ca2da361a34e47a5d",
               "size": "1133591"
             }
           ]
