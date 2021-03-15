@@ -141,6 +141,8 @@ The Arduino ESP8266 core available with https://arduino.esp8266.com/stable/packa
 - Added Attiny support to usbconfig.h.
 - Added `Burn Bootloader Method` like in ATTinyCore.
 - Removed digistump-sam from repo.
+- ISR_NOBLOCK in millis interrupt only active for 16.5 MHz setting.
+- Improved DigiKeboard.h and keylayouts.h.
 
 ### Version 1.7.2
 - Updated examples and added warnings for CDC examples.
