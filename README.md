@@ -54,6 +54,22 @@ like e.g. the [0_Upgrade-t85_recommended.cmd](https://github.com/ArminJo/micronu
 You may also test the t85_agressive bootloader, [a configuration overwiew is available here](https://github.com/ArminJo/micronucleus-firmware#configuration-overview).
 It works for my boards but the USB timing is not guaranteed as stable as in the other configurations.
 
+## Fuse setting
+The meaning of fuses can be seen with the [Engbedded Atmel AVR® Fuse Calculator](https://www.engbedded.com/fusecalc/).
+Windows helper scripts for setting Fuses can be found [here](https://github.com/ArminJo/micronucleus-firmware/tree/master/utils).
+
+The default fuses for a **Digispark** board are:<br/>
+- ATtiny85 Lfuse: 0xE1 - (digispark default) PLL Clock + Startup 64 ms
+- ATtiny85 Hfuse: 0xDD - External Reset pin enabled (Pin5 not usable as I/O) + BOD 2.7 V + Enable Serial Program and Data Downloading
+- ATtiny85 Efuse: 0xFE - self programming enabled.
+
+BOD enabled requires additional 20 µA in sleep state and therefore may be not desirable for low power battery applications. To disable BOD, use 0xDF as Hfuse.
+
+The default fuses for a **Digispark Pro** board are:<br/>
+- ATtiny167 Lfuse: 0xFF - External crystal osc. Frequency 8-16 MHz + Startup 65 ms
+- ATtiny167 Hfuse: 0xDC - External Reset pin enabled + BOD 4.3Volt + Enable Serial Program and Data Downloading
+- ATtiny167 Efuse: 0xFE - self programming enabled.
+
 ## Flash the bootloader to a bricked device
 This can only be done by means of a [High Voltage programmer](https://github.com/ArminJo/ATtiny-HighVoltageProgrammer_FuseEraser).
 

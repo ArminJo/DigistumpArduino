@@ -152,7 +152,7 @@ public:
         usbSetInterrupt(reportBuffer, sizeof(reportBuffer));
     }
 
-    uint8_t keycode_to_modifier(KEYCODE_TYPE keycode) {
+    uint8_t keycode_to_modifier(uint8_t keycode) {
         uint8_t modifier = 0;
 
 #ifdef SHIFT_MASK
