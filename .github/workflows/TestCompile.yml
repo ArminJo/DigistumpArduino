@@ -47,6 +47,8 @@ jobs:
         include:
           - arduino-boards-fqbn: digistump:avr:digispark-tiny  # ATtiny85 board @16.5 MHz
             sketches-exclude: Blink # All Wire examples
+            build-properties: # the flags were put in compiler.cpp.extra_flags
+              Keyboard: -DLAYOUT_GERMAN
 
           - arduino-boards-fqbn: digistump:avr:MHETtiny88  # ATtiny88 China clone board @16 MHz
             # 1.TinyWireM not usable; 2. incompatible I2C Hardware for Wire.h; 3. SoftPwm is not required and not working
@@ -55,6 +57,8 @@ jobs:
               BasicUsage,DigisparkOLED,DigiUSB2LCD
               SoftPwm13Pins,TinySoftPwmDemo
               DigisparkUSBDemo ArduinoNunchukDemo DigisparkJoystickDemo # Nunchuck library: incompatible I2C Hardware, the original library uses TinyWireM library
+            build-properties: # the flags were put in compiler.cpp.extra_flags
+              Keyboard: -DLAYOUT_FRENCH
 
       # Do not cancel all jobs / architectures if one job fails
       fail-fast: false

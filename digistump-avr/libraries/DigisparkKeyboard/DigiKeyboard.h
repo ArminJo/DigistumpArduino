@@ -121,7 +121,7 @@ public:
         }
         sendKeyPress(keyStroke, modifiers);
         // This stops endlessly repeating keystrokes:
-        sendKeyPress(0, 0);
+        sendKeyPress(0, 0); // send key release
         if (aUseFeedbackLed) {
             digitalWrite(LED_BUILTIN, LOW);
         }

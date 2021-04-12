@@ -56,7 +56,7 @@ It works for my boards but the USB timing is not guaranteed as stable as in the 
 
 ## Fuse setting
 The meaning of fuses can be seen with the [Engbedded Atmel AVR® Fuse Calculator](https://www.engbedded.com/fusecalc/).
-Windows helper scripts for setting Fuses can be found [here](https://github.com/ArminJo/micronucleus-firmware/tree/master/utils).
+Windows helper scripts for setting fuses can be found [here](https://github.com/ArminJo/micronucleus-firmware/tree/master/utils).
 
 The default fuses for a **Digispark** board are:<br/>
 - ATtiny85 Lfuse: 0xE1 - (digispark default) PLL Clock + Startup 64 ms
