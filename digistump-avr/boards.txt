@@ -16,12 +16,12 @@ menu.burnmode=Burn Bootloader Method
 digispark-tiny.name=Digispark
 
 digispark-tiny.build.mcu=attiny85
-digispark-tiny.menu.clock.clock165=Default - 16.5 MHz
 digispark-tiny.menu.clock.clock16=16 MHz - No USB
+digispark-tiny.menu.clock.clock165=16.5 MHz - For V-USB
 digispark-tiny.menu.clock.clock8=8 MHz - No USB
 digispark-tiny.menu.clock.clock1=1 MHz - No USB
-digispark-tiny.menu.clock.clock165.build.f_cpu=16500000L
 digispark-tiny.menu.clock.clock16.build.f_cpu=16000000L
+digispark-tiny.menu.clock.clock165.build.f_cpu=16500000L
 digispark-tiny.menu.clock.clock8.build.f_cpu=8000000L
 digispark-tiny.menu.clock.clock1.build.f_cpu=1000000L
 digispark-tiny.build.board=AVR_DIGISPARK

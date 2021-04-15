@@ -1,4 +1,5 @@
-/* Teensyduino Core Library
+/* keylayouts.h
+ *Teensyduino Core Library
  * http://www.pjrc.com/teensy/
  * Copyright (c) 2013 PJRC.COM, LLC., 2021 Armin.joachimsmeyer@gmail.com
  *
@@ -241,6 +242,10 @@ extern "C" {
 #define KEY_F23                 ( 114  | 0xF000 )
 #define KEY_F24                 ( 115  | 0xF000 )
 
+/*
+ *If you want to indicate one of these keys pressed
+ * you should use sendKeyStroke(0, MODIFIERKEY_CTRL)
+ */
 #define KEY_LEFT_CTRL           ( 0xE0 )
 #define KEY_LEFT_SHIFT          ( 0xE1 )
 #define KEY_LEFT_ALT            ( 0xE2 )
