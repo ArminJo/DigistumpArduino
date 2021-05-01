@@ -37,7 +37,7 @@ jobs:
         arduino-boards-fqbn:
           - digistump:avr:digispark-tiny   # ATtiny85 board @16.5 MHz
           - digistump:avr:digispark-pro
-          - digistump:avr:MHETtiny88 # Chinese MH-Tiny ATTiny88
+#          - digistump:avr:MHETtiny88 # Chinese MH-Tiny ATTiny88
 
         # Specify parameters for each board.
         # With sketches-exclude you may exclude specific examples for a board. Use a comma separated list.
@@ -46,9 +46,9 @@ jobs:
           - arduino-boards-fqbn: digistump:avr:digispark-tiny  # ATtiny85 board @16.5 MHz
             sketches-exclude: Blink # All Wire examples
 
-          - arduino-boards-fqbn: digistump:avr:MHETtiny88  # ATtiny88 China clone board @16 MHz
-            # Examples to exclude because of incompatible I2C Hardware, the original library uses TiniWireM library. SoftPwm is not required and not working
-            sketches-exclude: WiiClassicJoystick,BasicUsage,DigisparkOLED,SoftPwm13Pins,TinySoftPwmDemo,DigiUSB2LCD,DigisparkUSBDemo,ArduinoNunchukDemo,DigisparkJoystickDemo
+#          - arduino-boards-fqbn: digistump:avr:MHETtiny88  # ATtiny88 China clone board @16 MHz
+#            # Examples to exclude because of incompatible I2C Hardware, the original library uses TiniWireM library. SoftPwm is not required and not working
+#            sketches-exclude: WiiClassicJoystick,BasicUsage,DigisparkOLED,SoftPwm13Pins,TinySoftPwmDemo,DigiUSB2LCD,DigisparkUSBDemo,ArduinoNunchukDemo,DigisparkJoystickDemo
 
       # Do not cancel all jobs / architectures if one job fails
       fail-fast: false

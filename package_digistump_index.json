@@ -12,6 +12,42 @@
         {
           "name": "Digistump AVR Boards",
           "architecture": "avr",
+          "version": "1.7.4",
+          "category": "Digistump",
+          "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/digistump-avr-1.7.4.zip",
+          "archiveFileName": "digistump-avr-1.7.4.zip",
+          "checksum": "SHA-256:3d1e0961ef930493463e3a0b4e604eafa45d330dce5ef4b13f8dfd40597e5d59",
+          "size": "2328024",
+          "help": {
+            "online": "https://github.com/digistump/DigistumpArduino"
+          },
+          "boards": [
+            {
+              "name": "Digispark"
+            },
+            {
+              "name": "Digispark Pro (16 MHz)"
+            },
+            {
+              "name": "MH-ET LIVE Tiny88 (16 MHz ATTinyCore)"
+            }
+          ],
+          "toolsDependencies": [
+            {
+              "packager": "arduino",
+              "name": "avr-gcc",
+              "version": "7.3.0-atmel3.6.1-arduino7"
+            },
+            {
+              "packager": "digistump",
+              "name": "micronucleus",
+              "version": "2.5"
+            }
+          ]
+        },
+        {
+          "name": "Digistump AVR Boards",
+          "architecture": "avr",
           "version": "1.7.3",
           "category": "Digistump",
           "url": "https://github.com/ArminJo/DigistumpArduino/raw/master/digistump-avr-1.7.3.zip",

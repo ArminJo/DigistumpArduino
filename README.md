@@ -1,7 +1,8 @@
 # Improved version of Digistump avr core for Arduino
 Available as Arduino Board Manager entry "Digistump AVR Boards" using the Board Manager URL: https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json
 
-### [Version 1.7.3 ](https://github.com/ArminJo/DigistumpArduino/archive/master.zip) - work in progress
+### [Version 1.7.4 ](https://github.com/ArminJo/DigistumpArduino/archive/master.zip) - work in progress
+Last version with MH-ET LIVE Tiny88(16.0MHz) support, since it is now supported by ATTinyCore.
 
 [![TestCompile](https://github.com/ArminJo/DigistumpArduino/workflows/TestCompile/badge.svg)](https://github.com/ArminJo/DigistumpArduino/actions)
 [![Commits since latest](https://img.shields.io/github/commits-since/ArminJo/DigistumpArduino/latest)](https://github.com/ArminJo/DigistumpArduino/commits/master)
@@ -75,7 +76,7 @@ This can only be done by means of a [High Voltage programmer](https://github.com
 
 # 16.5 MHz or 16 MHz?
 You require **16.5 MHz only if your appliction uses the V-USB library**, i.e. if it acts as an USB devive like mouse, keyboard etc.<br/>
-In all other cases it is recommended to use the standard CPU frequencies of 16, 8, 1 MHz.
+In all other cases it is recommended to use the standard CPU frequencies of 16, 8, 1 MHz. This is the frequency the CPU is running **after** the bootloader part, which must run with 16.5 MHz!
 
 # Power reducing
 Information about reducing power consumption can be found [here](https://github.com/ArminJo/micronucleus-firmware#reducing-current-of-digispark-bords-for-low-power-applications) and [here](https://www.instructables.com/Reducing-Battery-Power-Consumption-for-Digispark-A/).
@@ -152,8 +153,12 @@ USB+  INT0    PD2   2|      |VIN
 The Arduino ESP8266 core available with https://arduino.esp8266.com/stable/package_esp8266com_index.json supports the *Digistump Oak* board now, better use that.
 
 # Revision History
-### Version 1.7.3 - work in progress
-- Improved bootloaders
+### Version 1.7.4 - work in progress
+- Defined symbols DIGISTUMPCORE, DIGISTUMPCORE_MAJOR etc.
+- Last version with MH-ET LIVE Tiny88(16.0MHz) support, since it is now supported by ATTinyCore.
+
+### Version 1.7.3
+- Improved bootloaders.
 - Added Attiny support to usbconfig.h.
 - Added `Burn Bootloader Method` like in ATTinyCore.
 - Removed digistump-sam from repo.

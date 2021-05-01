@@ -8,10 +8,9 @@
 name=Digistump AVR Boards
 versionnum.major=1
 versionnum.minor=7
-versionnum.patch=3
-versionnum.postfix=
+versionnum.patch=4
 
-version={versionnum.major}.{versionnum.minor}.{versionnum.patch}{versionnum.postfix}
+version={versionnum.major}.{versionnum.minor}.{versionnum.patch}
 
 build.versiondefines=-DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} -DDIGISTUMPCORE="{version}" -DDIGISTUMPCORE_MAJOR={versionnum.major}UL -DDIGISTUMPCORE_MINOR={versionnum.minor}UL -DDIGISTUMPCORE_PATCH={versionnum.patch}UL
 
