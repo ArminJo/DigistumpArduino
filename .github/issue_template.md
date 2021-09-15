@@ -4,7 +4,7 @@ about: If something isn't working as expected.
 assignees: ArminJo
 ---
 
-If you have handling problems or questions, consider to open a discussion https://github.com/ArminJo/ServoEasing/discussions instead of an issue.
+If you have handling problems or questions, consider to open a discussion https://github.com/ArminJo/DigistumpArduino/discussions instead of an issue.
 
 ## Bug Report
 
