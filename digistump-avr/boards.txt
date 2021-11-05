@@ -52,12 +52,14 @@ digispark-tiny.menu.micronucleus.entryReset.upload.maximum_size=6586
 digispark-tiny.menu.micronucleus.entryReset.bootloader.file=upgrade-t85_entry_on_reset_activePullup_fastExit.hex
 digispark-tiny.menu.micronucleus.agressive=Agressive (6778)
 digispark-tiny.menu.micronucleus.agressive.upload.maximum_size=6778
-digispark-tiny.menu.micronucleus.agressive.bootloader.file=upgrade-t85_aggressive.hex
+digispark-tiny.menu.micronucleus.agressive.bootloader.file=upgrade-t85_agressive.hex
 
 digispark-tiny.menu.burnmode.upgrade=Upgrade (via USB)
 digispark-tiny.menu.burnmode.upgrade.bootloader.tool=micronucleus
 digispark-tiny.menu.burnmode.install=Fresh Install (via ISP)
 digispark-tiny.menu.burnmode.install.bootloader.tool=avrdude
+digispark-tiny.menu.burnmode.info=Bootloader informations (via USB), no programming
+digispark-tiny.menu.burnmode.info.bootloader.tool=micronucleus_info
 
 ##############################################################
 
@@ -96,35 +98,6 @@ digispark-pro.menu.burnmode.upgrade=Upgrade (via USB)
 digispark-pro.menu.burnmode.upgrade.bootloader.tool=micronucleus
 digispark-pro.menu.burnmode.install=Fresh Install (via ISP)
 digispark-pro.menu.burnmode.install.bootloader.tool=avrdude
-
+digispark-pro.menu.burnmode.info=Bootloader informations (via USB), no programming
+digispark-pro.menu.burnmode.info.bootloader.tool=micronucleus_info
 ##############################################################
-
-MHETtiny88.name=MH-ET LIVE Tiny88 (16 MHz ATTinyCore)
-
-MHETtiny88.build.mcu=attiny88
-MHETtiny88.build.f_cpu=16000000L
-#use ATTinyCore
-MHETtiny88.build.board=AVR_ATTINYX8
-MHETtiny88.build.core=tiny88
-MHETtiny88.build.variant=MHtiny88
-
-# to be compatible with ATTinyCore
-MHETtiny88.build.SerialBufferSize=32
-
-MHETtiny88.upload.protocol=usb
-MHETtiny88.upload.tool=micronucleus
-MHETtiny88.upload.maximum_data_size=512
-MHETtiny88.upload.wait_for_upload_port = false
-MHETtiny88.upload.use_1200bps_touch = false
-
-MHETtiny88.menu.micronucleus.default=Default (6778 bytes avail.)
-MHETtiny88.menu.micronucleus.default.upload.maximum_size=6778
-MHETtiny88.menu.micronucleus.default.bootloader.file=upgrade-t88_default.hex
-MHETtiny88.menu.micronucleus.recommended=Recommended (6778 bytes avail.)
-MHETtiny88.menu.micronucleus.recommended.upload.maximum_size=6778
-MHETtiny88.menu.micronucleus.recommended.bootloader.file=upgrade-t88_entry_on_powerOn_activePullup_fastExit.hex
-
-MHETtiny88.menu.burnmode.upgrade=Upgrade (via USB)
-MHETtiny88.menu.burnmode.upgrade.bootloader.tool=micronucleus
-MHETtiny88.menu.burnmode.install=Fresh Install (via ISP)
-MHETtiny88.menu.burnmode.install.bootloader.tool=avrdude
