@@ -8,7 +8,7 @@
 name=Digistump AVR Boards
 versionnum.major=1
 versionnum.minor=7
-versionnum.patch=4
+versionnum.patch=5
 
 version={versionnum.major}.{versionnum.minor}.{versionnum.patch}
 
@@ -122,6 +122,7 @@ tools.avrdude.bootloader.pattern=
 # Micronucleus Loader
 # ------------------------------
 tools.micronucleus.cmd.path={runtime.tools.micronucleus.path}/micronucleus
+tools.micronucleus_info.cmd.path={runtime.tools.micronucleus.path}/micronucleus
 
 tools.micronucleus.upload.params.verbose=
 tools.micronucleus.upload.params.quiet=
@@ -135,6 +136,13 @@ tools.micronucleus.erase.params.verbose=
 tools.micronucleus.erase.params.quiet=
 tools.micronucleus.erase.pattern=
 
+tools.micronucleus_info.bootloader.params.verbose=
+tools.micronucleus_info.bootloader.params.quiet=
+tools.micronucleus_info.bootloader.pattern="{cmd.path}" --no-ansi --info --timeout 60
+
+tools.micronucleus_info.erase.params.verbose=
+tools.micronucleus_info.erase.params.quiet=
+tools.micronucleus_info.erase.pattern=
 
 # USB Default Flags
 # Default blank usb manufacturer will be filled in at compile time
