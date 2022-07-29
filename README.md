@@ -3,11 +3,13 @@ Available as Arduino Board Manager entry "Digistump AVR Boards" using the Board 
 
 ### [Version 1.7.5 ](https://github.com/ArminJo/DigistumpArduino/archive/master.zip)
 New micronucleus bootloader and binary version 2.6 with info function.<br/>
-First version **without** MH-ET LIVE Tiny88(16.0MHz) support, since it is now supported by ATTinyCore.
+First version **without** MH-ET LIVE Tiny88(16.0MHz) support, since it is now supported by [ATTinyCore](https://github.com/SpenceKonde/ATTinyCore/blob/master/avr/extras/ATtiny_x8.md#micronucleus-bootloader).
+It is not planned to add MH-ET LIVE Tiny88 support in the future.
 
 [![TestCompile](https://github.com/ArminJo/DigistumpArduino/workflows/TestCompile/badge.svg)](https://github.com/ArminJo/DigistumpArduino/actions)
 [![Commits since latest](https://img.shields.io/github/commits-since/ArminJo/DigistumpArduino/latest)](https://github.com/ArminJo/DigistumpArduino/commits/master)
-[![Hit Counter](https://hitcounter.pythonanywhere.com/count/tag.svg?url=https://github.com/ArminJo/DigistumpArduino)](https://github.com/brentvollebregt/hit-counter)
+![Hit Counter](https://visitor-badge.laobi.icu/badge?page_id=ArminJo_DigistumpArduino)
+
 
 Another **great core for ATtinies** with ongoing support is the [ATTinyCore](https://github.com/SpenceKonde/ATTinyCore) of Spence Konde, which **currently added micronucleus support**. Use the Board Manager URL: http://drazzy.com/package_drazzy.com_index.json for it.
 

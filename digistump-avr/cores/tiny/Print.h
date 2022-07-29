@@ -33,7 +33,7 @@
 #define DEC 10
 #define HEX 16
 #define OCT 8
-#ifdef BIN
+#if defined(BIN)
 #define ABIN BIN
 //One of the ATtiny84 registers has a bit called BIN, so rename it to avoid compiler warnings.
 #undef BIN
@@ -108,7 +108,7 @@ class Print
 
     int16_t printf(const char *ifsh, ...);
 
-    #ifdef FLASHSTRING_SUPPORT
+    #if defined(FLASHSTRING_SUPPORT)
     size_t print(const __FlashStringHelper *ifsh);
     size_t println(const __FlashStringHelper *ifsh);
     int16_t printf(const __FlashStringHelper *ifsh, ...);

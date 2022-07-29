@@ -126,7 +126,7 @@ analogReference constants for ATmega168.  These are NOT correct for the ATtiny84
 
 
 // undefine stdlib's abs if encountered
-#ifdef abs
+#if defined(abs)
 #undef abs
 #endif
 

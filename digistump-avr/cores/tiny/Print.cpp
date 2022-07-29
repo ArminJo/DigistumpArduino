@@ -217,7 +217,7 @@ int16_t Print::printf(const char *ifsh, ...)
   return vfprintf(&f, ifsh, ap);
 }
 
-#ifdef FLASHSTRING_SUPPORT
+#if defined(FLASHSTRING_SUPPORT)
 
 size_t Print::print(const __FlashStringHelper *ifsh)
 {
