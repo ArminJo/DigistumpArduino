@@ -47,6 +47,7 @@ void pinMode(uint8_t pin, uint8_t mode)
 		uint8_t oldSREG = SREG;
 		cli();
 		*reg &= ~bit;
+		*out &= ~bit;  //disable internal pullup
 		SREG = oldSREG;
 	} else if (mode == INPUT_PULLUP) {
 		uint8_t oldSREG = SREG;

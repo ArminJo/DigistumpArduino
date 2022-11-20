@@ -1,7 +1,7 @@
 # Improved version of Digistump avr core for Arduino
 Available as Arduino Board Manager entry "Digistump AVR Boards" using the Board Manager URL: https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json
 
-### [Version 1.7.5 ](https://github.com/ArminJo/DigistumpArduino/archive/master.zip)
+### [Version 1.7.6 ](https://github.com/ArminJo/DigistumpArduino/archive/master.zip)
 New micronucleus bootloader and binary version 2.6 with info function.<br/>
 First version **without** MH-ET LIVE Tiny88(16.0MHz) support, since it is now supported by [ATTinyCore](https://github.com/SpenceKonde/ATTinyCore/blob/master/avr/extras/ATtiny_x8.md#micronucleus-bootloader).
 It is not planned to add MH-ET LIVE Tiny88 support in the future.
@@ -95,8 +95,8 @@ Information about reducing power consumption can be found [here](https://github.
   USB+ ADC2 (D4) PB4  3|    |6  PB1 (D1) MISO/DO/AIN1/OC0B/OC1A/PCINT1 - (Digispark) LED
                  GND  4|    |5  PB0 (D0) OC0A/AIN0
                        +----+
-  USB+ and USB- are each connected to a 3.3 volt Zener to GND and with a 68 Ohm series resistor to the ATtiny pin.
-  On boards with a micro USB connector, the series resistor is 22 Ohm instead of 68 Ohm. 
+  USB+ and USB- are each connected to a 3.3 volt Zener to GND and with a 68 ohm series resistor to the ATtiny pin.
+  On boards with a micro USB connector, the series resistor is 22 ohm instead of 68 ohm. 
   USB- has a 1.5k pullup resistor to indicate a low-speed device.
   USB+ and USB- are each terminated on the host side with 15k to 25k pull-down resistors.
 ```
@@ -117,7 +117,7 @@ INT1 9 (D3) PA3  4|    |17  PB3 (D11) 4 OC1BV USB-
     12 (D6) PA6  9|    |12  PB6 (D14) 3 INT0  USB+
      5 (D7) PA7 10|    |11  PB7 (D15)   RESET
                   +----+
-  USB+ and USB- are each connected to a 3.3 volt Zener to GND and with a 51 Ohm series resistor to the ATtiny pin.
+  USB+ and USB- are each connected to a 3.3 volt Zener to GND and with a 51 ohm series resistor to the ATtiny pin.
   USB- has a 1k5 pullup resistor to indicate a low-speed device.
   USB+ and USB- are each terminated on the host side with 15k to 25k pull-down resistors.
 
@@ -145,7 +145,7 @@ LED           PD0   0|      |5V
 USB-          PD1   1|      |GND
 USB+  INT0    PD2   2|      |VIN
                      +------+
-  USB+ and USB- are each connected to a 3.3 volt Zener to GND and with a 68 Ohm series resistor to the ATtiny pin.
+  USB+ and USB- are each connected to a 3.3 volt Zener to GND and with a 68 ohm series resistor to the ATtiny pin.
   USB- has a 1k0 pullup resistor to indicate a low-speed device.
   USB+ and USB- are each terminated on the host side with 15k to 25k pull-down resistors.
 
@@ -156,6 +156,9 @@ USB+  INT0    PD2   2|      |VIN
 The Arduino ESP8266 core available with https://arduino.esp8266.com/stable/package_esp8266com_index.json supports the *Digistump Oak* board now, better use that.
 
 # Revision History
+### Version 1.7.6
+- Fixed bug #52 - pinMode(Pin,INPUT) does not disable internal pullup.
+
 ### Version 1.7.5
 - New micronucleus bootloader and binary version 2.6 with info function.
 - First version **without** MH-ET LIVE Tiny88(16.0MHz) support, since it is now supported by ATTinyCore.
