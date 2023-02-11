@@ -1,4 +1,6 @@
-# Improved version of Digistump avr core for Arduino
+# Deprecated and now (2023) unsupported!<br/>Please use [ATTinyCore](https://github.com/SpenceKonde/ATTinyCore) instead!<br/>&nbsp;
+
+## Improved version of Digistump avr core for Arduino
 Available as Arduino Board Manager entry "Digistump AVR Boards" using the Board Manager URL: https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json
 
 ### [Version 1.7.6 ](https://github.com/ArminJo/DigistumpArduino/archive/master.zip)
@@ -32,6 +34,7 @@ Another **great core for ATtinies** with ongoing support is the [ATTinyCore](htt
 
 # Installation
 To get all the benefits, just replace the old Digispark board URL **http://digistump.com/package_digistump_index.json** (e.g. in Arduino *File/Preferences*) by the new  **https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json** and install the **Digistump AVR Boards** version **1.7.2** or later.
+
 ![Boards Manager](https://github.com/ArminJo/DigistumpArduino/blob/master/pictures/Digistump1.6.8.jpg)
 
 ## Manual installation
