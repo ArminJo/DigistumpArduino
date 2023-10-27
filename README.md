@@ -130,24 +130,24 @@ INT1 9 (D3) PA3  4|    |17  PB3 (D11) 4 OC1BV USB-
 Digital Pin numbers in parenthesis are for ATTinyCore library
 
 ```
-                       USB
-                     +-\__/-+
-              PA2  15|      |14  PB7
-              PA3  16|      |13  PB5 SCK
-           17 PA0  A6|      |12  PB4 MISO
-           18 PA1  A7|      |11  PB3 MOSI
-     (D17) 19 PC0  A0|      |10  PB2 OC1B/PWM SS
-     (D18) 20 PC1  A1|      |9   PB1 OC1A/PWM
-     (D19) 21 PC2  A2|      |8   PB0
-     (D20) 22 PC3  A3|      |7   PD7 RX
-SDA  (D21) 23 PC4  A4|      |6   PD6 TX
-SCL  (D22) 24 PC5  A5|      |5   PD5
-     (D23)    PC1  25|      |4   PD4
-RESET         PC6 RST|      |3   PD3 INT1
-LED           PD0   0|      |5V
-USB-          PD1   1|      |GND
-USB+  INT0    PD2   2|      |VIN
-                     +------+
+                        USB
+                      +-\__/-+
+               PA2  15|      |14  PB7
+               PA3  16|      |13  PB5 SCK
+           D17 PA0  A6|      |12  PB4 MISO
+           D18 PA1  A7|      |11  PB3 MOSI
+     (D17) D19 PC0  A0|      |10  PB2 OC1B/PWM SS
+     (D18) D20 PC1  A1|      |9   PB1 OC1A/PWM
+     (D19) D21 PC2  A2|      |8   PB0
+     (D20) D22 PC3  A3|      |7   PD7 RX
+SDA  (D21) D23 PC4  A4|      |6   PD6 TX
+SCL  (D22) D24 PC5  A5|      |5   PD5
+     (D23)     PC7  25|      |4   PD4
+RESET          PC6 RST|      |3   PD3 INT1
+LED            PD0   0|      |5V
+USB-           PD1   1|      |GND
+USB+  INT0     PD2   2|      |VIN
+                      +------+
   USB+ and USB- are each connected to a 3.3 volt Zener to GND and with a 68 ohm series resistor to the ATtiny pin.
   USB- has a 1k0 pullup resistor to indicate a low-speed device.
   USB+ and USB- are each terminated on the host side with 15k to 25k pull-down resistors.
