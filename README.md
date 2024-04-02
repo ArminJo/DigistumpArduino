@@ -1,4 +1,5 @@
-# Deprecated and now (2023) unsupported!<br/>Please use [ATTinyCore](https://github.com/SpenceKonde/ATTinyCore) instead!<br/>&nbsp;
+# The core is deprecated and now (2023) unsupported!<br/>Please use [ATTinyCore](https://github.com/SpenceKonde/ATTinyCore) instead!
+For up to date [micronucleus bootloaders](https://github.com/ArminJo/micronucleus-firmware/tree/master/firmware/releases) see [here](https://github.com/ArminJo/micronucleus-firmware).
 
 ## Improved version of Digistump avr core for Arduino
 Available as Arduino Board Manager entry "Digistump AVR Boards" using the Board Manager URL: https://raw.githubusercontent.com/ArminJo/DigistumpArduino/master/package_digistump_index.json
@@ -62,7 +63,7 @@ You may also test the t85_agressive bootloader, [a configuration overwiew is ava
 It works for my boards but the USB timing is not guaranteed as stable as in the other configurations.
 
 ## Fuse setting
-The meaning of fuses can be seen with the [Engbedded Atmel AVR® Fuse Calculator](https://www.engbedded.com/fusecalc/).
+The meaning of fuses can be seen with the [Engbedded Atmel AVRï¿½ Fuse Calculator](https://www.engbedded.com/fusecalc/).
 Windows helper scripts for setting fuses can be found [here](https://github.com/ArminJo/micronucleus-firmware/tree/master/utils).
 
 The default fuses for a **Digispark** board are:<br/>
@@ -70,7 +71,7 @@ The default fuses for a **Digispark** board are:<br/>
 - ATtiny85 Hfuse: 0xDD - External Reset pin enabled (Pin5 not usable as I/O) + BOD 2.7 V + Enable Serial Program and Data Downloading
 - ATtiny85 Efuse: 0xFE - self programming enabled.
 
-BOD enabled requires additional 20 µA in sleep state and therefore may be not desirable for low power battery applications. To disable BOD, use 0xDF as Hfuse.
+BOD enabled requires additional 20 ï¿½A in sleep state and therefore may be not desirable for low power battery applications. To disable BOD, use 0xDF as Hfuse.
 
 The default fuses for a **Digispark Pro** board are:<br/>
 - ATtiny167 Lfuse: 0xFF - External crystal osc. Frequency 8-16 MHz + Startup 65 ms
