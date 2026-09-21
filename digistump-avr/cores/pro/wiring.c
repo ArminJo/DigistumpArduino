@@ -100,12 +100,20 @@
 volatile unsigned long millis_timer_overflow_count = 0;
 volatile unsigned long millis_timer_millis = 0;
 static unsigned char millis_timer_fract = 0;
+// The millis() overflow ISR runs as ISR_NOBLOCK (global interrupts re-enabled
+// on entry) so it cannot delay V-USB. On the Digispark Pro, V-USB runs in
+// software and must service the bus within microseconds; a blocking SIGNAL()
+// here holds interrupts off long enough to make USB IN transactions fail
+// periodically (the ~977 Hz Timer0 overflow beats against the 1 kHz USB frame).
+// The ATtiny85 core already runs its millis ISR as ISR_NOBLOCK for the same
+// reason. The handler is a few instructions and cannot overrun its own period,
+// so nesting is safe.
 #if (TIMER_TO_USE_FOR_MILLIS == 0)
 
 #if defined(TIMER0_OVF_vect)
-SIGNAL(TIMER0_OVF_vect)
+ISR(TIMER0_OVF_vect, ISR_NOBLOCK)
 #elif defined(TIM0_OVF_vect)
-SIGNAL(TIM0_OVF_vect)
+ISR(TIM0_OVF_vect, ISR_NOBLOCK)
 #else
 #error cannot find Millis() timer overflow vector
 #endif
@@ -113,9 +121,9 @@ SIGNAL(TIM0_OVF_vect)
 #elif (TIMER_TO_USE_FOR_MILLIS == 1)
 
 #if defined(TIMER1_OVF_vect)
-SIGNAL(TIMER1_OVF_vect)
+ISR(TIMER1_OVF_vect, ISR_NOBLOCK)
 #elif defined(TIM1_OVF_vect)
-SIGNAL(TIM1_OVF_vect)
+ISR(TIM1_OVF_vect, ISR_NOBLOCK)
 #else
 #error cannot find Millis() timer overflow vector
 #endif
